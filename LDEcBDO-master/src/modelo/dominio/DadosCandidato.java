@@ -37,7 +37,6 @@ public class DadosCandidato {
         this.setTse_o(_tse_o);
         this.setNascimento(_nascimento);
         this.setSexo(_sexo);
-        //teste23
     }
 
     /*###################################
