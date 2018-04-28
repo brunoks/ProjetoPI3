@@ -2,7 +2,7 @@ package visao;
 
 import controle.UsuarioC;
 import modelo.dominio.No;
-
+import controle.DadosC;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,7 +14,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     
     // Atributo para acessar a classe de controle Estruturas de Dados
     private UsuarioC listaDE;
-    
+    private DadosC listaDE2;
     // Atributo para criar um modelo de acesso à tabela de dados da interface JFramePrincipal
     private DefaultTableModel dtm;
     
@@ -629,7 +629,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jBLerCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLerCSVActionPerformed
 
-        if (this.listaDE.lerArquivoCSV(listaDE)){
+        if (this.listaDE2.lerArquivoTXT(listaDE2)){
             
             JOptionPane.showMessageDialog(null, "Dados importados com sucesso...");
             this.mostrarListaCSVeBD(); // Mostrando os dados no JTable

@@ -1,7 +1,7 @@
 package controle;
 
 import modelo.dominio.No;
-import modelo.dao.UsuarioDAO;
+import modelo.dao.DadosDAO;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,7 +24,7 @@ import modelo.dominio.Usuario;
  *
  * @author Jefferson
  */
-public class UsuarioC {
+public class DadosC {
     
     /*###################################
               ATRIBUTOS DA CLASSE
@@ -55,7 +55,7 @@ public class UsuarioC {
              CONSTRUTOR DA CLASSE
       ###################################*/
     
-    public UsuarioC(){
+    public DadosC(){
         this.criarLista();
     }
     
@@ -129,7 +129,7 @@ public class UsuarioC {
     }
     
     // Método para limpar a lista.
-    public void limparLista(UsuarioC listaDE){
+    public void limparLista(DadosC listaDE){
         
         if (listaDE.isEmpty(listaDE)){
             listaDE = null;
@@ -142,7 +142,7 @@ public class UsuarioC {
     }
     
     // Método que verifica se a lista está vazia.
-    public boolean isEmpty(UsuarioC listaDE){
+    public boolean isEmpty(DadosC listaDE){
         
         // Se a quantidade de nós da lista tiver o valor 0
         // quer dizer que a lista está vazia.
@@ -154,10 +154,10 @@ public class UsuarioC {
     }
     
     // Método para inserir na lista.
-    public boolean inserirDados(UsuarioC listaDE, int c, String n){
+    public boolean inserirDados(DadosC listaDE, int id_cargo, int cpf, String nome, String tse_o, String nascimento, String sexo){
         
         // Criando o nó e inserindo as informações
-        No novoNo = new No(c,n);
+        No novoNo = new No(id_cargo, cpf, nome, tse_o, nascimento, sexo);
             
         // Caso 1: Lista vazia
         if (listaDE.isEmpty(listaDE)){
@@ -224,7 +224,7 @@ public class UsuarioC {
     }
     
     // Método para remover dados da lista duplamente encadeada.
-    public boolean removerDados(UsuarioC listaDE, int p){
+    public boolean removerDados(DadosC listaDE, int p){
         
         // Se posiÃ§Ã£o negativa ou maior que a quantidade de nÃ³s
         if (listaDE.isEmpty(listaDE)){
@@ -475,7 +475,7 @@ public class UsuarioC {
     }*/
     
     // Método para inserir na lista de forma ordenada através do arquivo .CSV.
-    public boolean lerArquivoCSV(UsuarioC listaDE){
+    public boolean lerArquivoTXT(DadosC listaDE){
         
         // Objeto BufferedReader exige try-catch
         try {
@@ -494,12 +494,13 @@ public class UsuarioC {
                 
                 // Pega a linha e verifica se existe o delimitador ',' para separar os dados
                 // e jogá-los (se existir) no vetor 'dadosTemporarios'.
-                this.dadosTemporarios = this.linha.split(",");
+                this.dadosTemporarios = this.linha.split(";");
                 
                 // Cria-se uma instância da classe 'No'.
                 // Acessa o vetor 'dadosTemporarios' e passa o conteúdo de cada posição
                 // para a classe 'No'.
-                No novoNo = new No(Integer.parseInt(dadosTemporarios[0]),dadosTemporarios[1],dadosTemporarios[2],dadosTemporarios[3]);
+                //int id, int cpf, String nome, String tse, String nasc, char sexo
+                No novoNo = new No(Integer.parseInt(dadosTemporarios[0]),Integer.parseInt(dadosTemporarios[1]),dadosTemporarios[2],dadosTemporarios[3],dadosTemporarios[4],dadosTemporarios[5]);
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
@@ -579,7 +580,6 @@ public class UsuarioC {
     
     // Método para pegar as informações da lista de forma ordenada e
     // escrever no arquivo .CSV.
-    //
     public boolean escreverArquivoCSV(UsuarioC listaDE){
         
         // Local onde será criado o arquivo e os dados serão gravados.
@@ -658,7 +658,7 @@ public class UsuarioC {
     public boolean gravarUsuariosBD(UsuarioC listaDE){
         
         // Criando instância da classe UsuarioDAO.
-        UsuarioDAO uDAO = new UsuarioDAO();
+        DadosDAO uDAO = new DadosDAO();
         
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'
@@ -709,7 +709,7 @@ public class UsuarioC {
     public boolean selecionarUsuariosBD(UsuarioC listaDE){
         
         // Criando instância da classe UsuarioDAO.
-        UsuarioDAO uDAO = new UsuarioDAO();
+        DadosDAO uDAO = new DadosDAO();
         
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'
@@ -738,7 +738,7 @@ public class UsuarioC {
                         objeto.setSenhaUsuario(this.getRs().getString("senha"));
 
                         // Inserindo o usuário de forma efetiva na lista.
-                        this.inserirUsuario(listaDE, objeto);
+                        //this.inserirUsuario(listaDE, objeto);
 
                     }
 
@@ -755,37 +755,6 @@ public class UsuarioC {
         }
         
         return false;
-        
-    }
-    
-    // Método para inserir o novo usuário na lista usando encadeamento.
-    private void inserirUsuario(UsuarioC listaDE, Usuario _usuario){
-        
-        // Cria um novo usuário
-        No novoUsuario = new No();
-        
-        // Seta os dados do usuário no campo objeto do nó.
-        novoUsuario.setObjeto(_usuario);
-        
-        // Se a lista estiver vazia.
-        if (listaDE.isEmpty(listaDE)){
-
-            novoUsuario.setPonteiroAnterior(null);
-            novoUsuario.setProximoPonteiro(null);
-
-            listaDE.setInicioDaLista(novoUsuario);
-            listaDE.setFinalDaLista(novoUsuario);
-
-        }else{
-
-            // A lista contém nós e será inserido sempre no final da lista,
-            // pois está de acordo com a chave primária do banco de dados.
-            listaDE.getFinalDaLista().setProximoPonteiro(novoUsuario);
-            listaDE.setFinalDaLista(novoUsuario);
-        
-        }
-        
-        listaDE.setQuantidadeDeNos(listaDE.getQuantidadeDeNos()+1);
         
     }
     

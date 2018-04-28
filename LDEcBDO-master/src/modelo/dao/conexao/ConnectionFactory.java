@@ -33,12 +33,11 @@ public class ConnectionFactory {
     
     public ConnectionFactory(){
         
-        this.setUsuarioBanco("JEFFERSON");
-        this.setSenhaBanco("Oracle18");
-        
+        this.setUsuarioBanco("bruno");
+        this.setSenhaBanco("2198");
         this.setServidor("localhost");
-        this.setPorta("1521");
-        this.setSid("orcl");
+        this.setPorta("1522");
+        this.setSid("projetopiiii");
         
         this.setUrl();
         
