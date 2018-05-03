@@ -42,10 +42,10 @@ public class DadosC {
         BufferedReader bReader;
         FileWriter writer;
                 
-        String[] dadosTemporarios;
+        String[] d;
         String linha;
         String arquivo;
-    
+        
     // Atributos para trabalhar com banco de dados
     private
         Connection conn;
@@ -157,7 +157,10 @@ public class DadosC {
     public boolean inserirDados(DadosC listaDE, int id_cargo, int cpf, String nome, String tse_o, String nascimento, String sexo){
         
         // Criando o nó e inserindo as informações
-        No novoNo = new No(id_cargo, cpf, nome, tse_o, nascimento, sexo);
+        No novoNo = new No(d[0],d[1],d[2],d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11],
+                        d[12],d[13],d[14],d[15],d[16],d[17],d[18],d[19],d[20],d[21],d[22],
+                        d[23],d[24],d[25],d[26],d[27],d[28],d[29],d[30],d[31],d[32],d[33],
+                        d[34],d[35],d[36],d[37],d[38],d[39],d[40],d[41],d[42],d[43],d[44],d[45]);
             
         // Caso 1: Lista vazia
         if (listaDE.isEmpty(listaDE)){
@@ -475,32 +478,33 @@ public class DadosC {
     }*/
     
     // Método para inserir na lista de forma ordenada através do arquivo .CSV.
-    public boolean lerArquivoTXT(DadosC listaDE){
+    public boolean lerArquivoTXT(DadosC listaDE, File _arquivo){
         
         // Objeto BufferedReader exige try-catch
         try {
             
             // Local onde o arquivo está
-            this.arquivo = "C:\\Users\\Jefferson15\\Documents\\NetBeansProjects\\ProjetoLEcBDt\\src\\arquivosCSV\\usuarios.csv";
+            this.arquivo = _arquivo.getPath();
             
             // Cria um buffer para a ler a partir de um arquivo
             this.bReader = new BufferedReader(new FileReader(this.arquivo));
-            
-            // Ignorando o cabeçalho de informações do arquivo
-            this.linha = this.bReader.readLine();
             
             // Percorrendo o arquivo linha a linha
             while((this.linha = this.bReader.readLine())!= null){
                 
                 // Pega a linha e verifica se existe o delimitador ',' para separar os dados
                 // e jogá-los (se existir) no vetor 'dadosTemporarios'.
-                this.dadosTemporarios = this.linha.split(";");
+                this.d = this.linha.split(";");
                 
                 // Cria-se uma instância da classe 'No'.
                 // Acessa o vetor 'dadosTemporarios' e passa o conteúdo de cada posição
                 // para a classe 'No'.
-                //int id, int cpf, String nome, String tse, String nasc, char sexo
-                No novoNo = new No(Integer.parseInt(dadosTemporarios[0]),Integer.parseInt(dadosTemporarios[1]),dadosTemporarios[2],dadosTemporarios[3],dadosTemporarios[4],dadosTemporarios[5]);
+                // 
+
+                No novoNo = new No(d[0],d[1],d[2],d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11],
+                        d[12],d[13],d[14],d[15],d[16],d[17],d[18],d[19],d[20],d[21],d[22],
+                        d[23],d[24],d[25],d[26],d[27],d[28],d[29],d[30],d[31],d[32],d[33],
+                        d[34],d[35],d[36],d[37],d[38],d[39],d[40],d[41],d[42],d[43],d[44],d[45]);
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){

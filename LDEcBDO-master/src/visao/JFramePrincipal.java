@@ -3,7 +3,10 @@ package visao;
 import controle.UsuarioC;
 import modelo.dominio.No;
 import controle.DadosC;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +20,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private DadosC listaDE2;
     // Atributo para criar um modelo de acesso à tabela de dados da interface JFramePrincipal
     private DefaultTableModel dtm;
-    
+    private JFileChooser jFCEscolherArquivo;
     /**
      * Creates new form JFramePrincipal
      */
@@ -629,21 +632,54 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jBLerCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLerCSVActionPerformed
 
-        if (this.listaDE2.lerArquivoTXT(listaDE2)){
+        // Cria uma instância do selecionador de arquivos.
+        this.jFCEscolherArquivo = new JFileChooser();
+        
+        // Define o diretório atual.
+        // Nesse caso, a caixa será aberta em c:
+        this.jFCEscolherArquivo.setCurrentDirectory(new File("C:"));
+        
+        // Permite que seja seleciodo apenas arquivos, diretórios ou arquivos e diretórios.
+        // FILES_ONLY = instrução para exibir apenas arquivos.
+        this.jFCEscolherArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        
+        // Adiciona na caixa de diálogo os tipos de arquivos que poderão ser selecionados.
+        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("PDF Documents", "pdf"));
+        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("MS Office Documents", ".csv", "docx", "xlsx", "pptx"));
+        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp"));
+        
+        // Coloca a opção 'Todos os arquivos' disponível e quando selecionada, qualquer extensão de arquivo poderá ser utilizada,
+        // desde que se tenha um método para trabalhar o arquivo.
+        this.jFCEscolherArquivo.setAcceptAllFileFilterUsed(true);
+        
+        // Verifica se algum arquivo foi selecionado
+        if (this.jFCEscolherArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             
-            JOptionPane.showMessageDialog(null, "Dados importados com sucesso...");
-            this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
+            JOptionPane.showMessageDialog(null, "Arquivo carregado com sucesso!");
             
-            jBLerCSV.setEnabled(false);      // Desabilitando o botão CSV
-            jBEscreverCSV.setEnabled(true);  // Habilitando o botão CSV
-            
-            jBGravarBD.setEnabled(true);     // Haabilitando o botão gravar
-            jBSelecionarBD.setEnabled(true); // Habilitando o botão selecionar
-            jBAlterarBD.setEnabled(true);    // Habilitando o botão alterar
-            jBDeletarBD.setEnabled(true);    // Habilitando o botão deletar
-            
-        }else
-            JOptionPane.showMessageDialog(null, "Erro ao importar os dados...");
+            // Passa a lista e o caminho onde o arquivo .csv está.
+            // Se foi possível ler o arquivo, apresenta os dados.
+            if (this.listaDE2.lerArquivoTXT(listaDE2,this.jFCEscolherArquivo.getSelectedFile())){
+                
+                JOptionPane.showMessageDialog(null, "Dados importados com sucesso...");
+                
+                this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
+
+                jBLerCSV.setEnabled(false);      // Desabilitando o botão CSV
+                jBEscreverCSV.setEnabled(true);  // Habilitando o botão CSV
+
+                jBGravarBD.setEnabled(true);     // Haabilitando o botão gravar
+                jBSelecionarBD.setEnabled(true); // Habilitando o botão selecionar
+                jBAlterarBD.setEnabled(true);    // Habilitando o botão alterar
+                jBDeletarBD.setEnabled(true);    // Habilitando o botão deletar
+
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro ao importar os dados...");
+            }
+                        
+        }else{
+            JOptionPane.showMessageDialog(null, "Arquivo não selecionado!");
+        }
 
     }//GEN-LAST:event_jBLerCSVActionPerformed
 
