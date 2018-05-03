@@ -460,7 +460,7 @@ public class DadosC {
     }
     
     // Retornando o início da lista.
-    public No getLista(UsuarioC listaDE){
+    public No getLista(DadosC listaDE){
         
         if (!listaDE.isEmpty(listaDE)){
             return listaDE.getInicioDaLista();
@@ -516,52 +516,11 @@ public class DadosC {
                     listaDE.setFinalDaLista(novoNo);
 
                 }else{
+                        novoNo.setProximoPonteiro(null);
+                        novoNo.setPonteiroAnterior(listaDE.getFinalDaLista());
 
-                    // A lista contém nós e será inserido um novo nó
-                    // de acordo com a ordenação crescente.
-
-                    // Iniciando pelo ínicio da lista.
-                    No ponteiroAuxiliar = listaDE.getInicioDaLista();
-
-                    // Percorrendo a lista até encontrar o local certo para inserção do nó
-                    while((ponteiroAuxiliar != null) && (novoNo.getObjeto().getCodigoUsuario() > ponteiroAuxiliar.getObjeto().getCodigoUsuario())){
-                        ponteiroAuxiliar = ponteiroAuxiliar.getProximoPonteiro();
-                    }
-
-                    // Caso 2:
-                    // Caso o código seja o menor de todos, será inserido no início da lista
-                    if(ponteiroAuxiliar == listaDE.getInicioDaLista()){
-
-                        novoNo.setPonteiroAnterior(null);
-                        novoNo.setProximoPonteiro(listaDE.getInicioDaLista());
-
-                        listaDE.getInicioDaLista().setPonteiroAnterior(novoNo);
-                        listaDE.setInicioDaLista(novoNo);
-
-                    }else{
-
-                        // Caso 3:
-                        // Caso o código seja o maior de todos, será inserido no final da lista
-                        if(ponteiroAuxiliar == null){
-
-                            novoNo.setProximoPonteiro(null);
-                            novoNo.setPonteiroAnterior(listaDE.getFinalDaLista());
-
-                            listaDE.getFinalDaLista().setProximoPonteiro(novoNo);
-                            listaDE.setFinalDaLista(novoNo);
-
-                        }else{
-
-                            // Caso 4:
-                            // O código está entre dois códigos que estão na lista.
-                            novoNo.setProximoPonteiro(ponteiroAuxiliar);
-                            ponteiroAuxiliar.getPonteiroAnterior().setProximoPonteiro(novoNo);
-                            novoNo.setPonteiroAnterior(ponteiroAuxiliar.getPonteiroAnterior());
-                            ponteiroAuxiliar.setPonteiroAnterior(novoNo);
-
-                        }
-
-                    }
+                        listaDE.getFinalDaLista().setProximoPonteiro(novoNo);
+                        listaDE.setFinalDaLista(novoNo);
 
                 }
 
@@ -659,7 +618,7 @@ public class DadosC {
     }
     
     // Método para gravar todos os dados no banco de dados Oracle
-    public boolean gravarUsuariosBD(UsuarioC listaDE){
+    public boolean gravarUsuariosBD(DadosC listaDE){
         
         // Criando instância da classe UsuarioDAO.
         DadosDAO uDAO = new DadosDAO();

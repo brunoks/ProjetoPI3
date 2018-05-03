@@ -686,7 +686,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jBGravarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarBDActionPerformed
 
         // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-        if(this.listaDE.gravarUsuariosBD(this.listaDE))
+        if(this.listaDE2.gravarUsuariosBD(this.listaDE2))
             JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
         else
             JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
