@@ -53,19 +53,16 @@ public class DadosCandidato {
                    d24,d25,d26,nasc27,d28,d29,d30,sexo31,d32,d33,d34,d35,d36,d37,d38,
                    d39,d40,d41,d42,d43,d44,d45,d46;
     */
-    private String d1,d2,d7,d12, d13,d15,d16,d17,d18,d21,d22,
-                   d24,d25,d26,d28,d29,d30,d32,d33,d34,d35,d36,
-                   d37,d38,d39,d40,d41,d42,d43,d44,d45,d46;
+
     
     
     /*###################################
               CONSTRUTOR DA CLASSE
       ###################################*/
 
-    public DadosCandidato(String d1, String d2,String ano, String turno,String descE,String uf,String d7,String municipio,String codigoC,String cargo,String nome,String d12,String d13,
-                   String cpf,String d15,String d16,String d17,String d18,String siglaP,String partido,String d21,String d22,String composicaoLegenda,
-                   String d24,String d25,String d26,String nasc,String d28,String d29,String d30,String sexo,String d32,String d33,String d34,String d35,String d36,String d37,
-                   String d38, String d39, String d40, String d41, String d42, String d43, String d44, String d45, String d46) {
+    public DadosCandidato(String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
+                   String cpf,String siglaP,String partido,String composicaoLegenda,
+                   String nasc,String sexo) {
         this.cargo = cargo;
         this.codigoC = codigoC;
         this.cpf = cpf;
@@ -81,38 +78,7 @@ public class DadosCandidato {
         this.descE = descE;
         this.municipio = municipio;
         this.uf = uf;
-        this.d1 = d1;
-        this.d2 = d2;
-        this.d7 = d7;
-        this.d12 = d12;
-        this.d13 = d13;
-        this.d15 = d15;
-        this.d16 = d16;
-        this.d17 = d17;
-        this.d18 = d18;
-        this.d21 = d21;
-        this.d22 = d22;
-        this.d24 = d24;
-        this.d25 = d25;
-        this.d26 = d26;
-        this.d28 = d28;
-        this.d29 = d29;
-        this.d30 = d30;
-        this.d32 = d32;
-        this.d33 = d33;
-        this.d34 = d34;
-        this.d35 = d35;
-        this.d36 = d36;
-        this.d37 = d37;
-        this.d38 = d38;
-        this.d39 = d39;
-        this.d40 = d40;
-        this.d41 = d41;
-        this.d42 = d42;
-        this.d43 = d43;
-        this.d44 = d44;
-        this.d45 = d45;
-        this.d46 = d46;
+        
     }
     
     

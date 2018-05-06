@@ -156,11 +156,12 @@ public class DadosC {
     // Método para inserir na lista.
     public boolean inserirDados(DadosC listaDE, int id_cargo, int cpf, String nome, String tse_o, String nascimento, String sexo){
         
+//        String d1, String d2,String ano, String turno,String descE,String uf,String d7,String municipio,String codigoC,String cargo,String nome,String d12,String d13,
+//                   String cpf,String d15,String d16,String d17,String d18,String siglaP,String partido,String d21,String d22,String composicaoLegenda,
+//                   String d24,String d25,String d26,String nasc,String d28,String d29,String d30,String sexo,String d32,String d33,String d34,String d35,String d36,String d37,
+//                   String d38, String d39, String d40, String d41, String d42, String d43, String d44, String d45, String d46
         // Criando o nó e inserindo as informações
-        No novoNo = new No(d[0],d[1],d[2],d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11],
-                        d[12],d[13],d[14],d[15],d[16],d[17],d[18],d[19],d[20],d[21],d[22],
-                        d[23],d[24],d[25],d[26],d[27],d[28],d[29],d[30],d[31],d[32],d[33],
-                        d[34],d[35],d[36],d[37],d[38],d[39],d[40],d[41],d[42],d[43],d[44],d[45]);
+        No novoNo = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
             
         // Caso 1: Lista vazia
         if (listaDE.isEmpty(listaDE)){
@@ -178,11 +179,6 @@ public class DadosC {
 
             // Iniciando pelo ínicio da lista.
             No ponteiroAuxiliar = listaDE.getInicioDaLista();
-
-            // Percorrendo a lista até encontrar o local certo para inserção do nó
-            while((ponteiroAuxiliar != null) && (novoNo.getObjeto().getCodigoUsuario() > ponteiroAuxiliar.getObjeto().getCodigoUsuario())){
-                ponteiroAuxiliar = ponteiroAuxiliar.getProximoPonteiro();
-            }
 
             // Caso 2:
             // Caso o código seja o menor de todos, será inserido no início da lista
@@ -501,10 +497,7 @@ public class DadosC {
                 // para a classe 'No'.
                 // 
 
-                No novoNo = new No(d[0],d[1],d[2],d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11],
-                        d[12],d[13],d[14],d[15],d[16],d[17],d[18],d[19],d[20],d[21],d[22],
-                        d[23],d[24],d[25],d[26],d[27],d[28],d[29],d[30],d[31],d[32],d[33],
-                        d[34],d[35],d[36],d[37],d[38],d[39],d[40],d[41],d[42],d[43],d[44],d[45]);
+                No novoNo = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
@@ -536,6 +529,12 @@ public class DadosC {
         } catch (IOException ex){
             return false;
         }
+            No pAux = listaDE.getInicioDaLista();
+        
+            for(int i = 0; i < listaDE.getQuantidadeDeNos(); i++) {
+                System.out.print(pAux.getObjeto2().getNome() + ",");
+                pAux = pAux.getProximoPonteiro();
+            }
         
         return true;
             
