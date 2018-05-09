@@ -51,6 +51,12 @@ public class JFrameLogin extends javax.swing.JFrame {
 
         jLSenha.setText("Senha:");
 
+        jPSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPSenhaActionPerformed(evt);
+            }
+        });
+
         jBEntrar.setText("Entrar");
         jBEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +163,10 @@ public class JFrameLogin extends javax.swing.JFrame {
         System.exit(0);
 
     }//GEN-LAST:event_jBSairActionPerformed
+
+    private void jPSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPSenhaActionPerformed
 
     /**
      * @param args the command line arguments

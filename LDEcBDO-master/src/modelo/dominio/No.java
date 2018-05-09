@@ -8,7 +8,8 @@ public class No {
     private No ponteiroAnterior;
     private Usuario objeto;
     private No proximoPonteiro;
-    private DadosCandidato objeto2;
+    //Objeto com os dados do candidato
+    private DadosCandidato objctDados;
 
     /*###################################
             CONSTRUTORES DA CLASSE
@@ -26,7 +27,7 @@ public class No {
                    String cpf,String siglaP,String partido,String composicaoLegenda,
                    String nasc,String sexo) {
         
-        this.setObjeto2(new DadosCandidato(ano,turno,descE,uf,municipio,codigoC,cargo,nome,cpf,siglaP,partido,composicaoLegenda,nasc,sexo));
+        this.setObjctDados(new DadosCandidato(ano,turno,descE,uf,municipio,codigoC,cargo,nome,cpf,siglaP,partido,composicaoLegenda,nasc,sexo));
     }
     
     public No(int c, String n, String l, String s) {
@@ -41,12 +42,12 @@ public class No {
         return this.ponteiroAnterior;
     }
 
-    public DadosCandidato getObjeto2() {
-        return objeto2;
+    public DadosCandidato getObjctDados() {
+        return objctDados;
     }
 
-    public void setObjeto2(DadosCandidato objeto2) {
-        this.objeto2 = objeto2;
+    public void setObjctDados(DadosCandidato dados) {
+        this.objctDados = dados;
     }
     
     public void setPonteiroAnterior(No ponteiroAnterior) {

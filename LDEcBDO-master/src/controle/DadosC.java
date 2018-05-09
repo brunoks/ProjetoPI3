@@ -3,22 +3,32 @@ package controle;
 import modelo.dominio.No;
 import modelo.dao.DadosDAO;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dominio.Usuario;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  *
@@ -38,13 +48,15 @@ public class DadosC {
     
     // Atributos para trabalhar com arquivo .CSV
     private
-        File arquivoCSV;
+        File arquivoJson;
         BufferedReader bReader;
         FileWriter writer;
                 
         String[] d;
+        String a;
         String linha;
         String arquivo;
+        String arquivoTXT;
         
     // Atributos para trabalhar com banco de dados
     private
@@ -480,18 +492,19 @@ public class DadosC {
         try {
             
             // Local onde o arquivo está
-            this.arquivo = _arquivo.getPath();
+            this.arquivoTXT = _arquivo.getPath();
             
             // Cria um buffer para a ler a partir de um arquivo
-            this.bReader = new BufferedReader(new FileReader(this.arquivo));
+             this.bReader = new BufferedReader(new InputStreamReader(new FileInputStream(this.arquivoTXT), "ISO-8859-1"));
+//            this.bReader = new BufferedReader(new FileReader(this.arquivoTXT));
             
             // Percorrendo o arquivo linha a linha
             while((this.linha = this.bReader.readLine())!= null){
                 
-                // Pega a linha e verifica se existe o delimitador ',' para separar os dados
+                // Pega a linha e verifica se existe o delimitador ';' para separar os dados
                 // e jogá-los (se existir) no vetor 'dadosTemporarios'.
-                this.d = this.linha.split(";");
-                
+                this.a = Arrays.toString(this.linha.split(";"));
+                this.d = a.split("\"");
                 // Cria-se uma instância da classe 'No'.
                 // Acessa o vetor 'dadosTemporarios' e passa o conteúdo de cada posição
                 // para a classe 'No'.
@@ -529,12 +542,24 @@ public class DadosC {
         } catch (IOException ex){
             return false;
         }
-            No pAux = listaDE.getInicioDaLista();
-        
-            for(int i = 0; i < listaDE.getQuantidadeDeNos(); i++) {
-                System.out.print(pAux.getObjeto2().getNome() + ",");
-                pAux = pAux.getProximoPonteiro();
-            }
+        No pAux = listaDE.getInicioDaLista();
+        for(int i = 0; i <= listaDE.getQuantidadeDeNos()-1; i++){
+            System.out.println(pAux.getObjctDados().getNome()
+                + pAux.getObjctDados().getCpf()
+                + pAux.getObjctDados().getNascimento()
+                + pAux.getObjctDados().getSexo()
+                + pAux.getObjctDados().getDescE()
+                + pAux.getObjctDados().getCargo()
+                + pAux.getObjctDados().getCodigoC()
+                + pAux.getObjctDados().getUf()
+                + pAux.getObjctDados().getMunicipio()
+                + pAux.getObjctDados().getPartido()
+                + pAux.getObjctDados().getSiglaP()
+                + pAux.getObjctDados().getTurno()
+                + pAux.getObjctDados().getAno()
+                + pAux.getObjctDados().getComposicaoLegenda());
+            pAux = pAux.getProximoPonteiro();
+        }
         
         return true;
             
@@ -542,74 +567,60 @@ public class DadosC {
     
     // Método para pegar as informações da lista de forma ordenada e
     // escrever no arquivo .CSV.
-    public boolean escreverArquivoCSV(UsuarioC listaDE){
+    public boolean escreverArquivoJson(DadosC listaDE){
         
         // Local onde será criado o arquivo e os dados serão gravados.
-        this.arquivoCSV = new File("C:\\Users\\Jefferson15\\Documents\\NetBeansProjects\\ProjetoLEcBDt\\src\\arquivosCSV\\usuariosNovos.csv");
+        this.arquivoJson = new File("C:\\Users\\Bruno\\Documents\\jsonFile.json");
 
-        // Principal delimitador (separador)
-        String delimitador = ",";
-        
-        // Cabeçalho que será gravado na 1º linha do arquivo .CSV.
-        String cabecalho   = "codigo,nome,login,senha";
-        
-        // Resgatando a referência do início da lista.
-        No ponteiro = listaDE.getLista(listaDE);
+        JSONObject jsonObject = new JSONObject();
+        JSONArray tempos = new JSONArray();
         
         try {
             
             // Se o arquivo não existir, cria-se um novo.
-            if (!this.arquivoCSV.exists()) {
-                
-                this.arquivoCSV.createNewFile(); // Arquivo vazio
+            if (this.arquivoJson.exists()) {
+                arquivoJson.delete();
+                this.arquivoJson.createNewFile(); // Arquivo vazio
+            }else{
+                this.arquivoJson.createNewFile(); // Arquivo vazio
             
             }
-            
-            // Quando se quer escrever no arquivo sobrescrevendo-o.
-            //FileWriter fw = new FileWriter(this.arquivoCSV);
-
-            // Quando se quer escrever no arquivo, contudo quando se
-            // utiliza o argumento 'true', o conteúdo a ser escrito será
-            // adicionado ao invés de ser substituído.
-            // FileWriter -> escreve diretamente no arquivo.
-            FileWriter fw = new FileWriter(this.arquivoCSV, true);
-
-            // BufferedWriter -> o comando de escrita vai para um buffer e
-            // o conteúdo armazenado será enviado de uma só vez para o Writer.
+            //ponteiro auxiliar para 
+            No pAux = listaDE.getInicioDaLista();            
+            FileWriter fw = new FileWriter(this.arquivoJson, true);
             BufferedWriter bw = new BufferedWriter(fw);
-
-            // Escrevendo o cabeçalho no arquivo .CSV
-            bw.write(cabecalho);
-
-            // Percorrendo a lista duplamente encadeada.
-            while(ponteiro != null){
-
-                // Criando uma nova linha
-                // Pulando para a próxima linha do arquivo .CSV.
-                bw.newLine();
-
-                // Escrevendo os dados no arquivo .CSV
-                bw.write(String.valueOf(ponteiro.getObjeto().getCodigoUsuario()));
-                bw.write(delimitador);
-                bw.write(ponteiro.getObjeto().getNomeUsuario());
-                bw.write(delimitador);
-                bw.write("A");
-                bw.write(delimitador);
-                bw.write("B");
-
-                // Indo para o próximo usuário presente na lista.
-                ponteiro = ponteiro.getProximoPonteiro();
-
+            for(int i = 0; i < listaDE.getQuantidadeDeNos(); i++){
+                
+                jsonObject.put("nome", pAux.getObjctDados().getNome());
+                jsonObject.put("cpf", pAux.getObjctDados().getCpf());
+                jsonObject.put("nascimento", pAux.getObjctDados().getNascimento());
+                jsonObject.put("sexo", pAux.getObjctDados().getSexo());
+                jsonObject.put("descricao", pAux.getObjctDados().getDescE());
+                jsonObject.put("cargo", pAux.getObjctDados().getCargo());
+                jsonObject.put("codigoC", pAux.getObjctDados().getCodigoC());
+                jsonObject.put("uf", pAux.getObjctDados().getUf());
+                jsonObject.put("municipio", pAux.getObjctDados().getMunicipio());
+                jsonObject.put("partido", pAux.getObjctDados().getPartido());
+                jsonObject.put("siglaP", pAux.getObjctDados().getSiglaP());
+                jsonObject.put("turno", pAux.getObjctDados().getTurno());
+                jsonObject.put("ano", pAux.getObjctDados().getAno());
+                jsonObject.put("legenda", pAux.getObjctDados().getComposicaoLegenda());
+                
+                bw.write(jsonObject.toString());
+                pAux = pAux.getProximoPonteiro();
+                
+                System.out.println(jsonObject.toString());
+               
             }
-            
-            // Fechando os componentes
             bw.close();
-            fw.close();
+            fw.close();           
             
         } catch (IOException ex) {
             
             ex.printStackTrace();
             
+        } catch (JSONException ex) {
+            Logger.getLogger(DadosC.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return true;    

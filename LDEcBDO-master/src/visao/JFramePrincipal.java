@@ -372,7 +372,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jBCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCLActionPerformed
 
         // Cria uma instância da classe Estruturas de Dados
-        this.listaDE = new UsuarioC();
+        this.listaDE2 = new DadosC();
 
         // Pega o componente JTable e o transforma em um modelo padrão de acesso
         this.dtm = (DefaultTableModel)jTableDados.getModel();
@@ -447,29 +447,29 @@ public class JFramePrincipal extends javax.swing.JFrame {
         
     }
     
-    private void mostrarListaCSVeBD(){
-        
-        // Pega o ponteiro para o primeiro usuário da lista.
-        No proximoUsuario =  this.listaDE.getLista(this.listaDE);
-        
-        // Percorrendo a lista de usuários
-        for(int i = 0; i < this.listaDE.getQuantidadeDeNos(); i++){
-
-            // Cria-se uma linha com campos vazios na tabela JTableDados
-            this.dtm.addRow(new Object[]{null,null,null});
-            
-            // Inserindo os dados no JTable
-            this.dtm.setValueAt(i, i, 0);
-            this.dtm.setValueAt(proximoUsuario.getObjeto().getCodigoUsuario(), i, 1);
-            this.dtm.setValueAt(proximoUsuario.getObjeto().getNomeUsuario(), i, 2);
-            
-            // Vai para o próximo usuário da lista.
-            proximoUsuario = proximoUsuario.getProximoPonteiro();
-
-        }
-        
-    }
-    
+//    private void mostrarListaCSVeBD(){
+//        
+//        // Pega o ponteiro para o primeiro usuário da lista.
+//        No proximoUsuario =  this.listaDE2.getLista(this.listaDE2);
+//        
+//        // Percorrendo a lista de usuários
+//        for(int i = 0; i < this.listaDE2.getQuantidadeDeNos(); i++){
+//
+//            // Cria-se uma linha com campos vazios na tabela JTableDados
+//            this.dtm.addRow(new Object[]{null,null,null});
+//            
+//            // Inserindo os dados no JTable
+//            this.dtm.setValueAt(i, i, 0);
+//            this.dtm.setValueAt(proximoUsuario.getObjeto().getCodigoUsuario(), i, 1);
+//            this.dtm.setValueAt(proximoUsuario.getObjeto().getNomeUsuario(), i, 2);
+//            
+//            // Vai para o próximo usuário da lista.
+//            proximoUsuario = proximoUsuario.getProximoPonteiro();
+//
+//        }
+//        
+//    }
+//    
     // Método da interface JFramePrincipal para inserir os dados na lista
     private void jBInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInserirActionPerformed
 
@@ -637,20 +637,25 @@ public class JFramePrincipal extends javax.swing.JFrame {
         
         // Define o diretório atual.
         // Nesse caso, a caixa será aberta em c:
-        this.jFCEscolherArquivo.setCurrentDirectory(new File("C:"));
+        this.jFCEscolherArquivo.setCurrentDirectory(new File("C:\\Users\\Bruno\\Downloads\\consulta_cand_2016"));
         
         // Permite que seja seleciodo apenas arquivos, diretórios ou arquivos e diretórios.
         // FILES_ONLY = instrução para exibir apenas arquivos.
         this.jFCEscolherArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
         
-        // Adiciona na caixa de diálogo os tipos de arquivos que poderão ser selecionados.
-        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("PDF Documents", "pdf"));
-        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("MS Office Documents", ".csv", "docx", "xlsx", "pptx"));
-        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp"));
         
         // Coloca a opção 'Todos os arquivos' disponível e quando selecionada, qualquer extensão de arquivo poderá ser utilizada,
         // desde que se tenha um método para trabalhar o arquivo.
         this.jFCEscolherArquivo.setAcceptAllFileFilterUsed(true);
+        
+        // Adiciona na caixa de diálogo os tipos de arquivos que poderão ser selecionados.
+        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("PDF Documents", "pdf"));
+        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("MS Office Documents", ".csv", "docx", "xlsx", "pptx"));
+        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp"));
+        this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("Txt", "txt", "txt"));
+        
+        
+        
         
         // Verifica se algum arquivo foi selecionado
         if (this.jFCEscolherArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
@@ -659,11 +664,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
             
             // Passa a lista e o caminho onde o arquivo .csv está.
             // Se foi possível ler o arquivo, apresenta os dados.
-            if (this.listaDE2.lerArquivoTXT(listaDE2,this.jFCEscolherArquivo.getSelectedFile())){
+            if (this.listaDE2.lerArquivoTXT(listaDE2, this.jFCEscolherArquivo.getSelectedFile())){
                 
                 JOptionPane.showMessageDialog(null, "Dados importados com sucesso...");
                 
-                this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
+                //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
 
                 jBLerCSV.setEnabled(false);      // Desabilitando o botão CSV
                 jBEscreverCSV.setEnabled(true);  // Habilitando o botão CSV
@@ -695,7 +700,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jBEscreverCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEscreverCSVActionPerformed
 
-        this.listaDE.escreverArquivoCSV(listaDE);
+        this.listaDE2.escreverArquivoJson(listaDE2);
         
     }//GEN-LAST:event_jBEscreverCSVActionPerformed
 
@@ -704,7 +709,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
         if(this.listaDE.selecionarUsuariosBD(this.listaDE)){
             JOptionPane.showMessageDialog(null, "Dados resgatados do BD Oracle com sucesso...");
-            this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
+            //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
         }else
             JOptionPane.showMessageDialog(null, "Erro ao resgatar os dados no BD Oracle...");
         

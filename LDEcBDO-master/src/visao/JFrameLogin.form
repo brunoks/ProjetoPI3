@@ -122,6 +122,9 @@
         <Component class="javax.swing.JTextField" name="jTFLogin">
         </Component>
         <Component class="javax.swing.JPasswordField" name="jPSenha">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPSenhaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBEntrar">
           <Properties>
