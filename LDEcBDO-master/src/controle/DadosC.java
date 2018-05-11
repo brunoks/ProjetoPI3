@@ -3,7 +3,7 @@ package controle;
 import modelo.dominio.No;
 import modelo.dao.DadosDAO;
 
-import org.json.JSONObject;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,6 +27,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dominio.Usuario;
+
+import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -503,14 +505,15 @@ public class DadosC {
                 
                 // Pega a linha e verifica se existe o delimitador ';' para separar os dados
                 // e jogá-los (se existir) no vetor 'dadosTemporarios'.
-                this.a = Arrays.toString(this.linha.split(";"));
-                this.d = a.split("\"");
+                //this.a = Arrays.toString(this.linha.split(";"));
+                this.d = this.linha.split(";");
                 // Cria-se uma instância da classe 'No'.
                 // Acessa o vetor 'dadosTemporarios' e passa o conteúdo de cada posição
                 // para a classe 'No'.
                 // 
-
+                escreverArquivoTeste(d);
                 No novoNo = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
+                
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
@@ -542,24 +545,24 @@ public class DadosC {
         } catch (IOException ex){
             return false;
         }
-        No pAux = listaDE.getInicioDaLista();
-        for(int i = 0; i <= listaDE.getQuantidadeDeNos()-1; i++){
-            System.out.println(pAux.getObjctDados().getNome()
-                + pAux.getObjctDados().getCpf()
-                + pAux.getObjctDados().getNascimento()
-                + pAux.getObjctDados().getSexo()
-                + pAux.getObjctDados().getDescE()
-                + pAux.getObjctDados().getCargo()
-                + pAux.getObjctDados().getCodigoC()
-                + pAux.getObjctDados().getUf()
-                + pAux.getObjctDados().getMunicipio()
-                + pAux.getObjctDados().getPartido()
-                + pAux.getObjctDados().getSiglaP()
-                + pAux.getObjctDados().getTurno()
-                + pAux.getObjctDados().getAno()
-                + pAux.getObjctDados().getComposicaoLegenda());
-            pAux = pAux.getProximoPonteiro();
-        }
+//                No pAux = listaDE.getInicioDaLista();
+//        for(int i = 0; i <= listaDE.getQuantidadeDeNos()-1; i++){
+//            System.out.println(pAux.getObjctDados().getNome()
+//                + pAux.getObjctDados().getCpf()
+//                + pAux.getObjctDados().getNascimento()
+//                + pAux.getObjctDados().getSexo()
+//                + pAux.getObjctDados().getDescE()
+//                + pAux.getObjctDados().getCargo()
+//                + pAux.getObjctDados().getCodigoC()
+//                + pAux.getObjctDados().getUf()
+//                + pAux.getObjctDados().getMunicipio()
+//                + pAux.getObjctDados().getPartido()
+//                + pAux.getObjctDados().getSiglaP()
+//                + pAux.getObjctDados().getTurno()
+//                + pAux.getObjctDados().getAno()
+//                + pAux.getObjctDados().getComposicaoLegenda());
+//            pAux = pAux.getProximoPonteiro();
+//        }
         
         return true;
             
@@ -574,7 +577,7 @@ public class DadosC {
 
         JSONObject jsonObject = new JSONObject();
         JSONArray tempos = new JSONArray();
-        
+        JSONArray y = new JSONArray();
         try {
             
             // Se o arquivo não existir, cria-se um novo.
@@ -591,25 +594,25 @@ public class DadosC {
             BufferedWriter bw = new BufferedWriter(fw);
             for(int i = 0; i < listaDE.getQuantidadeDeNos(); i++){
                 
-                jsonObject.put("nome", pAux.getObjctDados().getNome());
-                jsonObject.put("cpf", pAux.getObjctDados().getCpf());
-                jsonObject.put("nascimento", pAux.getObjctDados().getNascimento());
-                jsonObject.put("sexo", pAux.getObjctDados().getSexo());
-                jsonObject.put("descricao", pAux.getObjctDados().getDescE());
-                jsonObject.put("cargo", pAux.getObjctDados().getCargo());
-                jsonObject.put("codigoC", pAux.getObjctDados().getCodigoC());
-                jsonObject.put("uf", pAux.getObjctDados().getUf());
-                jsonObject.put("municipio", pAux.getObjctDados().getMunicipio());
-                jsonObject.put("partido", pAux.getObjctDados().getPartido());
-                jsonObject.put("siglaP", pAux.getObjctDados().getSiglaP());
-                jsonObject.put("turno", pAux.getObjctDados().getTurno());
-                jsonObject.put("ano", pAux.getObjctDados().getAno());
-                jsonObject.put("legenda", pAux.getObjctDados().getComposicaoLegenda());
+                tempos.put(jsonObject.put("nome", pAux.getObjctDados().getNome()));
+                tempos.put(jsonObject.put("cpf", pAux.getObjctDados().getCpf()));
+                tempos.put(jsonObject.put("nascimento", pAux.getObjctDados().getNascimento()));
+                tempos.put(jsonObject.put("sexo", pAux.getObjctDados().getSexo()));
+                tempos.put(jsonObject.put("descricao", pAux.getObjctDados().getDescE()));
+                tempos.put(jsonObject.put("cargo", pAux.getObjctDados().getCargo()));
+                tempos.put(jsonObject.put("codigoC", pAux.getObjctDados().getCodigoC()));
+                tempos.put(jsonObject.put("uf", pAux.getObjctDados().getUf()));
+                tempos.put(jsonObject.put("municipio", pAux.getObjctDados().getMunicipio()));
+                tempos.put(jsonObject.put("partido", pAux.getObjctDados().getPartido()));
+                tempos.put(jsonObject.put("siglaP", pAux.getObjctDados().getSiglaP()));
+                tempos.put(jsonObject.put("turno", pAux.getObjctDados().getTurno()));
+                tempos.put(jsonObject.put("ano", pAux.getObjctDados().getAno()));
+                tempos.put(jsonObject.put("legenda", pAux.getObjctDados().getComposicaoLegenda()));
                 
-                bw.write(jsonObject.toString());
+                bw.write(tempos.toString());
                 pAux = pAux.getProximoPonteiro();
                 
-                System.out.println(jsonObject.toString());
+                System.out.println(tempos.toString());
                
             }
             bw.close();
@@ -730,5 +733,40 @@ public class DadosC {
         return false;
         
     }
-    
+    public boolean escreverArquivoTeste(String[] listaDE){
+        
+        // Local onde será criado o arquivo e os dados serão gravados.
+        File arquivoT = new File("C:\\Users\\Bruno\\Documents\\ArquivoTeste.txt");
+
+        try {
+            
+            
+            FileWriter fw = new FileWriter(arquivoT, true);
+
+            // BufferedWriter -> o comando de escrita vai para um buffer e
+            // o conteúdo armazenado será enviado de uma só vez para o Writer.
+            BufferedWriter bw = new BufferedWriter(fw);
+            if(arquivoT.exists()){
+                arquivoT.delete();
+                arquivoT.createNewFile();
+            }
+            // Percorrendo a lista duplamente encadeada.
+                for(int i = 0; i <= 30;i++){
+                   fw.write(listaDE[i]);
+                }
+
+            
+            // Fechando os componentes
+            bw.close();
+            fw.close();
+            
+        } catch (IOException ex) {
+            
+            ex.printStackTrace();
+            
+        }
+        
+        return true;    
+        
+    }
 }

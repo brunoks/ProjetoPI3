@@ -399,7 +399,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // Método da interface JFramePrincipal para limpar lista
     private void jBLLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLLActionPerformed
         
-        this.listaDE.limparLista(this.listaDE);  // Tornando a lista vazia
+        this.listaDE2.limparLista(this.listaDE2);  // Tornando a lista vazia
         
         jBLL.setEnabled(false); // Habilitando o botão Limpar lista
         jBCL.setEnabled(true);  // Habilitando o botão Criar lista
@@ -637,7 +637,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         
         // Define o diretório atual.
         // Nesse caso, a caixa será aberta em c:
-        this.jFCEscolherArquivo.setCurrentDirectory(new File("C:\\Users\\Bruno\\Downloads\\consulta_cand_2016"));
+        this.jFCEscolherArquivo.setCurrentDirectory(new File("C:\\Users\\Bruno\\Downloads\\consulta_cand_2016 (1)"));
         
         // Permite que seja seleciodo apenas arquivos, diretórios ou arquivos e diretórios.
         // FILES_ONLY = instrução para exibir apenas arquivos.
