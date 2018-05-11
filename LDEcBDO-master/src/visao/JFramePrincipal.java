@@ -4,6 +4,7 @@ import controle.UsuarioC;
 import modelo.dominio.No;
 import controle.DadosC;
 import java.io.File;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -63,6 +64,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jBLerCSV = new javax.swing.JButton();
         jBEscreverCSV = new javax.swing.JButton();
+        jCBTipo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jBGravarBD = new javax.swing.JButton();
         jBSelecionarBD = new javax.swing.JButton();
@@ -266,19 +268,41 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        jCBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Eleitorado", "Candidato" }));
+        jCBTipo.setName(""); // NOI18N
+        jCBTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCBTipoItemStateChanged(evt);
+            }
+        });
+        jCBTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBTipoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBEscreverCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBLerCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jBEscreverCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(62, 62, 62))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jBLerCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jBLerCSV)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBLerCSV)
+                    .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBEscreverCSV))
+                .addComponent(jBEscreverCSV)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Banco de Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -664,7 +688,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             
             // Passa a lista e o caminho onde o arquivo .csv está.
             // Se foi possível ler o arquivo, apresenta os dados.
-            if (this.listaDE2.lerArquivoTXT(listaDE2, this.jFCEscolherArquivo.getSelectedFile())){
+            if (this.listaDE2.lerArquivoTXT(listaDE2, this.jFCEscolherArquivo.getSelectedFile(), jCBTipo.getSelectedItem().toString())){
                 
                 JOptionPane.showMessageDialog(null, "Dados importados com sucesso...");
                 
@@ -691,7 +715,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jBGravarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarBDActionPerformed
 
         // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-        if(this.listaDE2.gravarUsuariosBD(this.listaDE2))
+        if(this.listaDE2.gravarDadosBanco(this.listaDE2))
             JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
         else
             JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
@@ -700,7 +724,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jBEscreverCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEscreverCSVActionPerformed
 
-        this.listaDE2.escreverArquivoJson(listaDE2);
+        this.listaDE2.escreverArquivoJson(listaDE2,jCBTipo.getSelectedItem().toString());
         
     }//GEN-LAST:event_jBEscreverCSVActionPerformed
 
@@ -719,6 +743,14 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBDeletarBD.setEnabled(true);     // habilitando o botão DeletarBD
         
     }//GEN-LAST:event_jBSelecionarBDActionPerformed
+
+    private void jCBTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBTipoActionPerformed
+         
+    }//GEN-LAST:event_jCBTipoActionPerformed
+
+    private void jCBTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBTipoItemStateChanged
+        
+    }//GEN-LAST:event_jCBTipoItemStateChanged
     
     /**
      * @param args the command line arguments
@@ -763,6 +795,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBRemover;
     private javax.swing.JButton jBSelecionarBD;
+    private javax.swing.JComboBox<String> jCBTipo;
     private javax.swing.JLabel jLCodigo;
     private javax.swing.JLabel jLCodigoNovo;
     private javax.swing.JLabel jLNome;

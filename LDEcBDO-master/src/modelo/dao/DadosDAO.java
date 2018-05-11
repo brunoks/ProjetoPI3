@@ -1,5 +1,6 @@
 package modelo.dao;
 
+import controle.DadosC;
 import modelo.dao.conexao.ConnectionFactory;
 import modelo.dominio.Usuario;
 
@@ -119,7 +120,7 @@ public class DadosDAO {
     }
     
     // Método para gravar todos os usuários presentes na lista
-    public boolean gravarUsuariosBD(Usuario _usuario) {
+    public boolean gravarDadosBanco(DadosC _dados) {
         
         // Definindo a string sql
         this.setSql("INSERT INTO usuario VALUES (?, ?, ?, ?)");
@@ -130,10 +131,11 @@ public class DadosDAO {
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             
             // Setando os parâmetros que irão substituir '?'
-            this.getPstmt().setLong(1, (_usuario.getCodigoUsuario()+1));
-            this.getPstmt().setString(2, _usuario.getNomeUsuario());
-            this.getPstmt().setString(3, _usuario.getLoginUsuario());
-            this.getPstmt().setString(4, _usuario.getSenhaUsuario());
+            //TEm que acabar ainda
+//            this.getPstmt().setLong(1, (_dados.getCodigoUsuario()+1));
+//            this.getPstmt().setString(2, _dados.getNomeUsuario());
+//            this.getPstmt().setString(3, _dados.getLoginUsuario());
+//            this.getPstmt().setString(4, _dados.getSenhaUsuario());
             
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();

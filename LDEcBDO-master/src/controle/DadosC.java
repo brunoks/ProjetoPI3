@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dominio.Usuario;
 
+
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -488,7 +489,7 @@ public class DadosC {
     }*/
     
     // Método para inserir na lista de forma ordenada através do arquivo .CSV.
-    public boolean lerArquivoTXT(DadosC listaDE, File _arquivo){
+    public boolean lerArquivoTXT(DadosC listaDE, File _arquivo, String entrada){
         
         // Objeto BufferedReader exige try-catch
         try {
@@ -507,13 +508,25 @@ public class DadosC {
                 // e jogá-los (se existir) no vetor 'dadosTemporarios'.
                 //this.a = Arrays.toString(this.linha.split(";"));
                 this.d = this.linha.split(";");
-                // Cria-se uma instância da classe 'No'.
-                // Acessa o vetor 'dadosTemporarios' e passa o conteúdo de cada posição
-                // para a classe 'No'.
-                // 
-                escreverArquivoTeste(d);
-                No novoNo = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
+
                 
+                //Apenas para certificar o que está sendo separado na variável d
+                //escreverArquivoTeste(d);
+                
+                //Criando No para substituir dentro do switch
+                No novoNo = new No();
+                switch(entrada){
+                    case "Candidato": 
+                        No No1 = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
+                        novoNo = No1;
+                    break;
+                    
+                    case "Eleitorado": 
+                        
+                        No No2 = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
+                        novoNo = No2;
+                    break;
+                }
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
@@ -525,6 +538,7 @@ public class DadosC {
                     listaDE.setFinalDaLista(novoNo);
 
                 }else{
+                    //Depois que a lista não estiver vazia, será preenchida pelo início
                         novoNo.setProximoPonteiro(null);
                         novoNo.setPonteiroAnterior(listaDE.getFinalDaLista());
 
@@ -541,40 +555,41 @@ public class DadosC {
             this.bReader.close();
             
         } catch (FileNotFoundException e) {
+            Logger.getLogger(DadosC.class.getName()).log(Level.SEVERE, null, e); 
             return false;
         } catch (IOException ex){
+            Logger.getLogger(DadosC.class.getName()).log(Level.SEVERE, null, ex); 
             return false;
         }
-//                No pAux = listaDE.getInicioDaLista();
-//        for(int i = 0; i <= listaDE.getQuantidadeDeNos()-1; i++){
-//            System.out.println(pAux.getObjctDados().getNome()
-//                + pAux.getObjctDados().getCpf()
-//                + pAux.getObjctDados().getNascimento()
-//                + pAux.getObjctDados().getSexo()
-//                + pAux.getObjctDados().getDescE()
-//                + pAux.getObjctDados().getCargo()
-//                + pAux.getObjctDados().getCodigoC()
-//                + pAux.getObjctDados().getUf()
-//                + pAux.getObjctDados().getMunicipio()
-//                + pAux.getObjctDados().getPartido()
-//                + pAux.getObjctDados().getSiglaP()
-//                + pAux.getObjctDados().getTurno()
-//                + pAux.getObjctDados().getAno()
-//                + pAux.getObjctDados().getComposicaoLegenda());
-//            pAux = pAux.getProximoPonteiro();
-//        }
-        
         return true;
             
     }
     
     // Método para pegar as informações da lista de forma ordenada e
     // escrever no arquivo .CSV.
-    public boolean escreverArquivoJson(DadosC listaDE){
+    public boolean escreverArquivoJson(DadosC listaDE, String entrada){
         
+        switch(entrada){
+        
+            case "Candidato": 
+                escreverCandidato(listaDE);
+            break;
+            
+            case "Eleitorado": 
+                escreverEleitorado(listaDE);
+            break;
+        }
+        
+        return true;    
+        
+    }
+    
+    // Ler dados do arquivo TXT referente a candidato
+    //
+    public void escreverCandidato(DadosC listaDE){
         // Local onde será criado o arquivo e os dados serão gravados.
-        this.arquivoJson = new File("C:\\Users\\Bruno\\Documents\\jsonFile.json");
-
+        this.arquivoJson = new File("C:\\Users\\Bruno\\Documents\\jsonFileCandidato.json");
+        
         JSONObject jsonObject = new JSONObject();
         JSONArray tempos = new JSONArray();
         JSONArray y = new JSONArray();
@@ -609,9 +624,13 @@ public class DadosC {
                 tempos.put(jsonObject.put("ano", pAux.getObjctDados().getAno()));
                 tempos.put(jsonObject.put("legenda", pAux.getObjctDados().getComposicaoLegenda()));
                 
+            if(i == listaDE.getQuantidadeDeNos() -  1) {
                 bw.write(tempos.toString());
-                pAux = pAux.getProximoPonteiro();
+            }else{
+                bw.write(tempos.toString() + ",");
+            }
                 
+                pAux = pAux.getProximoPonteiro();
                 System.out.println(tempos.toString());
                
             }
@@ -625,13 +644,64 @@ public class DadosC {
         } catch (JSONException ex) {
             Logger.getLogger(DadosC.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return true;    
-        
+    }
+    
+
+    public void escreverEleitorado(DadosC listaDE){
+        // Local onde será criado o arquivo e os dados serão gravados.
+        this.arquivoJson = new File("C:\\Users\\Bruno\\Documents\\jsonFileEleitorado.json");
+
+        JSONObject jsonObject = new JSONObject();
+        JSONArray tempos = new JSONArray();
+        JSONArray y = new JSONArray();
+        try {
+            
+            // Se o arquivo não existir, cria-se um novo.
+            if (this.arquivoJson.exists()) {
+                arquivoJson.delete();
+                this.arquivoJson.createNewFile(); // Arquivo vazio
+            }else{
+                this.arquivoJson.createNewFile(); // Arquivo vazio
+            
+            }
+            //ponteiro auxiliar para 
+            No pAux = listaDE.getInicioDaLista();            
+            FileWriter fw = new FileWriter(this.arquivoJson, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for(int i = 0; i < listaDE.getQuantidadeDeNos(); i++){
+                
+                //Inserindo os atributos ao Json
+                tempos.put(jsonObject.put("periodo", pAux.getObjctEleitorado().getPeriodo()));
+                tempos.put(jsonObject.put("uf", pAux.getObjctEleitorado().getUf()));
+                tempos.put(jsonObject.put("municipio", pAux.getObjctEleitorado().getMunicipio()));
+                tempos.put(jsonObject.put("sexo", pAux.getObjctEleitorado().getSexo()));
+                tempos.put(jsonObject.put("faixa_etaria", pAux.getObjctEleitorado().getFaixa_etaria()));
+                tempos.put(jsonObject.put("total", pAux.getObjctEleitorado().getTotal()));
+                
+                if(i == listaDE.getQuantidadeDeNos() -  1) {
+                    bw.write(tempos.toString());
+                }else{
+                    bw.write(tempos.toString() + ",");
+                }
+                
+                pAux = pAux.getProximoPonteiro();
+                System.out.println(tempos.toString());
+               
+            }
+            bw.close();
+            fw.close();           
+            
+        } catch (IOException ex) {
+            
+            ex.printStackTrace();
+            
+        } catch (JSONException ex) {
+            Logger.getLogger(DadosC.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     // Método para gravar todos os dados no banco de dados Oracle
-    public boolean gravarUsuariosBD(DadosC listaDE){
+    public boolean gravarDadosBanco(DadosC listaDE){
         
         // Criando instância da classe UsuarioDAO.
         DadosDAO uDAO = new DadosDAO();
@@ -655,11 +725,11 @@ public class DadosC {
                 // sair das estruturas 'if' e 'while'.
                 // Observação: será passado como parâmetro apenas o campo
                 // objeto (onde contém as informações do usuário atual) do nó.
-                if(!uDAO.gravarUsuariosBD(proximoUsuario.getObjeto())){
-
-                    break;
-
-                }
+//                if(!uDAO.gravarDadosBanco(proximoUsuario.getObjeto())){
+//
+//                    break;
+//
+//                }
                 
                 // Vai para o próximo nó.
                 proximoUsuario = proximoUsuario.getProximoPonteiro();

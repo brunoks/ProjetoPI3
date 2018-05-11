@@ -10,6 +10,7 @@ public class No {
     private No proximoPonteiro;
     //Objeto com os dados do candidato
     private DadosCandidato objctDados;
+    private DadosEleitorado objectEleitorado;
 
     /*###################################
             CONSTRUTORES DA CLASSE
@@ -21,6 +22,10 @@ public class No {
     
     public No(int c, String n) {
         this.setObjeto(new Usuario(c,n));
+    }
+    
+    public No(String periodo, String uf, String municipio, String sexo, String faixa_etaria, String total){
+        this.setObjctEleitorado(new DadosEleitorado(periodo, uf, municipio, sexo, faixa_etaria, total));
     }
 
     public No(String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
@@ -42,8 +47,20 @@ public class No {
         return this.ponteiroAnterior;
     }
 
+    public DadosEleitorado getObjctEleitorado() {
+        return objectEleitorado;
+    }
+
     public DadosCandidato getObjctDados() {
         return objctDados;
+    }
+    
+    public Usuario getObjeto() {
+        return this.objeto;
+    }
+    
+    public No getProximoPonteiro() {
+        return this.proximoPonteiro;
     }
 
     public void setObjctDados(DadosCandidato dados) {
@@ -54,17 +71,14 @@ public class No {
         this.ponteiroAnterior = ponteiroAnterior;
     }
 
-    public Usuario getObjeto() {
-        return this.objeto;
+    public void setObjctEleitorado(DadosEleitorado eleitorado) {
+        this.objectEleitorado = eleitorado;
     }
 
     public void setObjeto(Usuario objeto) {
         this.objeto = objeto;
     }
 
-    public No getProximoPonteiro() {
-        return this.proximoPonteiro;
-    }
 
     public void setProximoPonteiro(No proximoPonteiro) {
         this.proximoPonteiro = proximoPonteiro;

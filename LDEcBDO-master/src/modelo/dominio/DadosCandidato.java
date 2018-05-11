@@ -41,11 +41,7 @@ public class DadosCandidato {
     //tabela estado
     private String estado;
     private String uf;
-    
-    //perfil eleitorado
-    private String sexoE;
-    private String faixa_etaria;
-    private String totalE;
+
     
 
     /*d1,d2,ano3, turno4,desc,uf6,d7,municio8,cdcargo9,cargo10,nome11,d12, d13,
@@ -61,8 +57,8 @@ public class DadosCandidato {
       ###################################*/
 
     public DadosCandidato(String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
-                   String cpf,String siglaP,String partido,String composicaoLegenda,
-                   String nasc,String sexo) {
+                          String cpf,String siglaP,String partido,String composicaoLegenda,
+                          String nasc,String sexo) {
         this.cargo = cargo;
         this.codigoC = codigoC;
         this.cpf = cpf;
@@ -78,7 +74,6 @@ public class DadosCandidato {
         this.descE = descE;
         this.municipio = municipio;
         this.uf = uf;
-        
     }
     
     
@@ -140,18 +135,7 @@ public class DadosCandidato {
         this.uf = uf;
     }
 
-    public void setSexoE(String sexoE) {
-        this.sexoE = sexoE;
-    }
-
-    public void setFaixa_etaria(String faixa_etaria) {
-        this.faixa_etaria = faixa_etaria;
-    }
-
-    public void setTotalE(String totalE) {
-        this.totalE = totalE;
-    }
-
+   
     public String getCodigoC() {
         return codigoC;
     }
@@ -200,19 +184,7 @@ public class DadosCandidato {
         return uf;
     }
 
-    public String getSexoE() {
-        return sexoE;
-    }
-
-    public String getFaixa_etaria() {
-        return faixa_etaria;
-    }
-
-    public String getTotalE() {
-        return totalE;
-    }
-    
-    
+   
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
