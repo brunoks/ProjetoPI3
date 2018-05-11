@@ -1,7 +1,7 @@
 package controle;
 
 import modelo.dominio.No;
-import modelo.dao.DadosDAO;
+import modelo.dao.DadosCandidatoDAO;
 
 
 
@@ -611,7 +611,7 @@ public class DadosC {
                 
                 tempos.put(jsonObject.put("nome", pAux.getObjctDados().getNome()));
                 tempos.put(jsonObject.put("cpf", pAux.getObjctDados().getCpf()));
-                tempos.put(jsonObject.put("nascimento", pAux.getObjctDados().getNascimento()));
+                tempos.put(jsonObject.put("nascimento", pAux.getObjctDados().getNasc()));
                 tempos.put(jsonObject.put("sexo", pAux.getObjctDados().getSexo()));
                 tempos.put(jsonObject.put("descricao", pAux.getObjctDados().getDescE()));
                 tempos.put(jsonObject.put("cargo", pAux.getObjctDados().getCargo()));
@@ -704,35 +704,35 @@ public class DadosC {
     public boolean gravarDadosBanco(DadosC listaDE){
         
         // Criando instância da classe UsuarioDAO.
-        DadosDAO uDAO = new DadosDAO();
+        DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
         
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'
         if((this.conn = uDAO.conectarBanco()) != null){
             
             // Pegando o início da lista duplamente encadeada, se existir.
-            No proximoUsuario = listaDE.getLista(listaDE);
+            No proximoDado = listaDE.getLista(listaDE);
         
             // O primeiro nó da lista, de forma abstrata, está na posição ZERO.
             int i = 0;
 
             // Enquanto o ponteiro atual for diferente de null e
             // for menor que a quantidade de nós
-            while ((proximoUsuario != null) && (i < listaDE.getQuantidadeDeNos())){
+            while ((proximoDado != null) && (i < listaDE.getQuantidadeDeNos())){
 
                 // Se não foi possível gravar no banco de dados Oracle,
                 // retorna falso e então, executaremos o comando 'break' para
                 // sair das estruturas 'if' e 'while'.
                 // Observação: será passado como parâmetro apenas o campo
                 // objeto (onde contém as informações do usuário atual) do nó.
-//                if(!uDAO.gravarDadosBanco(proximoUsuario.getObjeto())){
-//
-//                    break;
-//
-//                }
+                if(!uDAO.gravarDadosBanco(proximoDado.getObjctDados())){
+
+                    break;
+
+                }
                 
                 // Vai para o próximo nó.
-                proximoUsuario = proximoUsuario.getProximoPonteiro();
+                proximoDado = proximoDado.getProximoPonteiro();
                 i++;
 
             }
@@ -755,7 +755,7 @@ public class DadosC {
     public boolean selecionarUsuariosBD(UsuarioC listaDE){
         
         // Criando instância da classe UsuarioDAO.
-        DadosDAO uDAO = new DadosDAO();
+        DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
         
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'

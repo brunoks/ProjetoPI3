@@ -48,11 +48,11 @@ public class No {
     }
 
     public DadosEleitorado getObjctEleitorado() {
-        return objectEleitorado;
+        return this.objectEleitorado;
     }
 
     public DadosCandidato getObjctDados() {
-        return objctDados;
+        return this.objctDados;
     }
     
     public Usuario getObjeto() {

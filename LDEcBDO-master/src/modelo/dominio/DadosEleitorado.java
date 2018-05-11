@@ -28,7 +28,9 @@ public class DadosEleitorado {
         this.periodo = periodo;
     }
             
+    public DadosEleitorado(){
     
+    }
 
     public String getSexo() {
         return sexo;

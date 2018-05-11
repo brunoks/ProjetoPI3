@@ -9,6 +9,7 @@ public class DadosCandidato {
     /*###################################
               ATRIBUTOS DA CLASSE
       ###################################*/
+    private int codigo;
     
     //tabela cargo
     private String cargo;
@@ -41,15 +42,6 @@ public class DadosCandidato {
     //tabela estado
     private String estado;
     private String uf;
-
-    
-
-    /*d1,d2,ano3, turno4,desc,uf6,d7,municio8,cdcargo9,cargo10,nome11,d12, d13,
-                   cpf14,d15,d16,d17,d18,siglaP19,nomeP20,d21,d22,composicaoLegenda23,
-                   d24,d25,d26,nasc27,d28,d29,d30,sexo31,d32,d33,d34,d35,d36,d37,d38,
-                   d39,d40,d41,d42,d43,d44,d45,d46;
-    */
-
     
     
     /*###################################
@@ -76,8 +68,9 @@ public class DadosCandidato {
         this.uf = uf;
     }
     
+    public DadosCandidato(){
     
-
+    }
 
     /*###################################
                MÉTODOS DA CLASSE
@@ -107,6 +100,12 @@ public class DadosCandidato {
         this.ano = ano;
     }
 
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
+    
+    
     public void setTipoE(String tipoE) {
         this.tipoE = tipoE;
     }
@@ -148,6 +147,10 @@ public class DadosCandidato {
         return siglaP;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+        
     public String getComposicaoLegenda() {
         return composicaoLegenda;
     }
@@ -193,6 +196,14 @@ public class DadosCandidato {
         this.nome = nome;
     }
 
+    public void setNasc(String nasc) {
+        this.nasc = nasc;
+    }
+
+    public void setComposicaoLegenda(String composicaoLegenda) {
+        this.composicaoLegenda = composicaoLegenda;
+    }
+    
     public void setTse_o(String tse_o) {
         this.tse_o = tse_o;
     }
@@ -221,7 +232,7 @@ public class DadosCandidato {
         return tse_o;
     }
 
-    public String getNascimento() {
+    public String getNasc() {
         return nasc;
     }
 

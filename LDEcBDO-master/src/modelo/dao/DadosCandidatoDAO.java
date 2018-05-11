@@ -10,12 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import modelo.dominio.DadosCandidato;
 
 /**
  *
  * @author Jefferson
  */
-public class DadosDAO {
+public class DadosCandidatoDAO {
     
     /*###################################
               ATRIBUTOS DA CLASSE
@@ -31,7 +32,7 @@ public class DadosDAO {
     /*###################################
              CONSTRUTOR DA CLASSE
       ###################################*/
-    public DadosDAO(){
+    public DadosCandidatoDAO(){
         
         this.setConn(null); // Conexão será null incialmente
         
@@ -120,10 +121,10 @@ public class DadosDAO {
     }
     
     // Método para gravar todos os usuários presentes na lista
-    public boolean gravarDadosBanco(DadosC _dados) {
+    public boolean gravarDadosBanco(DadosCandidato _dados) {
         
         // Definindo a string sql
-        this.setSql("INSERT INTO usuario VALUES (?, ?, ?, ?)");
+        this.setSql("INSERT INTO candidato VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         try {
             
@@ -131,11 +132,25 @@ public class DadosDAO {
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             
             // Setando os parâmetros que irão substituir '?'
-            //TEm que acabar ainda
-//            this.getPstmt().setLong(1, (_dados.getCodigoUsuario()+1));
-//            this.getPstmt().setString(2, _dados.getNomeUsuario());
-//            this.getPstmt().setString(3, _dados.getLoginUsuario());
-//            this.getPstmt().setString(4, _dados.getSenhaUsuario());
+            //String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
+            //              String cpf,String siglaP,String partido,String composicaoLegenda,
+            //             String nasc,String sexo
+            this.getPstmt().setLong(1, (_dados.getCodigo() + 1));
+            this.getPstmt().setString(2, _dados.getAno());
+            this.getPstmt().setString(3, _dados.getTurno());
+            this.getPstmt().setString(4, _dados.getDescE());
+            this.getPstmt().setString(5, _dados.getUf());
+            this.getPstmt().setString(6, _dados.getMunicipio());
+            this.getPstmt().setString(7, _dados.getCodigoC());
+            this.getPstmt().setString(8, _dados.getCargo());
+            this.getPstmt().setString(9, _dados.getNome());
+            this.getPstmt().setString(10, _dados.getCpf());
+            this.getPstmt().setString(11, _dados.getSiglaP());
+            this.getPstmt().setString(12, _dados.getPartido());
+            this.getPstmt().setString(13, _dados.getComposicaoLegenda());
+            this.getPstmt().setString(14, _dados.getNasc());
+            this.getPstmt().setString(15, _dados.getSexo());
+            
             
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
