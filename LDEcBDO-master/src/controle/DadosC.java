@@ -753,7 +753,7 @@ public class DadosC {
     }
     
     // Método para inserir na lista de forma ordenada através do arquivo .CSV.
-    public boolean selecionarUsuariosBD(DadosC listaDE){
+    public boolean selecionarDadosBD(DadosC listaDE){
         
         // Criando instância da classe UsuarioDAO.
         DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
@@ -765,7 +765,7 @@ public class DadosC {
             try{
             
                 // Resgatando todos os usuários do banco de dados Oracle.
-                this.setRs(uDAO.selecionarUsuariosBD());
+                this.setRs(uDAO.selecionarDadosBD());
 
                 // Verificando se o resultado retornado é diferente de null.
                 if(this.getRs() != null){

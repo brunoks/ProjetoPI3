@@ -252,7 +252,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ".CSV", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBLerCSV.setText("Ler CSV");
+        jBLerCSV.setText("Ler TXT");
         jBLerCSV.setEnabled(false);
         jBLerCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,7 +260,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBEscreverCSV.setText("Escrever CSV");
+        jBEscreverCSV.setText("Escrever JSON");
         jBEscreverCSV.setEnabled(false);
         jBEscreverCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -731,7 +731,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jBSelecionarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelecionarBDActionPerformed
 
         // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-        if(this.listaDE2.selecionarUsuariosBD(this.listaDE2)){
+        if(this.listaDE2.selecionarDadosBD(this.listaDE2)){
             JOptionPane.showMessageDialog(null, "Dados resgatados do BD Oracle com sucesso...");
             
             //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable

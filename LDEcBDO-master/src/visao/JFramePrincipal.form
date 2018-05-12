@@ -388,7 +388,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jBLerCSV">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ler CSV"/>
+            <Property name="text" type="java.lang.String" value="Ler TXT"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -397,7 +397,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBEscreverCSV">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Escrever CSV"/>
+            <Property name="text" type="java.lang.String" value="Escrever JSON"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

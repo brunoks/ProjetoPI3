@@ -169,7 +169,7 @@ public class DadosCandidatoDAO {
     }
     
     // Método para gravar todos os usuários presentes na lista
-    public ResultSet selecionarUsuariosBD() {
+    public ResultSet selecionarDadosBD() {
         
         // Definindo a string sql
         this.setSql("SELECT * FROM CANDIDATO");
