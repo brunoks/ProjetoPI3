@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.dominio.DadosCandidato;
 import modelo.dominio.Usuario;
 
 
@@ -752,7 +753,7 @@ public class DadosC {
     }
     
     // Método para inserir na lista de forma ordenada através do arquivo .CSV.
-    public boolean selecionarUsuariosBD(UsuarioC listaDE){
+    public boolean selecionarUsuariosBD(DadosC listaDE){
         
         // Criando instância da classe UsuarioDAO.
         DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
@@ -768,24 +769,32 @@ public class DadosC {
 
                 // Verificando se o resultado retornado é diferente de null.
                 if(this.getRs() != null){
-
+                    DadosCandidato objeto = new DadosCandidato();
                     // Percorrendo o resultado retornado do banco de dados
                     while(this.getRs().next()){
 
-                        // Cria-se uma instância da classe Usuario para armazear
-                        // temporariamente.
-                        Usuario objeto = new Usuario();
 
                         // Armazena os dados nos atributos de 'objeto'
                         // através dos dados do ResultSet atual.
-                        objeto.setCodigoUsuario(this.getRs().getInt("codigo"));
-                        objeto.setNomeUsuario(this.getRs().getString("nome"));
-                        objeto.setLoginUsuario(this.getRs().getString("login"));
-                        objeto.setSenhaUsuario(this.getRs().getString("senha"));
+
+                        objeto.setNome(this.getRs().getString("NOME"));
+                        objeto.setCpf(this.getRs().getString("CPF"));
+                        objeto.setNasc(this.getRs().getString("DATA_DASC"));
+                        objeto.setSexo(this.getRs().getString("SEXO"));
+                        objeto.setDescE(this.getRs().getString("DESCRICAO_ELEICAO"));
+                        objeto.setUf(this.getRs().getString("UF"));
+                        objeto.setMunicipio(this.getRs().getString("MUNICIPIO"));
+                        objeto.setCodigoC(this.getRs().getString("CODIGO_CANDIDATO"));
+                        objeto.setAno(this.getRs().getString("ANO"));
+                        objeto.setTurno(this.getRs().getString("TURNO"));
+                        objeto.setCargo(this.getRs().getString("CARGO"));
+                        objeto.setComposicaoLegenda(this.getRs().getString("LEGENDA"));
+                        objeto.setPartido(this.getRs().getString("PARTIDO"));
+                        objeto.setSiglaP(this.getRs().getString("SIGLA_PARTIDO"));
 
                         // Inserindo o usuário de forma efetiva na lista.
                         //this.inserirUsuario(listaDE, objeto);
-
+                        criarNoCandidato(objeto, listaDE);
                     }
 
                     return true;
@@ -803,39 +812,31 @@ public class DadosC {
         return false;
         
     }
-    public boolean escreverArquivoTeste(String[] listaDE){
-        
-        // Local onde será criado o arquivo e os dados serão gravados.
-        File arquivoT = new File("C:\\Users\\Bruno\\Documents\\ArquivoTeste.txt");
+    public boolean criarNoCandidato(DadosCandidato dado, DadosC listaDE){
 
-        try {
-            
-            
-            FileWriter fw = new FileWriter(arquivoT, true);
+        No novoNo = new No(dado.getAno(),dado.getTurno(),dado.getDescE(),dado.getUf(),dado.getMunicipio(),
+                           dado.getCodigoC(),dado.getCargo(),dado.getNome(),dado.getCpf(),dado.getSiglaP(),dado.getPartido(),dado.getComposicaoLegenda(),dado.getNasc(),dado.getSexo());
+            // Caso 1: Lista vazia
+                if (listaDE.isEmpty(listaDE)){
 
-            // BufferedWriter -> o comando de escrita vai para um buffer e
-            // o conteúdo armazenado será enviado de uma só vez para o Writer.
-            BufferedWriter bw = new BufferedWriter(fw);
-            if(arquivoT.exists()){
-                arquivoT.delete();
-                arquivoT.createNewFile();
-            }
-            // Percorrendo a lista duplamente encadeada.
-                for(int i = 0; i <= 30;i++){
-                   fw.write(listaDE[i]);
+                    novoNo.setPonteiroAnterior(null);
+                    novoNo.setProximoPonteiro(null);
+
+                    listaDE.setInicioDaLista(novoNo);
+                    listaDE.setFinalDaLista(novoNo);
+
+                }else{
+                    //Depois que a lista não estiver vazia, será preenchida pelo início
+                        novoNo.setProximoPonteiro(null);
+                        novoNo.setPonteiroAnterior(listaDE.getFinalDaLista());
+
+                        listaDE.getFinalDaLista().setProximoPonteiro(novoNo);
+                        listaDE.setFinalDaLista(novoNo);
+
                 }
 
-            
-            // Fechando os componentes
-            bw.close();
-            fw.close();
-            
-        } catch (IOException ex) {
-            
-            ex.printStackTrace();
-            
-        }
-        
+                listaDE.setQuantidadeDeNos(listaDE.getQuantidadeDeNos()+1);
+               
         return true;    
         
     }

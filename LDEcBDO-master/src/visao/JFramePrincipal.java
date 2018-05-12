@@ -731,8 +731,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jBSelecionarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelecionarBDActionPerformed
 
         // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-        if(this.listaDE.selecionarUsuariosBD(this.listaDE)){
+        if(this.listaDE2.selecionarUsuariosBD(this.listaDE2)){
             JOptionPane.showMessageDialog(null, "Dados resgatados do BD Oracle com sucesso...");
+            
             //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
         }else
             JOptionPane.showMessageDialog(null, "Erro ao resgatar os dados no BD Oracle...");
@@ -741,6 +742,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBGravarBD.setEnabled(true);      // habilitando o botão Gravar BD
         jBAlterarBD.setEnabled(true);     // habilitando o botão Alterar BD
         jBDeletarBD.setEnabled(true);     // habilitando o botão DeletarBD
+        jBEscreverCSV.setEnabled(true);  // Habilitando o botão CSV
         
     }//GEN-LAST:event_jBSelecionarBDActionPerformed
 

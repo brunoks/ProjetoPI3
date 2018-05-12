@@ -9,7 +9,7 @@ public class DadosCandidato {
     /*###################################
               ATRIBUTOS DA CLASSE
       ###################################*/
-    private int codigo;
+
     
     //tabela cargo
     private String cargo;
@@ -100,12 +100,6 @@ public class DadosCandidato {
         this.ano = ano;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-    
-    
-    
     public void setTipoE(String tipoE) {
         this.tipoE = tipoE;
     }
@@ -147,10 +141,6 @@ public class DadosCandidato {
         return siglaP;
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-        
     public String getComposicaoLegenda() {
         return composicaoLegenda;
     }

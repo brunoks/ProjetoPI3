@@ -135,7 +135,7 @@ public class DadosCandidatoDAO {
             //String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
             //              String cpf,String siglaP,String partido,String composicaoLegenda,
             //             String nasc,String sexo
-            this.getPstmt().setLong(1, (_dados.getCodigo() + 1));
+
             this.getPstmt().setString(2, _dados.getAno());
             this.getPstmt().setString(3, _dados.getTurno());
             this.getPstmt().setString(4, _dados.getDescE());
@@ -172,14 +172,13 @@ public class DadosCandidatoDAO {
     public ResultSet selecionarUsuariosBD() {
         
         // Definindo a string sql
-        this.setSql("SELECT *FROM usuario");
+        this.setSql("SELECT * FROM CANDIDATO");
         
         try {
             
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setStmt(this.getConn().createStatement());
             this.setRs(this.getStmt().executeQuery(this.getSql()));
-            
             return this.getRs();
             
         }catch(SQLException e) {

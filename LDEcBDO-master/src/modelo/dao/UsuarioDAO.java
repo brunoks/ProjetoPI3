@@ -163,6 +163,7 @@ public class UsuarioDAO {
             this.setStmt(this.getConn().createStatement());
             this.setRs(this.getStmt().executeQuery(this.getSql()));
             
+            JOptionPane.showMessageDialog(null, this.getRs());
             return this.getRs();
             
         }catch(SQLException e) {
