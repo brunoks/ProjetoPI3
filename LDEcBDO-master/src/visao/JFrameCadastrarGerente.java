@@ -7,7 +7,6 @@ package visao;
 
 import controle.UsuarioC;
 import java.sql.Date;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import modelo.dominio.No;
 
@@ -17,7 +16,8 @@ import modelo.dominio.No;
  */
 public class JFrameCadastrarGerente extends javax.swing.JFrame {
 
-    private UsuarioC ListaCG; 
+    private UsuarioC ListaCG;
+    private String parametroCPF;
     JFramePrincipal jfp = new JFramePrincipal();
     public JFrameCadastrarGerente() {
         initComponents();
@@ -51,8 +51,11 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
         jBCadastrar = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
+        jTXPesquisarCPF = new javax.swing.JTextField();
+        jLCpf = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPCodigo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPCodigo.setToolTipText("");
@@ -69,6 +72,19 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
         jCSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Masculino", "Feminino" }));
 
         jLSexo.setText("Sexo:");
+
+        jTXNome.setText("sadsa");
+        jTXNome.setToolTipText("");
+        jTXNome.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jTXNomeComponentAdded(evt);
+            }
+        });
+        jTXNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTXNomeActionPerformed(evt);
+            }
+        });
 
         jLSexo1.setText("Login:");
 
@@ -148,7 +164,7 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
                     .addComponent(jTXEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLEmail))
                 .addGap(18, 18, 18)
-                .addGroup(jPCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLSexo))
                 .addGap(22, 22, 22)
@@ -161,6 +177,8 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
                     .addComponent(jPSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
+
+        jTXNome.getAccessibleContext().setAccessibleName("");
 
         jBCadastrar.setText("Cadastrar");
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -183,19 +201,27 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
             }
         });
 
+        jLCpf.setText("Digite o CPF");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jPCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTXPesquisarCPF)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLCpf)))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,10 +230,14 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
                 .addComponent(jPCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(25, 25, 25)
                 .addComponent(jBCadastrar)
                 .addGap(18, 18, 18)
                 .addComponent(jBAlterar)
+                .addGap(18, 18, 18)
+                .addComponent(jTXPesquisarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLCpf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBCancelar)
                 .addGap(23, 23, 23))
@@ -252,7 +282,7 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
             String nascimento = jTXNascimento.getText().trim();
             String email = jTXEmail.getText().trim();
             String login = jTXLogin.getText().trim();
-            String senha = jPSenha.getPassword().toString().trim();
+            String senha = new String(jPSenha.getPassword());
             Object sexo = jCSexo.getSelectedItem();
             Date date = new Date(System.currentTimeMillis());
             String data = date.toString();
@@ -284,39 +314,39 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTXCodigoActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        jFrameCPF jfcpf = new jFrameCPF();
         
-        jfcpf.setVisible(true);
         
-    }//GEN-LAST:event_jBAlterarActionPerformed
-    void pegarCPF(String cpf){
-        
+        this.parametroCPF = this.jTXPesquisarCPF.getText();
+        JOptionPane.showMessageDialog(null, this.parametroCPF);
         UsuarioC usuario = new UsuarioC();
         
-        usuario.selecionarUsuariosBD(usuario);
-        No pAux = usuario.getInicioDaLista();
-
-        for(int i = 0; i <= usuario.getQuantidadeDeNos(); i++){
+        if(usuario.pegarCPF(usuario,parametroCPF)){
             
-            if((pAux.getObjeto().getCpf().toString()).equals(cpf.toString())){
-                jTXCodigo.setText(String.valueOf(pAux.getObjeto().getCodigoUsuario()));
-                jTXNome.setText(pAux.getObjeto().getNomeUsuario());
-                jTXCPF.setText(pAux.getObjeto().getCpf());
-                jTXNascimento.setText(pAux.getObjeto().getNascimento());
-                jTXEmail.setText(pAux.getObjeto().getEmail());
-                jCSexo.setSelectedItem(pAux.getObjeto().getSexo());
-                jTXLogin.setText(pAux.getObjeto().getLoginUsuario());
-                jPSenha.setText(pAux.getObjeto().getSenhaUsuario());
-                break;
-            }else{
-                pAux = pAux.getProximoPonteiro();
-            }
+            No pAux = usuario.getLista(usuario);
+            jTXNome.setText(pAux.getObjeto().getNomeUsuario());
+            jTXCodigo.setText(String.valueOf(pAux.getObjeto().getCodigoUsuario()));
+            jTXCPF.setText(pAux.getObjeto().getCpf());
+            jTXNascimento.setText(pAux.getObjeto().getNascimento());
+            jTXEmail.setText(pAux.getObjeto().getEmail());
+            jCSexo.setEnabled(false);
+            jTXLogin.setText(pAux.getObjeto().getLoginUsuario());
+            jPSenha.setText(pAux.getObjeto().getSenhaUsuario());
+                        
+        }else{
+            JOptionPane.showMessageDialog(null, "CPF não encontrado");
         }
         
-    }
-    /**
-     * @param args the command line arguments
-     */
+    }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void jTXNomeComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTXNomeComponentAdded
+        
+    }//GEN-LAST:event_jTXNomeComponentAdded
+
+    private void jTXNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTXNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTXNomeActionPerformed
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -355,6 +385,7 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     private javax.swing.JButton jBCancelar;
     private javax.swing.JComboBox<String> jCSexo;
     private javax.swing.JLabel jLCPF;
+    private javax.swing.JLabel jLCpf;
     private javax.swing.JLabel jLEmail;
     private javax.swing.JLabel jLNascimento;
     private javax.swing.JLabel jLNome;
@@ -370,5 +401,6 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     private javax.swing.JTextField jTXLogin;
     private javax.swing.JTextField jTXNascimento;
     private javax.swing.JTextField jTXNome;
+    private javax.swing.JTextField jTXPesquisarCPF;
     // End of variables declaration//GEN-END:variables
 }

@@ -793,5 +793,23 @@ public class UsuarioC {
         listaDE.setQuantidadeDeNos(listaDE.getQuantidadeDeNos()+1);
         
     }
+    public boolean pegarCPF(UsuarioC _usuario,String cpf){
+        
+            _usuario.selecionarUsuariosBD(_usuario);
+            No pAux = _usuario.getInicioDaLista();
+            boolean search = true;
+            while(search != true){
+
+                if((pAux.getObjeto().getCpf()).equals(cpf)){
+                    search = true;
+                    break;
+                }else{
+                    pAux = pAux.getProximoPonteiro();
+                    search = false;
+                }
+                System.out.println(search);
+            }
+            return search;
+      }
     
 }
