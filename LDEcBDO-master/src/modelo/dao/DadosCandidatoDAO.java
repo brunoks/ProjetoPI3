@@ -151,7 +151,6 @@ public class DadosCandidatoDAO {
             this.getPstmt().setString(13, _dados.getNasc().replaceAll("\"", ""));
             this.getPstmt().setString(14, _dados.getSexo().replaceAll("\"", ""));
             
-            
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
@@ -172,7 +171,7 @@ public class DadosCandidatoDAO {
     public ResultSet selecionarDadosBD() {
         
         // Definindo a string sql
-        this.setSql("SELECT * FROM CANDIDATO");
+        this.setSql("SELECT * FROM BRUNO.CANDIDATO WHERE UF = 'AM'");
         
         try {
             
@@ -191,6 +190,7 @@ public class DadosCandidatoDAO {
         
     }
     
+        
     // Fechando a conexão com o banco de dados Oracle
     public void fecharConexaoOracle(){
         

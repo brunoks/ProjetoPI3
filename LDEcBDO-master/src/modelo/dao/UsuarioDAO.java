@@ -122,18 +122,23 @@ public class UsuarioDAO {
     public boolean gravarUsuariosBD(Usuario _usuario) {
         
         // Definindo a string sql
-        this.setSql("INSERT INTO usuario VALUES (?, ?, ?, ?)");
+        this.setSql("INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         try {
             
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
-            
+            //c,n,l,s,cpf,nascimento,sexo,data_criacao, email
             // Setando os parâmetros que irão substituir '?'
-            this.getPstmt().setLong(1, (_usuario.getCodigoUsuario()+1));
+            this.getPstmt().setLong(1, (_usuario.getCodigoUsuario()));
             this.getPstmt().setString(2, _usuario.getNomeUsuario());
             this.getPstmt().setString(3, _usuario.getLoginUsuario());
             this.getPstmt().setString(4, _usuario.getSenhaUsuario());
+            this.getPstmt().setString(5, _usuario.getCpf());
+            this.getPstmt().setString(6, _usuario.getNascimento());
+            this.getPstmt().setString(7, _usuario.getSexo());
+            this.getPstmt().setString(8, _usuario.getData_criaçao().toString());
+            this.getPstmt().setString(9, _usuario.getEmail());
             
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
@@ -155,7 +160,7 @@ public class UsuarioDAO {
     public ResultSet selecionarUsuariosBD() {
         
         // Definindo a string sql
-        this.setSql("SELECT *FROM usuario");
+        this.setSql("SELECT * FROM usuario");
         
         try {
             
@@ -163,7 +168,6 @@ public class UsuarioDAO {
             this.setStmt(this.getConn().createStatement());
             this.setRs(this.getStmt().executeQuery(this.getSql()));
             
-            JOptionPane.showMessageDialog(null, this.getRs());
             return this.getRs();
             
         }catch(SQLException e) {

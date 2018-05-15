@@ -154,10 +154,10 @@ public class UsuarioC {
     }
     
     // Método para inserir na lista.
-    public boolean inserirDados(UsuarioC listaDE, int c, String n){
+    public boolean inserirDados(UsuarioC listaDE, int c,String n, String cpf, String nasc, String data, String email, String l, String senha, String sexo){
         
         // Criando o nó e inserindo as informações
-        No novoNo = new No(c,n);
+        No novoNo = new No(c,n,l,senha,cpf,nasc,sexo,data,email);
             
         // Caso 1: Lista vazia
         if (listaDE.isEmpty(listaDE)){
@@ -499,7 +499,7 @@ public class UsuarioC {
                 // Cria-se uma instância da classe 'No'.
                 // Acessa o vetor 'dadosTemporarios' e passa o conteúdo de cada posição
                 // para a classe 'No'.
-                No novoNo = new No(Integer.parseInt(dadosTemporarios[0]),dadosTemporarios[1],dadosTemporarios[2],dadosTemporarios[3]);
+                No novoNo = new No(Integer.parseInt(dadosTemporarios[0]),dadosTemporarios[1],dadosTemporarios[2],dadosTemporarios[3],dadosTemporarios[4],dadosTemporarios[5],dadosTemporarios[6],dadosTemporarios[7],dadosTemporarios[8]);
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
@@ -736,6 +736,11 @@ public class UsuarioC {
                         objeto.setNomeUsuario(this.getRs().getString("nome"));
                         objeto.setLoginUsuario(this.getRs().getString("login"));
                         objeto.setSenhaUsuario(this.getRs().getString("senha"));
+                        objeto.setCpf(this.getRs().getString("cpf"));
+                        objeto.setNascimento(this.getRs().getString("nascimento"));
+                        objeto.setSexo(this.getRs().getString("sexo"));
+                        objeto.setData_criaçao(this.getRs().getString("data_criacao"));
+                        objeto.setEmail(this.getRs().getString("email"));
 
                         // Inserindo o usuário de forma efetiva na lista.
                         this.inserirUsuario(listaDE, objeto);

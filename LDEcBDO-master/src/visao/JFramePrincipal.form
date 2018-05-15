@@ -84,14 +84,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jBLL" alignment="0" pref="122" max="32767" attributes="0"/>
+              <Component id="jBLL" alignment="0" max="32767" attributes="0"/>
               <Component id="jBCL" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jBCL" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBCL" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jBLL" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -234,9 +234,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jBInserir" max="32767" attributes="0"/>
-              <Component id="jBRemover" alignment="0" max="32767" attributes="0"/>
-              <Component id="jBAlterar" alignment="0" max="32767" attributes="0"/>
+              <Component id="jBCadastrar" max="32767" attributes="0"/>
+              <Component id="jBForgout" alignment="0" max="32767" attributes="0"/>
+              <Component id="jBEditarCadastro" alignment="0" max="32767" attributes="0"/>
               <Component id="jBPesquisar" max="32767" attributes="0"/>
               <Component id="jBAcessar" alignment="0" max="32767" attributes="0"/>
           </Group>
@@ -244,11 +244,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jBInserir" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBCadastrar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jBRemover" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBForgout" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jBAlterar" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBEditarCadastro" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jBPesquisar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -258,31 +258,28 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jBInserir">
+        <Component class="javax.swing.JButton" name="jBCadastrar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Inserir"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Cadastrar Gerente"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBInserirActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBCadastrarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jBRemover">
+        <Component class="javax.swing.JButton" name="jBForgout">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Remover"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Esqueci a senha"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBRemoverActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBForgoutActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jBAlterar">
+        <Component class="javax.swing.JButton" name="jBEditarCadastro">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Alterar"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Editar Cadastro"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBAlterarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBEditarCadastroActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBPesquisar">
@@ -408,8 +405,8 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="Eleitorado"/>
-                <StringItem index="1" value="Candidato"/>
+                <StringItem index="0" value="Candidato"/>
+                <StringItem index="1" value="Eleitorado"/>
               </StringArray>
             </Property>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>

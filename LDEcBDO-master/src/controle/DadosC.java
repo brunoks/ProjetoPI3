@@ -332,7 +332,7 @@ public class DadosC {
     
     // Método para pesquisar um determinado código e caso seja encontrado,
     // será retornada a referência do nó para o método 'alterarDados'.
-    private No pesquisarElementoA(UsuarioC listaDE, int codigoAntigo){
+    private No pesquisarElementoA(UsuarioC listaDE, int cpf){
         
         if (listaDE.isEmpty(listaDE)){
             
@@ -344,7 +344,7 @@ public class DadosC {
             
             while (ponteiroAuxiliar != null){
                 
-                if (codigoAntigo == ponteiroAuxiliar.getObjeto().getCodigoUsuario()){
+                if (cpf == ponteiroAuxiliar.getObjeto().getCodigoUsuario()){
                     
                     break;                    
                     
@@ -373,7 +373,7 @@ public class DadosC {
        2 - Pesquisando pela chave (código) e encontrando o usuário,
            alteram-se os dados. */
     
-    public void alterarDados(UsuarioC listaDE, int codigoAntigo, int novoCodigo, String novoNome){
+    public void alterarCadastro(UsuarioC listaDE, int codigoAntigo, int novoCodigo, String novoNome){
         
         // Resgatando a referência do nó que contém o código pesquisado
         No ponteiro = this.pesquisarElementoA(listaDE,codigoAntigo);
@@ -508,6 +508,7 @@ public class DadosC {
                 // Pega a linha e verifica se existe o delimitador ';' para separar os dados
                 // e jogá-los (se existir) no vetor 'dadosTemporarios'.
                 //this.a = Arrays.toString(this.linha.split(";"));
+                //this.a = this.linha.replaceAll("NULO", "Dado Nulo");
                 this.d = this.linha.split(";");
 
                 
@@ -608,7 +609,8 @@ public class DadosC {
             No pAux = listaDE.getInicioDaLista();            
             FileWriter fw = new FileWriter(this.arquivoJson, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            for(int i = 0; i < listaDE.getQuantidadeDeNos(); i++){
+            int i = 0;
+            while(pAux.getProximoPonteiro() != null){
                 
                 tempos.put(jsonObject.put("nome", pAux.getObjctDados().getNome()));
                 tempos.put(jsonObject.put("cpf", pAux.getObjctDados().getCpf()));
@@ -625,16 +627,13 @@ public class DadosC {
                 tempos.put(jsonObject.put("ano", pAux.getObjctDados().getAno()));
                 tempos.put(jsonObject.put("legenda", pAux.getObjctDados().getComposicaoLegenda()));
                 
-            if(i == listaDE.getQuantidadeDeNos() -  1) {
-                bw.write(tempos.toString());
-            }else{
-                bw.write(tempos.toString() + ",");
-            }
-                
+                i++;
                 pAux = pAux.getProximoPonteiro();
-                System.out.println(tempos.toString());
+                System.out.println(i);
                
             }
+            bw.write(tempos.toString());
+                
             bw.close();
             fw.close();           
             

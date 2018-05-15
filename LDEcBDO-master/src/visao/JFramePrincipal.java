@@ -54,9 +54,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLPosicao = new javax.swing.JLabel();
         jTFPosicao = new javax.swing.JTextField();
         jPanelOperacoes = new javax.swing.JPanel();
-        jBInserir = new javax.swing.JButton();
-        jBRemover = new javax.swing.JButton();
-        jBAlterar = new javax.swing.JButton();
+        jBCadastrar = new javax.swing.JButton();
+        jBForgout = new javax.swing.JButton();
+        jBEditarCadastro = new javax.swing.JButton();
         jBPesquisar = new javax.swing.JButton();
         jBAcessar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -95,13 +95,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanelLista.setLayout(jPanelListaLayout);
         jPanelListaLayout.setHorizontalGroup(
             jPanelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBLL, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+            .addComponent(jBLL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBCL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelListaLayout.setVerticalGroup(
             jPanelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelListaLayout.createSequentialGroup()
-                .addComponent(jBCL)
+                .addComponent(jBCL, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBLL))
         );
@@ -168,27 +168,24 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jPanelOperacoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operações", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBInserir.setText("Inserir");
-        jBInserir.setEnabled(false);
-        jBInserir.addActionListener(new java.awt.event.ActionListener() {
+        jBCadastrar.setText("Cadastrar Gerente");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBInserirActionPerformed(evt);
+                jBCadastrarActionPerformed(evt);
             }
         });
 
-        jBRemover.setText("Remover");
-        jBRemover.setEnabled(false);
-        jBRemover.addActionListener(new java.awt.event.ActionListener() {
+        jBForgout.setText("Esqueci a senha");
+        jBForgout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBRemoverActionPerformed(evt);
+                jBForgoutActionPerformed(evt);
             }
         });
 
-        jBAlterar.setText("Alterar");
-        jBAlterar.setEnabled(false);
-        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+        jBEditarCadastro.setText("Editar Cadastro");
+        jBEditarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAlterarActionPerformed(evt);
+                jBEditarCadastroActionPerformed(evt);
             }
         });
 
@@ -212,20 +209,20 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanelOperacoes.setLayout(jPanelOperacoesLayout);
         jPanelOperacoesLayout.setHorizontalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBInserir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBForgout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBEditarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBAcessar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelOperacoesLayout.setVerticalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperacoesLayout.createSequentialGroup()
-                .addComponent(jBInserir)
+                .addComponent(jBCadastrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBRemover)
+                .addComponent(jBForgout)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBAlterar)
+                .addComponent(jBEditarCadastro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,7 +265,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        jCBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Eleitorado", "Candidato" }));
+        jCBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Candidato", "Eleitorado" }));
         jCBTipo.setName(""); // NOI18N
         jCBTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -404,9 +401,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBCL.setEnabled(false);  // Desabilitando o botão Criar lista
 
         jBLL.setEnabled(true);        // habilitando o botão Limpar lista
-        jBInserir.setEnabled(true);   // habilitando o botão Inserir
-        jBRemover.setEnabled(true);   // habilitando o botão Remover
-        jBAlterar.setEnabled(true);   // habilitando o botão Alterar
+        jBEditarCadastro.setEnabled(true);   // habilitando o botão Alterar
         jBPesquisar.setEnabled(true); // habilitando o botão Pesquisar
         jBAcessar.setEnabled(true);   // habilitando o botão Acessar
         jBLerCSV.setEnabled(true);    // habilitando o botão CSV
@@ -430,9 +425,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
         
         this.dtm.setNumRows(0); // Definindo a quantidade de linhas do JTableDados
         
-        jBInserir.setEnabled(false);      // Desabilitando o botão Inserir
-        jBRemover.setEnabled(false);      // Desabilitando o botão Remover
-        jBAlterar.setEnabled(false);      // Desabilitando o botão Alterar
+        jBForgout.setEnabled(false);      // Desabilitando o botão Remover
+        jBEditarCadastro.setEnabled(false);      // Desabilitando o botão Alterar
         jBPesquisar.setEnabled(false);    // Desabilitando o botão Pesquisar
         jBAcessar.setEnabled(false);      // Desabilitando o botão Acessar
         
@@ -495,42 +489,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
 //    }
 //    
     // Método da interface JFramePrincipal para inserir os dados na lista
-    private void jBInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInserirActionPerformed
-
-        String erro = "";
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         
-        // Verificando se os campos da interface estão sem valor,
-        // caso estejam, será montada uma string com as informações de erro.
-        if (jTFPosicao.getText().trim().isEmpty()) erro = erro + "Campo Posição não preenchido...\n";
-        if(jTFCodigo.getText().trim().isEmpty())   erro = erro + "Campo código não preenchido...\n";
-        if (jTFNome.getText().isEmpty())           erro = erro + "campo nome não preenchido...";
+        JFrameCadastrarGerente jfp = new JFrameCadastrarGerente();
+        jfp.setVisible(true);
+            
+        dispose();
         
-        // Verificando se o atributo erro está vazio
-        if(erro.length() == 0){
-            
-            // Resgatando os valores dos campos do painel dados.
-            int posicao = Integer.parseInt(jTFPosicao.getText().trim()); 
-            int codigo  = Integer.parseInt(jTFCodigo.getText().trim());
-            String nome = jTFNome.getText();
-            
-            // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-            if(this.listaDE.inserirDados(this.listaDE, codigo, nome)){
-                
-                // Cria-se uma linha com campos vazios na tabela JTableDados
-                this.dtm.addRow(new Object[]{null,null,null});
-                
-                // Chamando o método para mostrar a lista
-                this.mostrarLista();
-                
-            }else{
-                JOptionPane.showMessageDialog(null, "Não foi possível inserir os dados...");
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, erro);
-        }
         
-    }//GEN-LAST:event_jBInserirActionPerformed
+    }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
 
@@ -578,20 +545,20 @@ public class JFramePrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBAcessarActionPerformed
 
-    private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
+    private void jBForgoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBForgoutActionPerformed
         
         // Pegando o valor presente no campo de texto jTFPosicao
-        String posicao = jTFPosicao.getText().trim();
+        String cpf = jTFPosicao.getText().trim();
         
         // Verificando se o campo de texto não está vazio
-        if (!posicao.isEmpty()){        
+        if (!cpf.isEmpty()){        
             
             // Verifica se é possível remover na lista.
-            if (this.listaDE.removerDados(this.listaDE, Integer.parseInt(posicao))){
+            if (this.listaDE.removerDados(this.listaDE, Integer.parseInt(cpf))){
                 
                 // Se foi possível remover, basta apresentar o JTableDados atualizado.
                 // removeRow = remove uma linha do JTableDados 
-                dtm.removeRow(Integer.parseInt(posicao));
+                dtm.removeRow(Integer.parseInt(cpf));
                 
                 // Chamando o método para mostrar a lista
                 this.mostrarLista();
@@ -604,9 +571,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo posição vazio...");
         }
         
-    }//GEN-LAST:event_jBRemoverActionPerformed
+    }//GEN-LAST:event_jBForgoutActionPerformed
 
-    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+    private void jBEditarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarCadastroActionPerformed
 
         String erro = "";
         
@@ -652,7 +619,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, erro);
         }
 
-    }//GEN-LAST:event_jBAlterarActionPerformed
+    }//GEN-LAST:event_jBEditarCadastroActionPerformed
 
     private void jBLerCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLerCSVActionPerformed
 
@@ -785,17 +752,17 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAcessar;
-    private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBAlterarBD;
     private javax.swing.JButton jBCL;
+    private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBDeletarBD;
+    private javax.swing.JButton jBEditarCadastro;
     private javax.swing.JButton jBEscreverCSV;
+    private javax.swing.JButton jBForgout;
     private javax.swing.JButton jBGravarBD;
-    private javax.swing.JButton jBInserir;
     private javax.swing.JButton jBLL;
     private javax.swing.JButton jBLerCSV;
     private javax.swing.JButton jBPesquisar;
-    private javax.swing.JButton jBRemover;
     private javax.swing.JButton jBSelecionarBD;
     private javax.swing.JComboBox<String> jCBTipo;
     private javax.swing.JLabel jLCodigo;

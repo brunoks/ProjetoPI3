@@ -35,8 +35,8 @@ public class No {
         this.setObjctDados(new DadosCandidato(ano,turno,descE,uf,municipio,codigoC,cargo,nome,cpf,siglaP,partido,composicaoLegenda,nasc,sexo));
     }
     
-    public No(int c, String n, String l, String s) {
-        this.setObjeto(new Usuario(c,n,l,s));
+    public No(int c, String n, String l, String s, String cpf, String nascimento, String sexo, String data_criacao, String email) {
+        this.setObjeto(new Usuario(c,n,l,s,cpf,nascimento,sexo,data_criacao, email));
     }
     
     /*###################################
