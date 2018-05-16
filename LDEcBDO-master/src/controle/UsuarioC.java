@@ -793,23 +793,71 @@ public class UsuarioC {
         listaDE.setQuantidadeDeNos(listaDE.getQuantidadeDeNos()+1);
         
     }
-    public boolean pegarCPF(UsuarioC _usuario,String cpf){
+    public boolean pegarCPF(UsuarioC _usuario,String cpf, No pAux){
         
             _usuario.selecionarUsuariosBD(_usuario);
-            No pAux = _usuario.getInicioDaLista();
-            boolean search = true;
-            while(search != true){
+            pAux = _usuario.getInicioDaLista();
+            for(int i = 0; i <= _usuario.getQuantidadeDeNos(); i++){
 
                 if((pAux.getObjeto().getCpf()).equals(cpf)){
-                    search = true;
-                    break;
+                    JOptionPane.showMessageDialog(null, "CPF encontrado");
+                    _usuario.setInicioDaLista(pAux);
+                    _usuario.setFinalDaLista(pAux);
+                    return true;
                 }else{
                     pAux = pAux.getProximoPonteiro();
-                    search = false;
                 }
-                System.out.println(search);
             }
-            return search;
+            return true;
       }
     
+    public boolean alterarUsuarioBD(UsuarioC listaDE, int codigo){
+        
+        // Criando instância da classe UsuarioDAO.
+        UsuarioDAO uDAO = new UsuarioDAO();
+        
+        // Verificando se é possível conectar ao banco de dados Oracle
+        // Se for possível, o atributo conn será diferente de 'null'
+        if((this.conn = uDAO.conectarBanco()) != null){
+            
+            // Pegando o início da lista duplamente encadeada, se existir.
+            No proximoUsuario = listaDE.getLista(listaDE);
+        
+            // O primeiro nó da lista, de forma abstrata, está na posição ZERO.
+            int i = 0;
+
+            // Enquanto o ponteiro atual for diferente de null e
+            // for menor que a quantidade de nós
+            while ((proximoUsuario != null) && (i < listaDE.getQuantidadeDeNos())){
+
+                // Se não foi possível gravar no banco de dados Oracle,
+                // retorna falso e então, executaremos o comando 'break' para
+                // sair das estruturas 'if' e 'while'.
+                // Observação: será passado como parâmetro apenas o campo
+                // objeto (onde contém as informações do usuário atual) do nó.
+                if(!uDAO.alterarUsuariosBD(proximoUsuario.getObjeto(), codigo)){
+
+                    break;
+
+                }
+                
+                // Vai para o próximo nó.
+                proximoUsuario = proximoUsuario.getProximoPonteiro();
+                i++;
+
+            }
+            
+            // Fechando a conexão ao banco de dados
+            uDAO.fecharConexaoOracle();
+            
+            // Setando null para o objeto uDAO
+            uDAO = null;
+            
+            return true;
+            
+        }
+        
+        return false;
+        
+    }
 }

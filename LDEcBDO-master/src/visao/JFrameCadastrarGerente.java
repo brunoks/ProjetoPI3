@@ -22,10 +22,10 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     public JFrameCadastrarGerente() {
         initComponents();
         
+        this.ListaCG = new UsuarioC();
         setLocationRelativeTo(null);
     }
 
-   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,8 +51,7 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
         jBCadastrar = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
-        jTXPesquisarCPF = new javax.swing.JTextField();
-        jLCpf = new javax.swing.JLabel();
+        jBAlterarCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -73,7 +72,6 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
 
         jLSexo.setText("Sexo:");
 
-        jTXNome.setText("sadsa");
         jTXNome.setToolTipText("");
         jTXNome.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -187,7 +185,7 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
             }
         });
 
-        jBAlterar.setText("Alterar Cadastro");
+        jBAlterar.setText("Pesuisar CPF");
         jBAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBAlterarActionPerformed(evt);
@@ -201,27 +199,33 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
             }
         });
 
-        jLCpf.setText("Digite o CPF");
+        jBAlterarCadastro.setText("Alterar Cadastro");
+        jBAlterarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTXPesquisarCPF)))
+                        .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLCpf)))
-                .addGap(15, 15, 15))
+                        .addGap(20, 20, 20)
+                        .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBAlterarCadastro)
+                            .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,9 +239,7 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jBAlterar)
                 .addGap(18, 18, 18)
-                .addComponent(jTXPesquisarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLCpf)
+                .addComponent(jBAlterarCadastro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBCancelar)
                 .addGap(23, 23, 23))
@@ -259,7 +261,6 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         
         this.ListaCG = new UsuarioC();
-        
         String erro = "";
         // Verificando se os campos da interface estão sem valor,
         // caso estejam, será montada uma string com as informações de erro.
@@ -316,22 +317,19 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         
         
-        this.parametroCPF = this.jTXPesquisarCPF.getText();
-        JOptionPane.showMessageDialog(null, this.parametroCPF);
-        UsuarioC usuario = new UsuarioC();
-        
-        if(usuario.pegarCPF(usuario,parametroCPF)){
+        this.parametroCPF = this.jTXCPF.getText();
+        No pAux = null;
+        if(this.ListaCG.pegarCPF(this.ListaCG,parametroCPF,pAux)){
             
-            No pAux = usuario.getLista(usuario);
+            pAux = ListaCG.getInicioDaLista();
             jTXNome.setText(pAux.getObjeto().getNomeUsuario());
             jTXCodigo.setText(String.valueOf(pAux.getObjeto().getCodigoUsuario()));
             jTXCPF.setText(pAux.getObjeto().getCpf());
             jTXNascimento.setText(pAux.getObjeto().getNascimento());
             jTXEmail.setText(pAux.getObjeto().getEmail());
-            jCSexo.setEnabled(false);
+            jCSexo.setSelectedIndex(pAux.getObjeto().getSexo() == "Feminino" ? 1 : 2);
             jTXLogin.setText(pAux.getObjeto().getLoginUsuario());
             jPSenha.setText(pAux.getObjeto().getSenhaUsuario());
-                        
         }else{
             JOptionPane.showMessageDialog(null, "CPF não encontrado");
         }
@@ -345,6 +343,59 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     private void jTXNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTXNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTXNomeActionPerformed
+
+    private void jBAlterarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarCadastroActionPerformed
+        
+        this.ListaCG.limparLista(this.ListaCG);
+        String erro = "";
+        // Verificando se os campos da interface estão sem valor,
+        // caso estejam, será montada uma string com as informações de erro.
+            if (jTXNome.getText().trim().isEmpty()) erro = erro + "Campo Nome não preenchido...\n";
+            if(jTXCPF.getText().trim().isEmpty())   erro = erro + "Campo CPF não preenchido...\n";
+            if (jTXNascimento.getText().isEmpty())           erro = erro + "campo nascimento não preenchido...";
+            if (jTXEmail.getText().isEmpty())           erro = erro + "campo Email não preenchido...";
+            if (jTXLogin.getText().isEmpty())           erro = erro + "campo Login não preenchido...";
+            if (jPSenha.getText().isEmpty())           erro = erro + "campo Senha não preenchido...";
+            if (jCSexo.getSelectedItem().equals("Selecionar"))           erro = erro + "Sexo não selecionado...";
+        
+        
+        // Verificando se o atributo erro está vazio
+        if(erro.length() == 0){
+            
+            // Resgatando os valores dos campos do painel dados.
+            int codigo = Integer.parseInt(jTXCodigo.getText().trim());
+            String nome = jTXNome.getText().trim(); 
+            String cpf  = jTXCPF.getText().trim();
+            String nascimento = jTXNascimento.getText().trim();
+            String email = jTXEmail.getText().trim();
+            String login = jTXLogin.getText().trim();
+            String senha = new String(jPSenha.getPassword());
+            Object sexo = jCSexo.getSelectedItem();
+            Date date = new Date(System.currentTimeMillis());
+            String data = date.toString();
+            
+
+
+            // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
+            if(this.ListaCG.inserirDados(this.ListaCG,codigo, nome,cpf,nascimento,data,email,login,senha,sexo.toString())){
+                
+                if(this.ListaCG.alterarUsuarioBD(this.ListaCG,codigo)) {
+                    
+                JOptionPane.showMessageDialog(null, "Dados do Gerente alterarado com sucesso!!");
+                jfp.setVisible(true);
+                dispose();
+                
+                }else{
+                    JOptionPane.showMessageDialog(null, "Banco indisponível no momento!!");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar novo gerente...");
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, erro);
+        }
+    }//GEN-LAST:event_jBAlterarCadastroActionPerformed
     
     
     public static void main(String args[]) {
@@ -381,11 +432,11 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
+    private javax.swing.JButton jBAlterarCadastro;
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBCancelar;
     private javax.swing.JComboBox<String> jCSexo;
     private javax.swing.JLabel jLCPF;
-    private javax.swing.JLabel jLCpf;
     private javax.swing.JLabel jLEmail;
     private javax.swing.JLabel jLNascimento;
     private javax.swing.JLabel jLNome;
@@ -401,6 +452,5 @@ public class JFrameCadastrarGerente extends javax.swing.JFrame {
     private javax.swing.JTextField jTXLogin;
     private javax.swing.JTextField jTXNascimento;
     private javax.swing.JTextField jTXNome;
-    private javax.swing.JTextField jTXPesquisarCPF;
     // End of variables declaration//GEN-END:variables
 }

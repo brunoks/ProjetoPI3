@@ -27,24 +27,26 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jPCodigo" min="-2" pref="283" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jBCadastrar" max="32767" attributes="0"/>
-                          <Component id="jBAlterar" max="32767" attributes="0"/>
-                          <Component id="jBCancelar" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
-                          <Component id="jTXPesquisarCPF" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jBCancelar" min="-2" pref="113" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="jLCpf" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="jBCadastrar" min="-2" pref="113" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jBAlterarCadastro" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBAlterar" min="-2" pref="113" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,9 +63,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jBAlterar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jTXPesquisarCPF" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLCpf" min="-2" max="-2" attributes="0"/>
+              <Component id="jBAlterarCadastro" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jBCancelar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -230,7 +230,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTXNome">
           <Properties>
-            <Property name="text" type="java.lang.String" value="sadsa"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <AccessibilityProperties>
@@ -283,11 +282,14 @@
     </Component>
     <Component class="javax.swing.JButton" name="jBAlterar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Alterar Cadastro"/>
+        <Property name="text" type="java.lang.String" value="Pesuisar CPF"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBAlterarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="JFrameAlterarGerente_jBAlterar"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jBCancelar">
       <Properties>
@@ -297,12 +299,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTXPesquisarCPF">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLCpf">
+    <Component class="javax.swing.JButton" name="jBAlterarCadastro">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Digite o CPF"/>
+        <Property name="text" type="java.lang.String" value="Alterar Cadastro"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBAlterarCadastroActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
