@@ -29,7 +29,6 @@ import javax.swing.JOptionPane;
 import modelo.dominio.DadosCandidato;
 import modelo.dominio.Usuario;
 
-
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
