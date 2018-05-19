@@ -124,7 +124,7 @@ public class DadosCandidatoDAO {
     public boolean gravarDadosBanco(DadosCandidato _dados) {
   
         // Definindo a string sql
-        this.setSql("INSERT INTO CANDIDATO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        this.setSql("INSERT INTO BRUNO.CANDIDATO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         try {
             
@@ -135,21 +135,21 @@ public class DadosCandidatoDAO {
             //String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
             //              String cpf,String siglaP,String partido,String composicaoLegenda,
             //             String nasc,String sexo
-
-            this.getPstmt().setString(1, _dados.getAno().replaceAll("\"", ""));
-            this.getPstmt().setString(2, _dados.getTurno().replaceAll("\"", ""));
-            this.getPstmt().setString(3, _dados.getDescE().replaceAll("\"", ""));
-            this.getPstmt().setString(4, _dados.getUf().replaceAll("\"", ""));
-            this.getPstmt().setString(5, _dados.getMunicipio().replaceAll("\"", ""));
-            this.getPstmt().setString(6, _dados.getCodigoC().replaceAll("\"", ""));
-            this.getPstmt().setString(7, _dados.getCargo().replaceAll("\"", ""));
-            this.getPstmt().setString(8, _dados.getNome().replaceAll("\"", ""));
-            this.getPstmt().setString(9, _dados.getCpf().replaceAll("\"", ""));
-            this.getPstmt().setString(10, _dados.getSiglaP().replaceAll("\"", ""));
-            this.getPstmt().setString(11, _dados.getPartido().replaceAll("\"", ""));
+            
+            this.getPstmt().setString(9, _dados.getAno().replaceAll("\"", ""));
+            this.getPstmt().setString(10, _dados.getTurno().replaceAll("\"", ""));
+            this.getPstmt().setString(5, _dados.getDescE().replaceAll("\"", ""));
+            this.getPstmt().setString(6, _dados.getUf().replaceAll("\"", ""));
+            this.getPstmt().setString(7, _dados.getMunicipio().replaceAll("\"", ""));
+            this.getPstmt().setString(8, _dados.getCodigoC().replaceAll("\"", ""));
+            this.getPstmt().setString(11, _dados.getCargo().replaceAll("\"", ""));
+            this.getPstmt().setString(1, _dados.getNome().replaceAll("\"", ""));
+            this.getPstmt().setString(2, _dados.getCpf().replaceAll("\"", ""));
+            this.getPstmt().setString(14, _dados.getSiglaP().replaceAll("\"", ""));
+            this.getPstmt().setString(13, _dados.getPartido().replaceAll("\"", ""));
             this.getPstmt().setString(12, _dados.getComposicaoLegenda().replaceAll("\"", ""));
-            this.getPstmt().setString(13, _dados.getNasc().replaceAll("\"", ""));
-            this.getPstmt().setString(14, _dados.getSexo().replaceAll("\"", ""));
+            this.getPstmt().setString(3, _dados.getNasc().replaceAll("\"", ""));
+            this.getPstmt().setString(4, _dados.getSexo().replaceAll("\"", ""));
             
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
@@ -168,10 +168,10 @@ public class DadosCandidatoDAO {
     }
     
     // Método para gravar todos os usuários presentes na lista
-    public ResultSet selecionarDadosBD() {
+    public ResultSet selecionarDadosBD(String uf) {
         
         // Definindo a string sql
-        this.setSql("SELECT * FROM BRUNO.CANDIDATO WHERE UF = 'AM'");
+        this.setSql("SELECT * FROM BRUNO.CANDIDATO WHERE UF = '" + uf + "'");
         
         try {
             

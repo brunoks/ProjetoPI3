@@ -15,21 +15,24 @@ import javax.swing.table.DefaultTableModel;
  * @author Jefferson
  */
 public class JFramePrincipal extends javax.swing.JFrame {
-    
-    // Atributo para acessar a classe de controle Estruturas de Dados
-    private UsuarioC listaDE;
-    private DadosC listaDE2;
-    // Atributo para criar um modelo de acesso à tabela de dados da interface JFramePrincipal
-    private DefaultTableModel dtm;
     private JFileChooser jFCEscolherArquivo;
+    String[] uf = {"AC","AL","AM","AP","BA","BR","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"};
+    // Atributo para acessar a classe de controle Estruturas de Dados
+    private DadosC listaDE2;
+
+
     /**
      * Creates new form JFramePrincipal
      */
     public JFramePrincipal() {
         initComponents();
-        
-         // Posiicionando a tela JFramePrincipal ao centro da tela do usuário
+
+        // Posiicionando a tela JFramePrincipal ao centro da tela do usuário
         setLocationRelativeTo(null);
+    }
+
+    public JComboBox<String> getSelectItem() {
+        return this.jCBTipo;
     }
 
     /**
@@ -44,32 +47,16 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanelLista = new javax.swing.JPanel();
         jBCL = new javax.swing.JButton();
         jBLL = new javax.swing.JButton();
-        jPanelDados = new javax.swing.JPanel();
-        jLCodigo = new javax.swing.JLabel();
-        jLNome = new javax.swing.JLabel();
-        jTFCodigo = new javax.swing.JTextField();
-        jTFNome = new javax.swing.JTextField();
-        jLCodigoNovo = new javax.swing.JLabel();
-        jTFNovoCodigo = new javax.swing.JTextField();
-        jLPosicao = new javax.swing.JLabel();
-        jTFPosicao = new javax.swing.JTextField();
         jPanelOperacoes = new javax.swing.JPanel();
         jBCadastrar = new javax.swing.JButton();
         jBForgout = new javax.swing.JButton();
         jBEditarCadastro = new javax.swing.JButton();
-        jBPesquisar = new javax.swing.JButton();
-        jBAcessar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableDados = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jBLerCSV = new javax.swing.JButton();
-        jBEscreverCSV = new javax.swing.JButton();
         jCBTipo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jBGravarBD = new javax.swing.JButton();
         jBSelecionarBD = new javax.swing.JButton();
-        jBAlterarBD = new javax.swing.JButton();
-        jBDeletarBD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Estruturas de Dados");
@@ -106,66 +93,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addComponent(jBLL))
         );
 
-        jPanelDados.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
-        jLCodigo.setText("Código:");
-
-        jLNome.setText("Nome:");
-
-        jTFCodigo.setEnabled(false);
-
-        jTFNome.setEnabled(false);
-
-        jLCodigoNovo.setText("Novo código:");
-
-        jTFNovoCodigo.setEnabled(false);
-
-        jLPosicao.setText("Posição:");
-
-        jTFPosicao.setEnabled(false);
-
-        javax.swing.GroupLayout jPanelDadosLayout = new javax.swing.GroupLayout(jPanelDados);
-        jPanelDados.setLayout(jPanelDadosLayout);
-        jPanelDadosLayout.setHorizontalGroup(
-            jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDadosLayout.createSequentialGroup()
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLNome)
-                    .addComponent(jLCodigo))
-                .addGap(7, 7, 7)
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelDadosLayout.createSequentialGroup()
-                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLCodigoNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTFNovoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTFNome)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
-                .addComponent(jLPosicao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFPosicao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(110, 110, 110))
-        );
-        jPanelDadosLayout.setVerticalGroup(
-            jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLPosicao)
-                    .addComponent(jTFPosicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLCodigo)
-                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLCodigoNovo)
-                    .addComponent(jTFNovoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLNome)
-                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jPanelOperacoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operações", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBCadastrar.setText("Cadastrar Gerente");
@@ -189,22 +116,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBPesquisar.setText("Pesquisar");
-        jBPesquisar.setEnabled(false);
-        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBPesquisarActionPerformed(evt);
-            }
-        });
-
-        jBAcessar.setText("Acessar");
-        jBAcessar.setEnabled(false);
-        jBAcessar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAcessarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelOperacoesLayout = new javax.swing.GroupLayout(jPanelOperacoes);
         jPanelOperacoes.setLayout(jPanelOperacoesLayout);
         jPanelOperacoesLayout.setHorizontalGroup(
@@ -212,8 +123,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addComponent(jBCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBForgout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBEditarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBAcessar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelOperacoesLayout.setVerticalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,45 +132,16 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addComponent(jBForgout)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBEditarCadastro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBPesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBAcessar))
+                .addGap(58, 58, 58))
         );
 
-        jTableDados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "", "Código", "Nome"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTableDados);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ".CSV", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ".JSON", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBLerCSV.setText("Ler TXT");
         jBLerCSV.setEnabled(false);
         jBLerCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLerCSVActionPerformed(evt);
-            }
-        });
-
-        jBEscreverCSV.setText("Escrever JSON");
-        jBEscreverCSV.setEnabled(false);
-        jBEscreverCSV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBEscreverCSVActionPerformed(evt);
             }
         });
 
@@ -283,9 +163,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jBEscreverCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(62, 62, 62))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jBLerCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,9 +174,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBLerCSV)
                     .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBEscreverCSV)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Banco de Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -320,19 +195,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBAlterarBD.setText("Alterar");
-        jBAlterarBD.setEnabled(false);
-
-        jBDeletarBD.setText("Deletar");
-        jBDeletarBD.setEnabled(false);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBDeletarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBAlterarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBSelecionarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBSelecionarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
             .addComponent(jBGravarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -341,10 +208,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addComponent(jBGravarBD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBSelecionarBD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBAlterarBD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBDeletarBD))
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -352,19 +216,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelLista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelOperacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,13 +236,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelDados, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                        .addGap(5, 5, 5)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -395,229 +252,55 @@ public class JFramePrincipal extends javax.swing.JFrame {
         // Cria uma instância da classe Estruturas de Dados
         this.listaDE2 = new DadosC();
 
-        // Pega o componente JTable e o transforma em um modelo padrão de acesso
-        this.dtm = (DefaultTableModel)jTableDados.getModel();
 
         jBCL.setEnabled(false);  // Desabilitando o botão Criar lista
 
         jBLL.setEnabled(true);        // habilitando o botão Limpar lista
         jBEditarCadastro.setEnabled(true);   // habilitando o botão Alterar
-        jBPesquisar.setEnabled(true); // habilitando o botão Pesquisar
-        jBAcessar.setEnabled(true);   // habilitando o botão Acessar
         jBLerCSV.setEnabled(true);    // habilitando o botão CSV
-        
+
         jBSelecionarBD.setEnabled(true); // habilitando o botão Selecionar BD
-                
-        jTFPosicao.setEnabled(true);     // Habilitando o campo de texto Posição
-        jTFCodigo.setEnabled(true);      // Habilitando o campo de texto Código
-        jTFNome.setEnabled(true);        // Habilitando o campo de texto Nome
-        jTFNovoCodigo.setEnabled(true);  // Habilitando o campo de texto Novo Código
+
 
     }//GEN-LAST:event_jBCLActionPerformed
-    
+
     // Método da interface JFramePrincipal para limpar lista
     private void jBLLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLLActionPerformed
-        
+
         this.listaDE2.limparLista(this.listaDE2);  // Tornando a lista vazia
-        
+
         jBLL.setEnabled(false); // Habilitando o botão Limpar lista
         jBCL.setEnabled(true);  // Habilitando o botão Criar lista
-        
-        this.dtm.setNumRows(0); // Definindo a quantidade de linhas do JTableDados
-        
+
         jBForgout.setEnabled(false);      // Desabilitando o botão Remover
         jBEditarCadastro.setEnabled(false);      // Desabilitando o botão Alterar
-        jBPesquisar.setEnabled(false);    // Desabilitando o botão Pesquisar
-        jBAcessar.setEnabled(false);      // Desabilitando o botão Acessar
-        
+
         jBLerCSV.setEnabled(true);        // Habilitando o botão CSV
-        jBEscreverCSV.setEnabled(false);  // Desabilitando o botão CSV
-        
+
         jBGravarBD.setEnabled(false);     // Desabilitando o botão gravar
         jBSelecionarBD.setEnabled(false); // Desabilitando o botão selecionar
-        jBAlterarBD.setEnabled(false);    // Desabilitando o botão alterar
-        jBDeletarBD.setEnabled(false);    // Desabilitando o botão deletar
-        
-        jTFPosicao.setEnabled(false);     // Desabilitando o campo de texto Posição
-        jTFCodigo.setEnabled(false);      // Desabilitando o campo de texto Código
-        jTFNome.setEnabled(false);        // Desabilitando o campo de texto Nome
-        jTFNovoCodigo.setEnabled(false);  // Desabilitando o campo de texto Novo Código
+
 
     }//GEN-LAST:event_jBLLActionPerformed
-    
-    private void mostrarLista(){
-        
-        // Pega o ponteiro para o primeiro usuário da lista.
-        No proximoUsuario =  this.listaDE.getLista(this.listaDE);
-        
-        // Percorrendo a lista de usuários
-        for(int i = 0; i < this.listaDE.getQuantidadeDeNos(); i++){
 
-            // Inserindo os dados no JTable
-            this.dtm.setValueAt(i, i, 0);
-            this.dtm.setValueAt(proximoUsuario.getObjeto().getCodigoUsuario(), i, 1);
-            this.dtm.setValueAt(proximoUsuario.getObjeto().getNomeUsuario(), i, 2);
-            
-            // Vai para o próximo usuário da lista.
-            proximoUsuario = proximoUsuario.getProximoPonteiro();
-
-        }
-        
-    }
-    
-//    private void mostrarListaCSVeBD(){
-//        
-//        // Pega o ponteiro para o primeiro usuário da lista.
-//        No proximoUsuario =  this.listaDE2.getLista(this.listaDE2);
-//        
-//        // Percorrendo a lista de usuários
-//        for(int i = 0; i < this.listaDE2.getQuantidadeDeNos(); i++){
-//
-//            // Cria-se uma linha com campos vazios na tabela JTableDados
-//            this.dtm.addRow(new Object[]{null,null,null});
-//            
-//            // Inserindo os dados no JTable
-//            this.dtm.setValueAt(i, i, 0);
-//            this.dtm.setValueAt(proximoUsuario.getObjeto().getCodigoUsuario(), i, 1);
-//            this.dtm.setValueAt(proximoUsuario.getObjeto().getNomeUsuario(), i, 2);
-//            
-//            // Vai para o próximo usuário da lista.
-//            proximoUsuario = proximoUsuario.getProximoPonteiro();
-//
-//        }
-//        
-//    }
-//    
     // Método da interface JFramePrincipal para inserir os dados na lista
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        
+
         JFrameCadastrarGerente jfp = new JFrameCadastrarGerente();
         jfp.setVisible(true);
-            
+
         dispose();
-        
-        
+
+
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-
-        // Pesquisando um código na lista e recebendo a posição deste, caso exista
-        // Se o código não for encontrado, exibe uma mensagem na tela do usuário.
-        
-        try{
-            
-            int resultado = this.listaDE.pesquisarElemento(this.listaDE,Integer.parseInt(jTFCodigo.getText().trim()));
-        
-            if(resultado == -1){
-                JOptionPane.showMessageDialog(null, "Código não existe...");
-            }else{
-                JOptionPane.showMessageDialog(null, ".:Elemento está presente:.\nPosição = " + resultado);
-            }
-        
-        }catch(NumberFormatException nfe){
-            JOptionPane.showMessageDialog(null, "Powwww");
-        }
-        
-    }//GEN-LAST:event_jBPesquisarActionPerformed
-
-    private void jBAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAcessarActionPerformed
-        
-        // Pegando o valor presente no campo de texto jTFPosicao
-        String posicao = jTFPosicao.getText().trim();
-        
-        // Verificando se o campo de texto não está vazio
-        if (!posicao.isEmpty()){
-            
-            // Acessando uma posição da lista, onde o objeto retornado será
-            // colocado no atributo 'resultado'
-            No resultado = this.listaDE.acessarDados(listaDE, Integer.parseInt(posicao));
-            
-            // Se existir o objeto, apresenta os dados.
-            if (resultado != null){
-                JOptionPane.showMessageDialog(null, "Posição: " + Integer.parseInt(posicao) + "\nCódigo: " + resultado.getObjeto().getCodigoUsuario() + "\nNome: " + resultado.getObjeto().getNomeUsuario());
-            }else{
-                JOptionPane.showMessageDialog(null, "Não foi possível acessar ou posição inválida...");
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Campo posição vazio...");
-        }
-        
-    }//GEN-LAST:event_jBAcessarActionPerformed
-
     private void jBForgoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBForgoutActionPerformed
-        
-        // Pegando o valor presente no campo de texto jTFPosicao
-        String cpf = jTFPosicao.getText().trim();
-        
-        // Verificando se o campo de texto não está vazio
-        if (!cpf.isEmpty()){        
-            
-            // Verifica se é possível remover na lista.
-            if (this.listaDE.removerDados(this.listaDE, Integer.parseInt(cpf))){
-                
-                // Se foi possível remover, basta apresentar o JTableDados atualizado.
-                // removeRow = remove uma linha do JTableDados 
-                dtm.removeRow(Integer.parseInt(cpf));
-                
-                // Chamando o método para mostrar a lista
-                this.mostrarLista();
-                
-            }else{
-                JOptionPane.showMessageDialog(null, "Não foi possível remover...");
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Campo posição vazio...");
-        }
-        
+
     }//GEN-LAST:event_jBForgoutActionPerformed
 
     private void jBEditarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarCadastroActionPerformed
 
-        String erro = "";
         
-        // Verificando se os campos da interface estão sem valor,
-        // caso estejam, será montada uma string com as informações de erro.
-        if(jTFCodigo.getText().trim().isEmpty())     erro = erro + "Campo código não preenchido...\n";
-        
-        // Novos dados a serem inseridos
-        if(jTFNovoCodigo.getText().trim().isEmpty()) erro = erro + "Campo novo código não preenchido...\n";
-        if (jTFNome.getText().trim().isEmpty())      erro = erro + "campo nome não preenchido...";
-        
-        // Verificando se o atributo 'erro' está vazio.
-        if(erro.length() == 0){
-            
-            // Resgatando os valores dos campos do painel dados.
-            int codigoAntigo = Integer.parseInt(jTFCodigo.getText().trim()); 
-            int novoCodigo   = Integer.parseInt(jTFNovoCodigo.getText().trim());
-            String novoNome  = jTFNome.getText();
-            
-            // Verificando se foi possível alterar os dados de acordo com o código
-            // informado pelo usuário.
-
-            int posicao = this.listaDE.pesquisarElemento(listaDE, codigoAntigo);
-            
-            if (posicao != -1){
-                
-                this.listaDE.alterarDados(listaDE, codigoAntigo, novoCodigo, novoNome);
-                
-                // Preenchendo linha a linha com os dados do usuário de uma determinada posição 'i'
-                // setValueAt(informação, linha da tabela, coluna da tabela)
-
-                this.dtm.setValueAt(posicao, posicao, 0);
-                this.dtm.setValueAt(novoCodigo, posicao, 1);
-                this.dtm.setValueAt(novoNome, posicao, 2);
-                
-                JOptionPane.showMessageDialog(null, "Dados alterados com sucesso...");
-                
-            }else{
-                JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados...");
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, erro);
-        }
 
     }//GEN-LAST:event_jBEditarCadastroActionPerformed
 
@@ -625,55 +308,45 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         // Cria uma instância do selecionador de arquivos.
         this.jFCEscolherArquivo = new JFileChooser();
-        
+
         // Define o diretório atual.
         // Nesse caso, a caixa será aberta em c:
         this.jFCEscolherArquivo.setCurrentDirectory(new File("C:\\Users\\Bruno\\Downloads\\consulta_cand_2016 (1)"));
-        
+
         // Permite que seja seleciodo apenas arquivos, diretórios ou arquivos e diretórios.
         // FILES_ONLY = instrução para exibir apenas arquivos.
         this.jFCEscolherArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        
-        
+
         // Coloca a opção 'Todos os arquivos' disponível e quando selecionada, qualquer extensão de arquivo poderá ser utilizada,
         // desde que se tenha um método para trabalhar o arquivo.
         this.jFCEscolherArquivo.setAcceptAllFileFilterUsed(true);
-        
+
         // Adiciona na caixa de diálogo os tipos de arquivos que poderão ser selecionados.
         this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("PDF Documents", "pdf"));
         this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("MS Office Documents", ".csv", "docx", "xlsx", "pptx"));
         this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp"));
         this.jFCEscolherArquivo.addChoosableFileFilter(new FileNameExtensionFilter("Txt", "txt", "txt"));
-        
-        
-        
-        
+
         // Verifica se algum arquivo foi selecionado
-        if (this.jFCEscolherArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-            
+        if (this.jFCEscolherArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+
             JOptionPane.showMessageDialog(null, "Arquivo carregado com sucesso!");
-            
+
             // Passa a lista e o caminho onde o arquivo .csv está.
             // Se foi possível ler o arquivo, apresenta os dados.
-            if (this.listaDE2.lerArquivoTXT(listaDE2, this.jFCEscolherArquivo.getSelectedFile(), jCBTipo.getSelectedItem().toString())){
-                
-                JOptionPane.showMessageDialog(null, "Dados importados com sucesso...");
-                
-                //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
+            if (this.listaDE2.lerArquivoTXT(this.listaDE2, this.jFCEscolherArquivo.getSelectedFile(), jCBTipo.getSelectedItem().toString())) {
 
+                //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
                 jBLerCSV.setEnabled(false);      // Desabilitando o botão CSV
-                jBEscreverCSV.setEnabled(true);  // Habilitando o botão CSV
 
                 jBGravarBD.setEnabled(true);     // Haabilitando o botão gravar
                 jBSelecionarBD.setEnabled(true); // Habilitando o botão selecionar
-                jBAlterarBD.setEnabled(true);    // Habilitando o botão alterar
-                jBDeletarBD.setEnabled(true);    // Habilitando o botão deletar
 
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro ao importar os dados...");
             }
-                        
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Arquivo não selecionado!");
         }
 
@@ -682,45 +355,44 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jBGravarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarBDActionPerformed
 
         // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-        if(this.listaDE2.gravarDadosBanco(this.listaDE2))
+        JOptionPane.showMessageDialog(null, this.listaDE2.getInicioDaLista().getObjctDados().getAno());
+        if (this.listaDE2.gravarDadosBanco(this.listaDE2)) {
             JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
-        else
+        } else {
             JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
+        }
 
     }//GEN-LAST:event_jBGravarBDActionPerformed
 
-    private void jBEscreverCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEscreverCSVActionPerformed
-
-        this.listaDE2.escreverArquivoJson(listaDE2,jCBTipo.getSelectedItem().toString());
-        
-    }//GEN-LAST:event_jBEscreverCSVActionPerformed
-
     private void jBSelecionarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelecionarBDActionPerformed
-
-        // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-        if(this.listaDE2.selecionarDadosBD(this.listaDE2)){
-            JOptionPane.showMessageDialog(null, "Dados resgatados do BD Oracle com sucesso...");
-            
-            //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
-        }else
-            JOptionPane.showMessageDialog(null, "Erro ao resgatar os dados no BD Oracle...");
         
+        for (int i = 0; i < uf.length; i++) {
+            // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
+            if (this.listaDE2.selecionarDadosBD(this.listaDE2, this.uf[i])) {
+                if(this.listaDE2.getQuantidadeDeNos() > 1){
+                    System.out.println(this.uf[i]);
+                    this.listaDE2.escreverArquivoJson(this.listaDE2, this.jCBTipo.getSelectedItem().toString());
+                    this.listaDE2.limparLista(this.listaDE2);
+                    this.listaDE2 = new DadosC();
+                }else{
+                    System.out.println("Estado não existe, pegando próximo.." + this.uf[i]);
+                }
+            }
+            
+        }
         jBSelecionarBD.setEnabled(false); // habilitando o botão Selecionar BD
         jBGravarBD.setEnabled(true);      // habilitando o botão Gravar BD
-        jBAlterarBD.setEnabled(true);     // habilitando o botão Alterar BD
-        jBDeletarBD.setEnabled(true);     // habilitando o botão DeletarBD
-        jBEscreverCSV.setEnabled(true);  // Habilitando o botão CSV
-        
+
     }//GEN-LAST:event_jBSelecionarBDActionPerformed
 
     private void jCBTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBTipoActionPerformed
-         
+        
     }//GEN-LAST:event_jCBTipoActionPerformed
 
     private void jCBTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBTipoItemStateChanged
-        
+
     }//GEN-LAST:event_jCBTipoItemStateChanged
-    
+
     /**
      * @param args the command line arguments
      */
@@ -741,7 +413,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(JFramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -751,34 +423,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAcessar;
-    private javax.swing.JButton jBAlterarBD;
     private javax.swing.JButton jBCL;
     private javax.swing.JButton jBCadastrar;
-    private javax.swing.JButton jBDeletarBD;
     private javax.swing.JButton jBEditarCadastro;
-    private javax.swing.JButton jBEscreverCSV;
     private javax.swing.JButton jBForgout;
     private javax.swing.JButton jBGravarBD;
     private javax.swing.JButton jBLL;
     private javax.swing.JButton jBLerCSV;
-    private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBSelecionarBD;
     private javax.swing.JComboBox<String> jCBTipo;
-    private javax.swing.JLabel jLCodigo;
-    private javax.swing.JLabel jLCodigoNovo;
-    private javax.swing.JLabel jLNome;
-    private javax.swing.JLabel jLPosicao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanelDados;
     private javax.swing.JPanel jPanelLista;
     private javax.swing.JPanel jPanelOperacoes;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTFCodigo;
-    private javax.swing.JTextField jTFNome;
-    private javax.swing.JTextField jTFNovoCodigo;
-    private javax.swing.JTextField jTFPosicao;
-    private javax.swing.JTable jTableDados;
     // End of variables declaration//GEN-END:variables
 }

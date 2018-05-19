@@ -12,26 +12,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dominio.DadosCandidato;
-import modelo.dominio.Usuario;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
+import visao.JFramePrincipal;
 
 /**
  *
@@ -496,7 +493,6 @@ public class DadosC {
             
             // Local onde o arquivo está
             this.arquivoTXT = _arquivo.getPath();
-            
             // Cria um buffer para a ler a partir de um arquivo
              this.bReader = new BufferedReader(new InputStreamReader(new FileInputStream(this.arquivoTXT), "ISO-8859-1"));
 //            this.bReader = new BufferedReader(new FileReader(this.arquivoTXT));
@@ -507,10 +503,8 @@ public class DadosC {
                 // Pega a linha e verifica se existe o delimitador ';' para separar os dados
                 // e jogá-los (se existir) no vetor 'dadosTemporarios'.
                 //this.a = Arrays.toString(this.linha.split(";"));
-                //this.a = this.linha.replaceAll("NULO", "Dado Nulo");
+                //this.a = this.linha.replaceAll("#NULO#", "Nulo");
                 this.d = this.linha.split(";");
-
-                
                 //Apenas para certificar o que está sendo separado na variável d
                 //escreverArquivoTeste(d);
                 
@@ -593,13 +587,11 @@ public class DadosC {
         
         JSONObject jsonObject = new JSONObject();
         JSONArray tempos = new JSONArray();
-        JSONArray y = new JSONArray();
         try {
             
             // Se o arquivo não existir, cria-se um novo.
             if (this.arquivoJson.exists()) {
-                arquivoJson.delete();
-                this.arquivoJson.createNewFile(); // Arquivo vazio
+                
             }else{
                 this.arquivoJson.createNewFile(); // Arquivo vazio
             
@@ -628,11 +620,10 @@ public class DadosC {
                 
                 i++;
                 pAux = pAux.getProximoPonteiro();
-                System.out.println(i);
+                System.out.println("a " + i);
                
             }
             bw.write(tempos.toString());
-                
             bw.close();
             fw.close();           
             
@@ -642,6 +633,7 @@ public class DadosC {
             
         } catch (JSONException ex) {
             Logger.getLogger(DadosC.class.getName()).log(Level.SEVERE, null, ex);
+        
         }
     }
     
@@ -751,11 +743,10 @@ public class DadosC {
     }
     
     // Método para inserir na lista de forma ordenada através do arquivo .CSV.
-    public boolean selecionarDadosBD(DadosC listaDE){
+    public boolean selecionarDadosBD(DadosC listaDE, String uf){
         
         // Criando instância da classe UsuarioDAO.
         DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
-        
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'
         if((this.conn = uDAO.conectarBanco()) != null){
@@ -763,21 +754,20 @@ public class DadosC {
             try{
             
                 // Resgatando todos os usuários do banco de dados Oracle.
-                this.setRs(uDAO.selecionarDadosBD());
+                this.setRs(uDAO.selecionarDadosBD(uf));
 
                 // Verificando se o resultado retornado é diferente de null.
                 if(this.getRs() != null){
                     DadosCandidato objeto = new DadosCandidato();
                     // Percorrendo o resultado retornado do banco de dados
-                    while(this.getRs().next()){
-
-
+                    int i = 0;
+                    while(this.getRs().next()){   
+                    i++;    
                         // Armazena os dados nos atributos de 'objeto'
                         // através dos dados do ResultSet atual.
-
                         objeto.setNome(this.getRs().getString("NOME"));
                         objeto.setCpf(this.getRs().getString("CPF"));
-                        objeto.setNasc(this.getRs().getString("DATA_DASC"));
+                        objeto.setNasc(this.getRs().getString("DATA_NASC"));
                         objeto.setSexo(this.getRs().getString("SEXO"));
                         objeto.setDescE(this.getRs().getString("DESCRICAO_ELEICAO"));
                         objeto.setUf(this.getRs().getString("UF"));
@@ -793,10 +783,14 @@ public class DadosC {
                         // Inserindo o usuário de forma efetiva na lista.
                         //this.inserirUsuario(listaDE, objeto);
                         criarNoCandidato(objeto, listaDE);
+                        
                     }
+                    
 
                     return true;
 
+                }else{
+                    return false;
                 }
         
             }catch(SQLException e){

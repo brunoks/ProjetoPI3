@@ -34,7 +34,7 @@ public class ConnectionFactory {
     public ConnectionFactory(){
         
         this.setUsuarioBanco("bruno");
-        this.setSenhaBanco("2198");
+        this.setSenhaBanco("1234");
         this.setServidor("localhost");
         this.setPorta("1521");
         this.setSid("projetopiiii");
