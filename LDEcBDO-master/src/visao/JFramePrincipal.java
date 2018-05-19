@@ -49,7 +49,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBLL = new javax.swing.JButton();
         jPanelOperacoes = new javax.swing.JPanel();
         jBCadastrar = new javax.swing.JButton();
-        jBForgout = new javax.swing.JButton();
         jBEditarCadastro = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jBLerCSV = new javax.swing.JButton();
@@ -102,13 +101,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBForgout.setText("Esqueci a senha");
-        jBForgout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBForgoutActionPerformed(evt);
-            }
-        });
-
         jBEditarCadastro.setText("Editar Cadastro");
         jBEditarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,18 +113,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanelOperacoesLayout.setHorizontalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jBCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBForgout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBEditarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelOperacoesLayout.setVerticalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperacoesLayout.createSequentialGroup()
                 .addComponent(jBCadastrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBForgout)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBEditarCadastro)
-                .addGap(58, 58, 58))
+                .addContainerGap())
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ".JSON", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -272,7 +261,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBLL.setEnabled(false); // Habilitando o botão Limpar lista
         jBCL.setEnabled(true);  // Habilitando o botão Criar lista
 
-        jBForgout.setEnabled(false);      // Desabilitando o botão Remover
         jBEditarCadastro.setEnabled(false);      // Desabilitando o botão Alterar
 
         jBLerCSV.setEnabled(true);        // Habilitando o botão CSV
@@ -294,13 +282,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void jBForgoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBForgoutActionPerformed
-
-    }//GEN-LAST:event_jBForgoutActionPerformed
-
     private void jBEditarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarCadastroActionPerformed
 
-        
+        JFrameCadastrarGerente jfp = new JFrameCadastrarGerente();
+        jfp.setVisible(true);
+
+        dispose();
 
     }//GEN-LAST:event_jBEditarCadastroActionPerformed
 
@@ -426,7 +413,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBCL;
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBEditarCadastro;
-    private javax.swing.JButton jBForgout;
     private javax.swing.JButton jBGravarBD;
     private javax.swing.JButton jBLL;
     private javax.swing.JButton jBLerCSV;
