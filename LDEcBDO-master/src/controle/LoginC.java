@@ -27,11 +27,9 @@ public class LoginC {
     public boolean autenticarUsuario(String l, String s){
         
         if (!"".equals(l) || !"".equals(s)){
-            
             return this.loginDao.autenticarUsuario(l, s);
-            
         }
-        
+       
         return false;
         
     }

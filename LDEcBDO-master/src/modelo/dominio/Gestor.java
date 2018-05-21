@@ -14,7 +14,7 @@ public class Gestor {
     private String cpf;
     private String nome;
     private String nascimento;
-    private char sexo;
+    private String sexo;
     private String login;
     private String senha;
     private String email;
@@ -24,8 +24,7 @@ public class Gestor {
         
     }
     
-    public Gestor(int id, String cpf, String nome, String nascimento, char sexo, String login, String senha, String email, String telefone){
-        this.id = id;
+    public Gestor(String cpf, String nome, String nascimento, String sexo, String login, String senha, String email, String telefone){
         this.cpf = cpf;
         this.nome = nome;
         this.nascimento = nascimento;
@@ -68,11 +67,11 @@ public class Gestor {
         this.nascimento = nascimento;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
