@@ -44,25 +44,33 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelLista = new javax.swing.JPanel();
+        jPLista = new javax.swing.JPanel();
         jBCL = new javax.swing.JButton();
         jBLL = new javax.swing.JButton();
         jPanelOperacoes = new javax.swing.JPanel();
         jBCadastrar = new javax.swing.JButton();
         jBEditarCadastro = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jBLerCSV = new javax.swing.JButton();
+        jBCandidatos = new javax.swing.JButton();
+        jBEleitorado = new javax.swing.JButton();
+        jBVotos = new javax.swing.JButton();
+        JBSair = new javax.swing.JButton();
+        jPImportar = new javax.swing.JPanel();
+        jBLerTXT = new javax.swing.JButton();
         jCBTipo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jBGravarBD = new javax.swing.JButton();
         jBSelecionarBD = new javax.swing.JButton();
+        lBTitulo = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Estruturas de Dados");
 
-        jPanelLista.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPLista.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tratamento da Lista", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBCL.setText("Criar lista");
+        jBCL.setMaximumSize(new java.awt.Dimension(145, 35));
+        jBCL.setMinimumSize(new java.awt.Dimension(145, 35));
+        jBCL.setPreferredSize(new java.awt.Dimension(145, 35));
         jBCL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCLActionPerformed(evt);
@@ -71,40 +79,83 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jBLL.setText("Limpar lista");
         jBLL.setEnabled(false);
+        jBLL.setMaximumSize(new java.awt.Dimension(145, 35));
+        jBLL.setMinimumSize(new java.awt.Dimension(145, 35));
+        jBLL.setPreferredSize(new java.awt.Dimension(145, 35));
         jBLL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLLActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanelListaLayout = new javax.swing.GroupLayout(jPanelLista);
-        jPanelLista.setLayout(jPanelListaLayout);
-        jPanelListaLayout.setHorizontalGroup(
-            jPanelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPListaLayout = new javax.swing.GroupLayout(jPLista);
+        jPLista.setLayout(jPListaLayout);
+        jPListaLayout.setHorizontalGroup(
+            jPListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jBLL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBCL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPListaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBCL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanelListaLayout.setVerticalGroup(
-            jPanelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelListaLayout.createSequentialGroup()
-                .addComponent(jBCL, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPListaLayout.setVerticalGroup(
+            jPListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPListaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBCL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBLL))
+                .addComponent(jBLL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanelOperacoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operações", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanelOperacoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBCadastrar.setText("Cadastrar Gerente");
+        jBCadastrar.setText("Novo Gerente");
+        jBCadastrar.setEnabled(false);
+        jBCadastrar.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBCadastrar.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBCadastrar.setPreferredSize(new java.awt.Dimension(120, 35));
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCadastrarActionPerformed(evt);
             }
         });
 
-        jBEditarCadastro.setText("Editar Cadastro");
+        jBEditarCadastro.setText("Meus Dados");
+        jBEditarCadastro.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBEditarCadastro.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBEditarCadastro.setPreferredSize(new java.awt.Dimension(120, 35));
         jBEditarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBEditarCadastroActionPerformed(evt);
+            }
+        });
+
+        jBCandidatos.setText("Candidatos");
+        jBCandidatos.setEnabled(false);
+        jBCandidatos.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBCandidatos.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBCandidatos.setPreferredSize(new java.awt.Dimension(120, 35));
+        jBCandidatos.setSize(new java.awt.Dimension(0, 0));
+
+        jBEleitorado.setText("Eleitorado");
+        jBEleitorado.setEnabled(false);
+        jBEleitorado.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBEleitorado.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBEleitorado.setPreferredSize(new java.awt.Dimension(120, 35));
+
+        jBVotos.setText("Votos");
+        jBVotos.setEnabled(false);
+        jBVotos.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBVotos.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBVotos.setPreferredSize(new java.awt.Dimension(120, 35));
+
+        JBSair.setText("Sair");
+        JBSair.setMaximumSize(new java.awt.Dimension(120, 35));
+        JBSair.setMinimumSize(new java.awt.Dimension(120, 35));
+        JBSair.setPreferredSize(new java.awt.Dimension(120, 35));
+        JBSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSairActionPerformed(evt);
             }
         });
 
@@ -112,30 +163,58 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanelOperacoes.setLayout(jPanelOperacoesLayout);
         jPanelOperacoesLayout.setHorizontalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBEditarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelOperacoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOperacoesLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelOperacoesLayout.createSequentialGroup()
+                        .addGroup(jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBEleitorado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBEditarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBCandidatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JBSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelOperacoesLayout.setVerticalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperacoesLayout.createSequentialGroup()
-                .addComponent(jBCadastrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBEditarCadastro)
+                .addComponent(jBEditarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBCandidatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBEleitorado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addComponent(JBSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ".JSON", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPImportar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Importar Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBLerCSV.setText("Ler TXT");
-        jBLerCSV.setEnabled(false);
-        jBLerCSV.addActionListener(new java.awt.event.ActionListener() {
+        jBLerTXT.setText("Ler TXT");
+        jBLerTXT.setEnabled(false);
+        jBLerTXT.setMaximumSize(new java.awt.Dimension(180, 35));
+        jBLerTXT.setMinimumSize(new java.awt.Dimension(180, 35));
+        jBLerTXT.setPreferredSize(new java.awt.Dimension(180, 35));
+        jBLerTXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLerCSVActionPerformed(evt);
+                jBLerTXTActionPerformed(evt);
             }
         });
 
-        jCBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Candidato", "Eleitorado" }));
+        jCBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Candidato", "Eleitorado", "Votos", " " }));
+        jCBTipo.setMaximumSize(new java.awt.Dimension(180, 35));
+        jCBTipo.setMinimumSize(new java.awt.Dimension(180, 35));
         jCBTipo.setName(""); // NOI18N
+        jCBTipo.setPreferredSize(new java.awt.Dimension(180, 35));
         jCBTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCBTipoItemStateChanged(evt);
@@ -147,37 +226,45 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jBLerCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout jPImportarLayout = new javax.swing.GroupLayout(jPImportar);
+        jPImportar.setLayout(jPImportarLayout);
+        jPImportarLayout.setHorizontalGroup(
+            jPImportarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPImportarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBLerTXT, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBLerCSV)
+        jPImportarLayout.setVerticalGroup(
+            jPImportarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPImportarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPImportarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBLerTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Banco de Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBGravarBD.setText("Gravar");
+        jBGravarBD.setText("Importar Dados");
         jBGravarBD.setEnabled(false);
+        jBGravarBD.setMaximumSize(new java.awt.Dimension(145, 35));
+        jBGravarBD.setMinimumSize(new java.awt.Dimension(145, 35));
+        jBGravarBD.setPreferredSize(new java.awt.Dimension(145, 35));
         jBGravarBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGravarBDActionPerformed(evt);
             }
         });
 
-        jBSelecionarBD.setText("Selecionar");
+        jBSelecionarBD.setText("Selecionar Dados");
         jBSelecionarBD.setEnabled(false);
+        jBSelecionarBD.setMaximumSize(new java.awt.Dimension(145, 35));
+        jBSelecionarBD.setMinimumSize(new java.awt.Dimension(145, 35));
+        jBSelecionarBD.setPreferredSize(new java.awt.Dimension(145, 35));
         jBSelecionarBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBSelecionarBDActionPerformed(evt);
@@ -188,87 +275,63 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBSelecionarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-            .addComponent(jBGravarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBSelecionarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBGravarBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jBGravarBD)
+                .addContainerGap()
+                .addComponent(jBGravarBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBSelecionarBD)
+                .addComponent(jBSelecionarBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        lBTitulo.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        lBTitulo.setText("URNA DIGITAL");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelLista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelOperacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPImportar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPLista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanelLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    // Método da interface JFramePrincipal para criar lista
-    private void jBCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCLActionPerformed
-
-        // Cria uma instância da classe Estruturas de Dados
-        this.listaDE2 = new DadosC();
-
-
-        jBCL.setEnabled(false);  // Desabilitando o botão Criar lista
-
-        jBLL.setEnabled(true);        // habilitando o botão Limpar lista
-        jBEditarCadastro.setEnabled(true);   // habilitando o botão Alterar
-        jBLerCSV.setEnabled(true);    // habilitando o botão CSV
-
-        jBSelecionarBD.setEnabled(true); // habilitando o botão Selecionar BD
-
-
-    }//GEN-LAST:event_jBCLActionPerformed
-
-    // Método da interface JFramePrincipal para limpar lista
-    private void jBLLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLLActionPerformed
-
-        this.listaDE2.limparLista(this.listaDE2);  // Tornando a lista vazia
-
-        jBLL.setEnabled(false); // Habilitando o botão Limpar lista
-        jBCL.setEnabled(true);  // Habilitando o botão Criar lista
-
-        jBEditarCadastro.setEnabled(false);      // Desabilitando o botão Alterar
-
-        jBLerCSV.setEnabled(true);        // Habilitando o botão CSV
-
-        jBGravarBD.setEnabled(false);     // Desabilitando o botão gravar
-        jBSelecionarBD.setEnabled(false); // Desabilitando o botão selecionar
-
-
-    }//GEN-LAST:event_jBLLActionPerformed
 
     // Método da interface JFramePrincipal para inserir os dados na lista
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
@@ -290,7 +353,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBEditarCadastroActionPerformed
 
-    private void jBLerCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLerCSVActionPerformed
+    private void jBLerTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLerTXTActionPerformed
 
         // Cria uma instância do selecionador de arquivos.
         this.jFCEscolherArquivo = new JFileChooser();
@@ -323,7 +386,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             if (this.listaDE2.lerArquivoTXT(this.listaDE2, this.jFCEscolherArquivo.getSelectedFile(), jCBTipo.getSelectedItem().toString())) {
 
                 //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
-                jBLerCSV.setEnabled(false);      // Desabilitando o botão CSV
+                jBLerTXT.setEnabled(false);      // Desabilitando o botão CSV
 
                 jBGravarBD.setEnabled(true);     // Haabilitando o botão gravar
                 jBSelecionarBD.setEnabled(true); // Habilitando o botão selecionar
@@ -336,7 +399,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Arquivo não selecionado!");
         }
 
-    }//GEN-LAST:event_jBLerCSVActionPerformed
+    }//GEN-LAST:event_jBLerTXTActionPerformed
 
     private void jBGravarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarBDActionPerformed
 
@@ -379,6 +442,44 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jCBTipoItemStateChanged
 
+    // Método da interface JFramePrincipal para limpar lista
+    private void jBLLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLLActionPerformed
+
+        this.listaDE2.limparLista(this.listaDE2);  // Tornando a lista vazia
+
+        jBLL.setEnabled(false); // Habilitando o botão Limpar lista
+        jBCL.setEnabled(true);  // Habilitando o botão Criar lista
+
+        jBEditarCadastro.setEnabled(false);      // Desabilitando o botão Alterar
+
+        jBLerTXT.setEnabled(true);        // Habilitando o botão CSV
+
+        jBGravarBD.setEnabled(false);     // Desabilitando o botão gravar
+        jBSelecionarBD.setEnabled(false); // Desabilitando o botão selecionar
+
+    }//GEN-LAST:event_jBLLActionPerformed
+
+    // Método da interface JFramePrincipal para criar lista
+    private void jBCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCLActionPerformed
+
+        // Cria uma instância da classe Estruturas de Dados
+        this.listaDE2 = new DadosC();
+
+        jBCL.setEnabled(false);  // Desabilitando o botão Criar lista
+
+        jBLL.setEnabled(true);        // habilitando o botão Limpar lista
+        jBEditarCadastro.setEnabled(true);   // habilitando o botão Alterar
+        jBLerTXT.setEnabled(true);    // habilitando o botão CSV
+
+        jBSelecionarBD.setEnabled(true); // habilitando o botão Selecionar BD
+
+    }//GEN-LAST:event_jBCLActionPerformed
+
+    private void JBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSairActionPerformed
+        dispose();
+        System.exit(0);
+    }//GEN-LAST:event_JBSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -409,17 +510,22 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBSair;
     private javax.swing.JButton jBCL;
     private javax.swing.JButton jBCadastrar;
+    private javax.swing.JButton jBCandidatos;
     private javax.swing.JButton jBEditarCadastro;
+    private javax.swing.JButton jBEleitorado;
     private javax.swing.JButton jBGravarBD;
     private javax.swing.JButton jBLL;
-    private javax.swing.JButton jBLerCSV;
+    private javax.swing.JButton jBLerTXT;
     private javax.swing.JButton jBSelecionarBD;
+    private javax.swing.JButton jBVotos;
     private javax.swing.JComboBox<String> jCBTipo;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPImportar;
+    private javax.swing.JPanel jPLista;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanelLista;
     private javax.swing.JPanel jPanelOperacoes;
+    private java.awt.Label lBTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,9 @@
 package modelo.dominio;
 
+/**
+ * Nós das Listas
+ * @author AC/DC
+ */
 public class No {
     
     /*###################################

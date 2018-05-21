@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author Jefferson
+ * Classe de Login
+ * @author AC/DC
  */
 public class LoginDAO {
     
@@ -129,7 +129,7 @@ public class LoginDAO {
             this.setConn(this.conectarBanco());
             
             // Cláusula SQL
-            this.setSql("SELECT * FROM Usuario WHERE login=? AND senha=?");
+            this.setSql("SELECT * FROM gestor WHERE g_login=? AND g_senha=?");
             
             // Gravando a consulta SQL
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
