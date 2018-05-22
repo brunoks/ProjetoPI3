@@ -31,17 +31,17 @@ public class ConnectionFactory {
       ######################*/
     public ConnectionFactory() {
 
-//        this.setUsuarioBanco("URNADIGITAL");
-//        this.setSenhaBanco("urn4dugit4l#");
-//        this.setServidor("localhost");
-//        this.setPorta("1521");
-//        this.setSid("projetopiiii");
-
         this.setUsuarioBanco("URNADIGITAL");
         this.setSenhaBanco("urn4dugit4l#");
         this.setServidor("localhost");
         this.setPorta("1521");
-        this.setSid("noubh");
+        this.setSid("projetopiiii");
+
+//        this.setUsuarioBanco("URNADIGITAL");
+//        this.setSenhaBanco("urn4dugit4l#");
+//        this.setServidor("localhost");
+//        this.setPorta("1521");
+//        this.setSid("noubh");
 
         this.setUrl();
 

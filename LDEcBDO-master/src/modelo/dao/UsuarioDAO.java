@@ -160,7 +160,7 @@ public class UsuarioDAO {
     public ResultSet selecionarUsuariosBD() {
         
         // Definindo a string sql
-        this.setSql("SELECT * FROM usuario");
+        this.setSql("SELECT * FROM gestor");
         
         try {
             
