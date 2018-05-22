@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class jFrameCadastro extends javax.swing.JFrame {
 
     private GestorC DadosGestor;
-    JFramePrincipal jfp = new JFramePrincipal();
+    JFrameLogin jfp = new JFrameLogin();
 
     /**
      * Creates new form jFrameCadastro
@@ -49,9 +49,9 @@ public class jFrameCadastro extends javax.swing.JFrame {
         jTXNascimento = new javax.swing.JTextField();
         jPAcesso = new javax.swing.JPanel();
         jTXLogin = new javax.swing.JTextField();
-        jPSenha = new javax.swing.JPasswordField();
         jLSenha = new javax.swing.JLabel();
         jLLogin = new javax.swing.JLabel();
+        jPSenha = new javax.swing.JPasswordField();
         jPContato = new javax.swing.JPanel();
         jTXTelefone = new javax.swing.JTextField();
         jLTelefone = new javax.swing.JLabel();
@@ -154,14 +154,13 @@ public class jFrameCadastro extends javax.swing.JFrame {
         jTXLogin.setMinimumSize(new java.awt.Dimension(150, 35));
         jTXLogin.setPreferredSize(new java.awt.Dimension(150, 35));
 
-        jPSenha.setMargin(new java.awt.Insets(150, 35, 35, 35));
-        jPSenha.setMaximumSize(new java.awt.Dimension(150, 35));
-        jPSenha.setMinimumSize(new java.awt.Dimension(150, 35));
-        jPSenha.setPreferredSize(new java.awt.Dimension(150, 35));
-
         jLSenha.setText("Senha:");
 
         jLLogin.setText("Login:");
+
+        jPSenha.setMaximumSize(new java.awt.Dimension(150, 35));
+        jPSenha.setMinimumSize(new java.awt.Dimension(150, 35));
+        jPSenha.setPreferredSize(new java.awt.Dimension(150, 35));
 
         javax.swing.GroupLayout jPAcessoLayout = new javax.swing.GroupLayout(jPAcesso);
         jPAcesso.setLayout(jPAcessoLayout);
@@ -173,9 +172,9 @@ public class jFrameCadastro extends javax.swing.JFrame {
                     .addComponent(jLLogin)
                     .addComponent(jLSenha))
                 .addGap(18, 18, 18)
-                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTXLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTXLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPAcessoLayout.setVerticalGroup(
@@ -185,16 +184,14 @@ public class jFrameCadastro extends javax.swing.JFrame {
                 .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLLogin)
                     .addComponent(jTXLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPAcessoLayout.createSequentialGroup()
-                        .addComponent(jLSenha)
-                        .addGap(10, 10, 10)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLSenha)
+                    .addComponent(jPSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPContato.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados de Contato"));
+        jPContato.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados de Contato", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jTXTelefone.setMaximumSize(new java.awt.Dimension(150, 35));
         jTXTelefone.setMinimumSize(new java.awt.Dimension(150, 35));
@@ -299,14 +296,14 @@ public class jFrameCadastro extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jPCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -374,17 +371,7 @@ public class jFrameCadastro extends javax.swing.JFrame {
             String login = jTXLogin.getText().trim();
             String senha = new String(jPSenha.getPassword());
             
-//            String sx = 'I';
-//            
-//            if(sexo == "Feminino"){
-//                sx = 'F';
-//            } else if (sexo == "Masculino"){
-//                sx = 'M';
-//            }
-
-
             String sx = "I";
-            
             if(sexo == "Feminino"){
                 sx = "F";
             } else if (sexo == "Masculino"){

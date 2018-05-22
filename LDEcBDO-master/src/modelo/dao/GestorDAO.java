@@ -162,7 +162,7 @@ public class GestorDAO {
             this.setConn(this.conectarBanco());
             
             //SQL
-            this.setSql("SELECT COUNT(*) as Total FROM gestor WHERE g_cpf = ?");
+            this.setSql("SELECT COUNT(*) as Total FROM gestor WHERE g_login = ?");
             
             //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
@@ -231,16 +231,10 @@ public class GestorDAO {
     }
     
     public ResultSet selecionarUsuariosBD() {
-        
-        
-        
         return null;
-        
     }
     
     public boolean alterarUsuariosBD(Gestor _gestor, int parametro) {
-        
-        
         return false;
     }
     
