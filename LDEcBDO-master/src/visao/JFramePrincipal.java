@@ -48,7 +48,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBCL = new javax.swing.JButton();
         jBLL = new javax.swing.JButton();
         jPanelOperacoes = new javax.swing.JPanel();
-        jBCadastrar = new javax.swing.JButton();
         jBEditarCadastro = new javax.swing.JButton();
         jBCandidatos = new javax.swing.JButton();
         jBEleitorado = new javax.swing.JButton();
@@ -68,9 +67,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPLista.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tratamento da Lista", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jBCL.setText("Criar lista");
-        jBCL.setMaximumSize(new java.awt.Dimension(145, 35));
-        jBCL.setMinimumSize(new java.awt.Dimension(145, 35));
-        jBCL.setPreferredSize(new java.awt.Dimension(145, 35));
+        jBCL.setMaximumSize(new java.awt.Dimension(370, 35));
+        jBCL.setMinimumSize(new java.awt.Dimension(370, 35));
+        jBCL.setPreferredSize(new java.awt.Dimension(370, 35));
         jBCL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCLActionPerformed(evt);
@@ -79,9 +78,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jBLL.setText("Limpar lista");
         jBLL.setEnabled(false);
-        jBLL.setMaximumSize(new java.awt.Dimension(145, 35));
-        jBLL.setMinimumSize(new java.awt.Dimension(145, 35));
-        jBLL.setPreferredSize(new java.awt.Dimension(145, 35));
+        jBLL.setMaximumSize(new java.awt.Dimension(370, 35));
+        jBLL.setMinimumSize(new java.awt.Dimension(370, 35));
+        jBLL.setPreferredSize(new java.awt.Dimension(370, 35));
         jBLL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLLActionPerformed(evt);
@@ -92,10 +91,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPLista.setLayout(jPListaLayout);
         jPListaLayout.setHorizontalGroup(
             jPListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBLL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPListaLayout.createSequentialGroup()
+            .addGroup(jPListaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBCL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBCL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPListaLayout.createSequentialGroup()
+                        .addComponent(jBLL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPListaLayout.setVerticalGroup(
@@ -103,24 +105,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addGroup(jPListaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBCL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jBLL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanelOperacoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBCadastrar.setText("Novo Gerente");
-        jBCadastrar.setEnabled(false);
-        jBCadastrar.setMaximumSize(new java.awt.Dimension(120, 35));
-        jBCadastrar.setMinimumSize(new java.awt.Dimension(120, 35));
-        jBCadastrar.setPreferredSize(new java.awt.Dimension(120, 35));
-        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCadastrarActionPerformed(evt);
-            }
-        });
-
-        jBEditarCadastro.setText("Meus Dados");
+        jBEditarCadastro.setText("Editar Perfil");
         jBEditarCadastro.setMaximumSize(new java.awt.Dimension(120, 35));
         jBEditarCadastro.setMinimumSize(new java.awt.Dimension(120, 35));
         jBEditarCadastro.setPreferredSize(new java.awt.Dimension(120, 35));
@@ -135,7 +126,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBCandidatos.setMaximumSize(new java.awt.Dimension(120, 35));
         jBCandidatos.setMinimumSize(new java.awt.Dimension(120, 35));
         jBCandidatos.setPreferredSize(new java.awt.Dimension(120, 35));
-        jBCandidatos.setSize(new java.awt.Dimension(0, 0));
 
         jBEleitorado.setText("Eleitorado");
         jBEleitorado.setEnabled(false);
@@ -166,19 +156,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addGroup(jPanelOperacoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOperacoesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelOperacoesLayout.createSequentialGroup()
-                        .addGroup(jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBEleitorado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBEditarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBCandidatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(JBSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jBCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jBEleitorado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBEditarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBCandidatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanelOperacoesLayout.setVerticalGroup(
             jPanelOperacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,14 +169,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addComponent(jBEditarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCandidatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBEleitorado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(JBSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -251,9 +232,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jBGravarBD.setText("Importar Dados");
         jBGravarBD.setEnabled(false);
-        jBGravarBD.setMaximumSize(new java.awt.Dimension(145, 35));
-        jBGravarBD.setMinimumSize(new java.awt.Dimension(145, 35));
-        jBGravarBD.setPreferredSize(new java.awt.Dimension(145, 35));
+        jBGravarBD.setMaximumSize(new java.awt.Dimension(370, 35));
+        jBGravarBD.setMinimumSize(new java.awt.Dimension(370, 35));
+        jBGravarBD.setPreferredSize(new java.awt.Dimension(370, 35));
         jBGravarBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGravarBDActionPerformed(evt);
@@ -262,9 +243,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jBSelecionarBD.setText("Selecionar Dados");
         jBSelecionarBD.setEnabled(false);
-        jBSelecionarBD.setMaximumSize(new java.awt.Dimension(145, 35));
-        jBSelecionarBD.setMinimumSize(new java.awt.Dimension(145, 35));
-        jBSelecionarBD.setPreferredSize(new java.awt.Dimension(145, 35));
+        jBSelecionarBD.setMaximumSize(new java.awt.Dimension(370, 35));
+        jBSelecionarBD.setMinimumSize(new java.awt.Dimension(370, 35));
+        jBSelecionarBD.setPreferredSize(new java.awt.Dimension(370, 35));
         jBSelecionarBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBSelecionarBDActionPerformed(evt);
@@ -275,10 +256,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBSelecionarBD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBGravarBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBSelecionarBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBGravarBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -287,7 +269,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jBGravarBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBSelecionarBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBSelecionarBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -299,19 +281,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPImportar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPLista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPImportar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPLista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 10, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(189, 189, 189))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +305,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                         .addComponent(jPImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 7, Short.MAX_VALUE))
@@ -333,20 +314,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // Método da interface JFramePrincipal para inserir os dados na lista
-    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-
-        JFrameCadastrarGerente jfp = new JFrameCadastrarGerente();
-        jfp.setVisible(true);
-
-        dispose();
-
-
-    }//GEN-LAST:event_jBCadastrarActionPerformed
-
     private void jBEditarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarCadastroActionPerformed
 
-        JFrameCadastrarGerente jfp = new JFrameCadastrarGerente();
+        JFrameEditarPerfil jfp = new JFrameEditarPerfil();
         jfp.setVisible(true);
 
         dispose();
@@ -512,7 +482,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBSair;
     private javax.swing.JButton jBCL;
-    private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBCandidatos;
     private javax.swing.JButton jBEditarCadastro;
     private javax.swing.JButton jBEleitorado;

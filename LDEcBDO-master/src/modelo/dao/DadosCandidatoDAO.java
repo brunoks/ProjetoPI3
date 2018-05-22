@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
 import modelo.dominio.DadosCandidato;
 
 /**
- *
- * @author Jefferson
+ * Tratamento das Consultas vinculadas ao Candidatos
+ * @author AC/DC
  */
 public class DadosCandidatoDAO {
     

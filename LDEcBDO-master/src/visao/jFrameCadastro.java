@@ -5,6 +5,7 @@
  */
 package visao;
 
+import controle.GestorC;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,14 +14,19 @@ import javax.swing.JOptionPane;
  */
 public class jFrameCadastro extends javax.swing.JFrame {
 
+    private GestorC DadosGestor;
+    JFrameLogin jfp = new JFrameLogin();
+
     /**
      * Creates new form jFrameCadastro
      */
     public jFrameCadastro() {
         initComponents();
-        
+
         //Centralizar Formulário
         setLocationRelativeTo(null);
+
+        this.DadosGestor = new GestorC();
     }
 
     /**
@@ -43,9 +49,9 @@ public class jFrameCadastro extends javax.swing.JFrame {
         jTXNascimento = new javax.swing.JTextField();
         jPAcesso = new javax.swing.JPanel();
         jTXLogin = new javax.swing.JTextField();
-        jPSenha = new javax.swing.JPasswordField();
         jLSenha = new javax.swing.JLabel();
         jLLogin = new javax.swing.JLabel();
+        jPSenha = new javax.swing.JPasswordField();
         jPContato = new javax.swing.JPanel();
         jTXTelefone = new javax.swing.JTextField();
         jLTelefone = new javax.swing.JLabel();
@@ -148,14 +154,13 @@ public class jFrameCadastro extends javax.swing.JFrame {
         jTXLogin.setMinimumSize(new java.awt.Dimension(150, 35));
         jTXLogin.setPreferredSize(new java.awt.Dimension(150, 35));
 
-        jPSenha.setMargin(new java.awt.Insets(150, 35, 35, 35));
-        jPSenha.setMaximumSize(new java.awt.Dimension(150, 35));
-        jPSenha.setMinimumSize(new java.awt.Dimension(150, 35));
-        jPSenha.setPreferredSize(new java.awt.Dimension(150, 35));
-
         jLSenha.setText("Senha:");
 
         jLLogin.setText("Login:");
+
+        jPSenha.setMaximumSize(new java.awt.Dimension(150, 35));
+        jPSenha.setMinimumSize(new java.awt.Dimension(150, 35));
+        jPSenha.setPreferredSize(new java.awt.Dimension(150, 35));
 
         javax.swing.GroupLayout jPAcessoLayout = new javax.swing.GroupLayout(jPAcesso);
         jPAcesso.setLayout(jPAcessoLayout);
@@ -167,9 +172,9 @@ public class jFrameCadastro extends javax.swing.JFrame {
                     .addComponent(jLLogin)
                     .addComponent(jLSenha))
                 .addGap(18, 18, 18)
-                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTXLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTXLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPAcessoLayout.setVerticalGroup(
@@ -179,16 +184,14 @@ public class jFrameCadastro extends javax.swing.JFrame {
                 .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLLogin)
                     .addComponent(jTXLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPAcessoLayout.createSequentialGroup()
-                        .addComponent(jLSenha)
-                        .addGap(10, 10, 10)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLSenha)
+                    .addComponent(jPSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPContato.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados de Contato"));
+        jPContato.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados de Contato", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jTXTelefone.setMaximumSize(new java.awt.Dimension(150, 35));
         jTXTelefone.setMinimumSize(new java.awt.Dimension(150, 35));
@@ -239,7 +242,7 @@ public class jFrameCadastro extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jBVoltar.setText("Voltar");
+        jBVoltar.setText("Cancelar");
         jBVoltar.setMaximumSize(new java.awt.Dimension(150, 35));
         jBVoltar.setMinimumSize(new java.awt.Dimension(150, 35));
         jBVoltar.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -267,42 +270,40 @@ public class jFrameCadastro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(151, 151, 151)
+                        .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPCodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117))
+                                .addComponent(jPContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(20, 20, 20)
                 .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addGap(20, 20, 20)
                 .addComponent(jPCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(29, 29, 29))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -323,12 +324,86 @@ public class jFrameCadastro extends javax.swing.JFrame {
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
         JFrameLogin jfp = new JFrameLogin();
         jfp.setVisible(true);
-            
+
         dispose();
     }//GEN-LAST:event_jBVoltarActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        
+
+        String erro = "";
+
+        // Verificar Erros
+        if (jTXCPF.getText().trim().isEmpty()) {
+            erro = erro + "Campo CPF não está preenchido...\n";
+        }
+        if (jTXNome.getText().trim().isEmpty()) {
+            erro = erro + "Campo Nome não está preenchido...\n";
+        }
+        if (jTXNascimento.getText().isEmpty()) {
+            erro = erro + "campo nascimento não está preenchido...";
+        }
+        if (jCSexo.getSelectedItem().equals("Selecionar")) {
+            erro = erro + "Sexo não está selecionado...";
+        }
+        if (jTXEmail.getText().isEmpty()) {
+            erro = erro + "campo Email não está preenchido...";
+        }
+        if (jTXTelefone.getText().isEmpty()) {
+            erro = erro + "campo Telefone não preenchido...";
+        }
+        if (jTXLogin.getText().isEmpty()) {
+            erro = erro + "campo Login não está preenchido...";
+        }
+        if (jPSenha.getText().isEmpty()) {
+            erro = erro + "campo Senha não está preenchido...";
+        }
+
+        // Se não tiver erros, prossegue
+        if (erro.length() == 0) {
+
+            // Resgatar Valores do Formulário
+            String cpf = jTXCPF.getText().trim();
+            String nome = jTXNome.getText().trim();
+            String nascimento = jTXNascimento.getText().trim();
+            Object sexo = jCSexo.getSelectedItem();
+            String email = jTXEmail.getText().trim();
+            String telefone = jTXTelefone.getText().trim();
+            String login = jTXLogin.getText().trim();
+            String senha = new String(jPSenha.getPassword());
+            
+            String sx = "I";
+            if(sexo == "Feminino"){
+                sx = "F";
+            } else if (sexo == "Masculino"){
+                sx = "M";
+            }
+
+            // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
+            if (this.DadosGestor.CPFExistente(cpf) == false) {
+
+                if(this.DadosGestor.LoginExistente(login) == false){
+                    
+                    this.DadosGestor.setDadosGestor(cpf, nome, nascimento, sx, login, senha, email, telefone);
+                    
+                    if(this.DadosGestor.setCadastrarGestor() == true){
+                        JOptionPane.showMessageDialog(null, "Gerente cadastrado com sucesso, use seu login e senha para acessar o nosso Gerenciador!");
+                        jfp.setVisible(true);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Atenção, ocorreu um erro ao salvar informações do gestor, tente novamente!"); 
+                    }
+                    
+                } else {
+                   JOptionPane.showMessageDialog(null, "Atenção, o LOGIN informado está duplicado!"); 
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Atenção, o CPF informado está duplicado!");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, erro);
+        }
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     /**

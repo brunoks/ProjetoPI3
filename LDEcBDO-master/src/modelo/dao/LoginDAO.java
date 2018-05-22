@@ -145,8 +145,8 @@ public class LoginDAO {
             while(this.getRs().next()){
                 
                 // Buscando os valores presentes no BD Oracle.
-                this.loginBD = this.getRs().getString("login");
-                this.senhaBD = this.getRs().getString("senha");
+                this.loginBD = this.getRs().getString("g_login");
+                this.senhaBD = this.getRs().getString("g_senha");
                 
                 // Comparando os dados retornados com os dados passados como parâmetros pelo método.
                 // Se forem os mesmos dados, usuário autenticado
