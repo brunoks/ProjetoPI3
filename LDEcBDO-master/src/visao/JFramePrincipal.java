@@ -1,7 +1,7 @@
 package visao;
 
-import controle.UsuarioC;
 import modelo.dominio.No;
+import modelo.dominio.Gestor;
 import controle.DadosC;
 import java.io.File;
 import javax.swing.JComboBox;
@@ -15,8 +15,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Jefferson
  */
 public class JFramePrincipal extends javax.swing.JFrame {
+    
     private JFileChooser jFCEscolherArquivo;
+    private Gestor sessaoAtiva = new Gestor();
+    
     String[] uf = {"AC","AL","AM","AP","BA","BR","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"};
+    
     // Atributo para acessar a classe de controle Estruturas de Dados
     private DadosC listaDE2;
 
@@ -27,8 +31,17 @@ public class JFramePrincipal extends javax.swing.JFrame {
     public JFramePrincipal() {
         initComponents();
 
-        // Posiicionando a tela JFramePrincipal ao centro da tela do usuário
+        // Posicionando a tela JFramePrincipal ao centro da tela do usuário
         setLocationRelativeTo(null);
+    }
+    
+    public void showSaudacao(){
+        JOptionPane.showMessageDialog(null, "Seja Bem Vindo(a) " + this.sessaoAtiva.getNome());
+    }
+   
+    //Salvar as informações da Sessão Ativa
+    public void setSessaoAtiva(Gestor _gestor){
+        this.sessaoAtiva = _gestor;
     }
 
     public JComboBox<String> getSelectItem() {
@@ -317,6 +330,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jBEditarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarCadastroActionPerformed
 
         JFrameEditarPerfil jfp = new JFrameEditarPerfil();
+        jfp.setSessaoAtiva(this.sessaoAtiva);
         jfp.setVisible(true);
 
         dispose();
