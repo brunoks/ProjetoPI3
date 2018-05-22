@@ -31,8 +31,8 @@ public class ConnectionFactory {
       ######################*/
     public ConnectionFactory() {
 
-//        this.setUsuarioBanco("bruno");
-//        this.setSenhaBanco("1234");
+//        this.setUsuarioBanco("URNADIGITAL");
+//        this.setSenhaBanco("urn4dugit4l#");
 //        this.setServidor("localhost");
 //        this.setPorta("1521");
 //        this.setSid("projetopiiii");
