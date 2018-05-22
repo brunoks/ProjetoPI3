@@ -1,33 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package visao;
 
-import controle.UsuarioC;
-import java.sql.Date;
+import controle.GestorC;
 import javax.swing.JOptionPane;
-import modelo.dominio.No;
+import modelo.dominio.Gestor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
+ * Editar Perfil do GESTOR
  *
- * @author Bruno
+ * @author AC/DC
  */
 public class JFrameEditarPerfil extends javax.swing.JFrame {
 
-    private UsuarioC ListaCG;
-    private String parametroCPF;
+    private GestorC gestorC = new GestorC();
+    private Gestor sessaoAtiva = new Gestor();
     JFramePrincipal jfp = new JFramePrincipal();
-    
+
     public JFrameEditarPerfil() {
         initComponents();
-        
-        this.ListaCG = new UsuarioC();
         setLocationRelativeTo(null);
     }
 
-    
+    //Salvar as informações da Sessão Ativa
+    public void setSessaoAtiva(Gestor _gestor) {
+        this.sessaoAtiva = _gestor;
+
+        String date_s = this.sessaoAtiva.getNascimento();
+
+        try {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            Date date = dt.parse(date_s);
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+            date_s = dt1.format(date);
+        } catch (ParseException e) {
+
+        }
+
+        this.jTXCPF.setText(this.sessaoAtiva.getCpf());
+        this.jTXNome.setText(this.sessaoAtiva.getNome());
+        this.jTXNascimento.setText(date_s);
+        this.jTXLogin.setText(this.sessaoAtiva.getLogin());
+        this.jTXEmail.setText(this.sessaoAtiva.getEmail());
+        this.jTXTelefone.setText(this.sessaoAtiva.getTelefone());
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,9 +55,8 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
         jTXLogin = new javax.swing.JTextField();
         jLSenha = new javax.swing.JLabel();
         jPSenha = new javax.swing.JPasswordField();
-        jBCadastrar = new javax.swing.JButton();
-        jBCancelar = new javax.swing.JButton();
-        jBAlterarCadastro = new javax.swing.JButton();
+        jBAlterarSenha = new javax.swing.JButton();
+        jBVoltar = new javax.swing.JButton();
         lBTitulo = new java.awt.Label();
         jPanel1 = new javax.swing.JPanel();
         jLCPF = new javax.swing.JLabel();
@@ -48,16 +65,15 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
         jTXNome = new javax.swing.JTextField();
         jLNascimento = new javax.swing.JLabel();
         jTXNascimento = new javax.swing.JTextField();
-        jCSexo = new javax.swing.JComboBox<>();
-        jLSexo = new javax.swing.JLabel();
-        jBAlterar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTXEmail = new javax.swing.JTextField();
         jLEmail = new javax.swing.JLabel();
         jLTelefone = new javax.swing.JLabel();
-        jTFTelefone = new javax.swing.JTextField();
+        jTXTelefone = new javax.swing.JTextField();
+        jBAlterarContato = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Editar Perfil");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPCodigo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -66,6 +82,9 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
 
         jLSexo1.setText("Login:");
 
+        jTXLogin.setEditable(false);
+        jTXLogin.setBackground(new java.awt.Color(237, 237, 237));
+        jTXLogin.setBorder(null);
         jTXLogin.setMaximumSize(new java.awt.Dimension(150, 35));
         jTXLogin.setMinimumSize(new java.awt.Dimension(150, 35));
         jTXLogin.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -76,6 +95,16 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
         jPSenha.setMinimumSize(new java.awt.Dimension(150, 35));
         jPSenha.setPreferredSize(new java.awt.Dimension(150, 35));
 
+        jBAlterarSenha.setText("Altera Senha");
+        jBAlterarSenha.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBAlterarSenha.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBAlterarSenha.setPreferredSize(new java.awt.Dimension(120, 35));
+        jBAlterarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPCodigoLayout = new javax.swing.GroupLayout(jPCodigo);
         jPCodigo.setLayout(jPCodigoLayout);
         jPCodigoLayout.setHorizontalGroup(
@@ -83,12 +112,15 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
             .addGroup(jPCodigoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLSexo1)
-                    .addComponent(jLSenha))
-                .addGap(18, 18, 18)
-                .addGroup(jPCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTXLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBAlterarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPCodigoLayout.createSequentialGroup()
+                        .addGroup(jPCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLSexo1)
+                            .addComponent(jLSenha))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTXLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPCodigoLayout.setVerticalGroup(
@@ -102,53 +134,41 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
                 .addGroup(jPCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLSenha)
                     .addComponent(jPSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBAlterarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jBCadastrar.setText("Cadastrar");
-        jBCadastrar.setMaximumSize(new java.awt.Dimension(120, 35));
-        jBCadastrar.setMinimumSize(new java.awt.Dimension(120, 35));
-        jBCadastrar.setPreferredSize(new java.awt.Dimension(120, 35));
-        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        jBVoltar.setText("Voltar");
+        jBVoltar.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBVoltar.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBVoltar.setPreferredSize(new java.awt.Dimension(120, 35));
+        jBVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCadastrarActionPerformed(evt);
-            }
-        });
-
-        jBCancelar.setText("Cancelar");
-        jBCancelar.setMaximumSize(new java.awt.Dimension(120, 35));
-        jBCancelar.setMinimumSize(new java.awt.Dimension(120, 35));
-        jBCancelar.setPreferredSize(new java.awt.Dimension(120, 35));
-        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCancelarActionPerformed(evt);
-            }
-        });
-
-        jBAlterarCadastro.setText("Alterar Cadastro");
-        jBAlterarCadastro.setMaximumSize(new java.awt.Dimension(120, 35));
-        jBAlterarCadastro.setMinimumSize(new java.awt.Dimension(120, 35));
-        jBAlterarCadastro.setPreferredSize(new java.awt.Dimension(120, 35));
-        jBAlterarCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAlterarCadastroActionPerformed(evt);
+                jBVoltarActionPerformed(evt);
             }
         });
 
         lBTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lBTitulo.setText("Cadastro de Gestor");
+        lBTitulo.setText("Editar Perfil");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Pessoais"));
 
         jLCPF.setText("CPF:");
 
+        jTXCPF.setEditable(false);
+        jTXCPF.setBackground(new java.awt.Color(237, 237, 237));
+        jTXCPF.setBorder(null);
         jTXCPF.setMaximumSize(new java.awt.Dimension(150, 35));
         jTXCPF.setMinimumSize(new java.awt.Dimension(150, 35));
         jTXCPF.setPreferredSize(new java.awt.Dimension(150, 35));
 
         jLNome.setText("Nome:");
 
+        jTXNome.setEditable(false);
+        jTXNome.setBackground(new java.awt.Color(237, 237, 237));
         jTXNome.setToolTipText("");
+        jTXNome.setBorder(null);
         jTXNome.setPreferredSize(new java.awt.Dimension(200, 35));
         jTXNome.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -163,24 +183,10 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
 
         jLNascimento.setText("Nascimento:");
 
+        jTXNascimento.setEditable(false);
+        jTXNascimento.setBackground(new java.awt.Color(237, 237, 237));
+        jTXNascimento.setBorder(null);
         jTXNascimento.setPreferredSize(new java.awt.Dimension(150, 35));
-
-        jCSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Masculino", "Feminino" }));
-        jCSexo.setMaximumSize(new java.awt.Dimension(120, 35));
-        jCSexo.setMinimumSize(new java.awt.Dimension(120, 35));
-        jCSexo.setPreferredSize(new java.awt.Dimension(120, 35));
-
-        jLSexo.setText("Sexo:");
-
-        jBAlterar.setText("Pesquisar CPF");
-        jBAlterar.setMaximumSize(new java.awt.Dimension(120, 35));
-        jBAlterar.setMinimumSize(new java.awt.Dimension(120, 35));
-        jBAlterar.setPreferredSize(new java.awt.Dimension(120, 35));
-        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAlterarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,26 +194,19 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLNascimento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTXNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLSexo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTXNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLNome)
                             .addComponent(jLCPF))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTXCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTXNome, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTXNome, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTXCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -216,20 +215,15 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLCPF)
-                    .addComponent(jTXCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTXCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLNome)
                     .addComponent(jTXNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jCSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLSexo))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLNascimento)
-                        .addComponent(jTXNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLNascimento)
+                    .addComponent(jTXNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -243,9 +237,19 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
 
         jLTelefone.setText("Telefone:");
 
-        jTFTelefone.setMaximumSize(new java.awt.Dimension(150, 35));
-        jTFTelefone.setMinimumSize(new java.awt.Dimension(150, 35));
-        jTFTelefone.setPreferredSize(new java.awt.Dimension(150, 35));
+        jTXTelefone.setMaximumSize(new java.awt.Dimension(150, 35));
+        jTXTelefone.setMinimumSize(new java.awt.Dimension(150, 35));
+        jTXTelefone.setPreferredSize(new java.awt.Dimension(150, 35));
+
+        jBAlterarContato.setText("Editar Contatos");
+        jBAlterarContato.setMaximumSize(new java.awt.Dimension(120, 35));
+        jBAlterarContato.setMinimumSize(new java.awt.Dimension(120, 35));
+        jBAlterarContato.setPreferredSize(new java.awt.Dimension(120, 35));
+        jBAlterarContato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarContatoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -254,12 +258,15 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLTelefone)
-                    .addComponent(jLEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTXEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBAlterarContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLTelefone)
+                            .addComponent(jLEmail))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTXEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTXTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(46, 46, 46))
         );
         jPanel2Layout.setVerticalGroup(
@@ -268,12 +275,14 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLTelefone)
-                    .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTXTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTXEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLEmail))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBAlterarContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,44 +292,34 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jPCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jBAlterarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(196, 196, 196)
-                                .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBAlterarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         jPCodigo.getAccessibleContext().setAccessibleName("Preencha os campos");
@@ -329,151 +328,77 @@ public class JFrameEditarPerfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        
+    private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
+
+        jfp.setSessaoAtiva(this.sessaoAtiva);
         jfp.setVisible(true);
-        
+
         dispose();
-    }//GEN-LAST:event_jBCancelarActionPerformed
-
-    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        
-        this.ListaCG = new UsuarioC();
-        String erro = "";
-        // Verificando se os campos da interface estão sem valor,
-        // caso estejam, será montada uma string com as informações de erro.
-            if (jTXNome.getText().trim().isEmpty()) erro = erro + "Campo Nome não preenchido...\n";
-            if(jTXCPF.getText().trim().isEmpty())   erro = erro + "Campo CPF não preenchido...\n";
-            if (jTXNascimento.getText().isEmpty())           erro = erro + "campo nascimento não preenchido...";
-            if (jTXEmail.getText().isEmpty())           erro = erro + "campo Email não preenchido...";
-            if (jTXLogin.getText().isEmpty())           erro = erro + "campo Login não preenchido...";
-            if (jPSenha.getText().isEmpty())           erro = erro + "campo Senha não preenchido...";
-            if (jCSexo.getSelectedItem().equals("Selecionar"))           erro = erro + "Sexo não selecionado...";
-        
-        
-        // Verificando se o atributo erro está vazio
-        if(erro.length() == 0){
-            
-            // Resgatando os valores dos campos do painel dados.
-//            int codigo = Integer.parseInt(jTXCodigo.getText().trim());
-int codigo = 1;
-            String nome = jTXNome.getText().trim(); 
-            String cpf  = jTXCPF.getText().trim();
-            String nascimento = jTXNascimento.getText().trim();
-            String email = jTXEmail.getText().trim();
-            String login = jTXLogin.getText().trim();
-            String senha = new String(jPSenha.getPassword());
-            Object sexo = jCSexo.getSelectedItem();
-            Date date = new Date(System.currentTimeMillis());
-            String data = date.toString();
-            
-            // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-            if(this.ListaCG.inserirDados(this.ListaCG,codigo, nome,cpf,nascimento,data,email,login,senha,sexo.toString())){
-                
-                if(this.ListaCG.gravarUsuariosBD(this.ListaCG)) {
-                    
-                JOptionPane.showMessageDialog(null, "Novo gerente cadastrado com sucesso!!");
-                jfp.setVisible(true);
-                dispose();
-                
-                }else{
-                    JOptionPane.showMessageDialog(null, "Banco indisponível no momento!!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar novo gerente...");
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, erro);
-        }
-        
-    }//GEN-LAST:event_jBCadastrarActionPerformed
-
-    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        
-        
-        this.parametroCPF = this.jTXCPF.getText();
-        No pAux = null;
-        if(this.ListaCG.pegarCPF(this.ListaCG,parametroCPF,pAux)){
-            
-            pAux = ListaCG.getInicioDaLista();
-            jTXNome.setText(pAux.getObjeto().getNomeUsuario());
-//            jTXCodigo.setText(String.valueOf(pAux.getObjeto().getCodigoUsuario()));
-            jTXCPF.setText(pAux.getObjeto().getCpf());
-            jTXNascimento.setText(pAux.getObjeto().getNascimento());
-            jTXEmail.setText(pAux.getObjeto().getEmail());
-            jCSexo.setSelectedIndex(pAux.getObjeto().getSexo() == "Feminino" ? 1 : 2);
-            jTXLogin.setText(pAux.getObjeto().getLoginUsuario());
-            jPSenha.setText(pAux.getObjeto().getSenhaUsuario());
-        }else{
-            JOptionPane.showMessageDialog(null, "CPF não encontrado");
-        }
-        
-    }//GEN-LAST:event_jBAlterarActionPerformed
+    }//GEN-LAST:event_jBVoltarActionPerformed
 
     private void jTXNomeComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTXNomeComponentAdded
-        
+
     }//GEN-LAST:event_jTXNomeComponentAdded
 
     private void jTXNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTXNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTXNomeActionPerformed
 
-    private void jBAlterarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarCadastroActionPerformed
-        
-        this.ListaCG.limparLista(this.ListaCG);
+    private void jBAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarSenhaActionPerformed
+
         String erro = "";
+        
         // Verificando se os campos da interface estão sem valor,
         // caso estejam, será montada uma string com as informações de erro.
-            if (jTXNome.getText().trim().isEmpty()) erro = erro + "Campo Nome não preenchido...\n";
-            if(jTXCPF.getText().trim().isEmpty())   erro = erro + "Campo CPF não preenchido...\n";
-            if (jTXNascimento.getText().isEmpty())           erro = erro + "campo nascimento não preenchido...";
-            if (jTXEmail.getText().isEmpty())           erro = erro + "campo Email não preenchido...";
-            if (jTXLogin.getText().isEmpty())           erro = erro + "campo Login não preenchido...";
             if (jPSenha.getText().isEmpty())           erro = erro + "campo Senha não preenchido...";
-            if (jCSexo.getSelectedItem().equals("Selecionar"))           erro = erro + "Sexo não selecionado...";
         
         
         // Verificando se o atributo erro está vazio
         if(erro.length() == 0){
             
-            // Resgatando os valores dos campos do painel dados.
-//            int codigo = Integer.parseInt(jTXCodigo.getText().trim());
-int codigo = 1;
-            String nome = jTXNome.getText().trim(); 
-            String cpf  = jTXCPF.getText().trim();
-            String nascimento = jTXNascimento.getText().trim();
-            String email = jTXEmail.getText().trim();
-            String login = jTXLogin.getText().trim();
             String senha = new String(jPSenha.getPassword());
-            Object sexo = jCSexo.getSelectedItem();
-            Date date = new Date(System.currentTimeMillis());
-            String data = date.toString();
             
-
-
-            // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
-            if(this.ListaCG.inserirDados(this.ListaCG,codigo, nome,cpf,nascimento,data,email,login,senha,sexo.toString())){
-                
-                if(this.ListaCG.alterarUsuarioBD(this.ListaCG,codigo)) {
-                    
-                JOptionPane.showMessageDialog(null, "Dados do Gerente alterarado com sucesso!!");
-                jfp.setVisible(true);
-                dispose();
-                
-                }else{
-                    JOptionPane.showMessageDialog(null, "Banco indisponível no momento!!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar novo gerente...");
+            if(this.gestorC.setAlterarSenhaGestor(this.sessaoAtiva.getId(), senha) == true){
+                this.sessaoAtiva.setSenha(senha);
+                JOptionPane.showMessageDialog(null, "Dados do gestor foram atualizado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Atenção, ocorreu um erro ao editar a sua senha, tente novamenteø");
             }
             
         }else{
             JOptionPane.showMessageDialog(null, erro);
         }
-    }//GEN-LAST:event_jBAlterarCadastroActionPerformed
-    
-    
+    }//GEN-LAST:event_jBAlterarSenhaActionPerformed
+
+    private void jBAlterarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarContatoActionPerformed
+        String erro = "";
+        
+        // Verificando se os campos da interface estão sem valor,
+        // caso estejam, será montada uma string com as informações de erro.
+            if (jTXTelefone.getText().isEmpty())           erro = erro + "campo TELEFONE não preenchido...";
+            if (jTXEmail.getText().isEmpty())           erro = erro + "campo E-MAIL não preenchido...";
+        
+        
+        // Verificando se o atributo erro está vazio
+        if(erro.length() == 0){
+            
+            String telefone = new String(jTXTelefone.getText());
+            String email = new String(jTXEmail.getText());
+            
+            
+            if(this.gestorC.setAlterarContatoGestor(this.sessaoAtiva.getId(), telefone, email) == true){
+                this.sessaoAtiva.setTelefone(telefone);
+                this.sessaoAtiva.setEmail(email);
+                JOptionPane.showMessageDialog(null, "Dados do gestor foram atualizado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Atenção, ocorreu um erro ao editar a sua senha, tente novamenteø");
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, erro);
+        }
+    }//GEN-LAST:event_jBAlterarContatoActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -508,29 +433,26 @@ int codigo = 1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAlterar;
-    private javax.swing.JButton jBAlterarCadastro;
-    private javax.swing.JButton jBCadastrar;
-    private javax.swing.JButton jBCancelar;
-    private javax.swing.JComboBox<String> jCSexo;
+    private javax.swing.JButton jBAlterarContato;
+    private javax.swing.JButton jBAlterarSenha;
+    private javax.swing.JButton jBVoltar;
     private javax.swing.JLabel jLCPF;
     private javax.swing.JLabel jLEmail;
     private javax.swing.JLabel jLNascimento;
     private javax.swing.JLabel jLNome;
     private javax.swing.JLabel jLSenha;
-    private javax.swing.JLabel jLSexo;
     private javax.swing.JLabel jLSexo1;
     private javax.swing.JLabel jLTelefone;
     private javax.swing.JPanel jPCodigo;
     private javax.swing.JPasswordField jPSenha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTFTelefone;
     private javax.swing.JTextField jTXCPF;
     private javax.swing.JTextField jTXEmail;
     private javax.swing.JTextField jTXLogin;
     private javax.swing.JTextField jTXNascimento;
     private javax.swing.JTextField jTXNome;
+    private javax.swing.JTextField jTXTelefone;
     private java.awt.Label lBTitulo;
     // End of variables declaration//GEN-END:variables
 }

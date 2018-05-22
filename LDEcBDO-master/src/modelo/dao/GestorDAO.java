@@ -230,11 +230,86 @@ public class GestorDAO {
         return false;
     }
     
-    public ResultSet selecionarUsuariosBD() {
+    //Selecionar dados do usuário
+    public ResultSet selecionarUsuarioBD(String login) {
+        
+        // Definindo a string sql
+        this.setSql("SELECT * FROM gestor WHERE g_login = ?");
+        
+        try {
+            
+            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.getPstmt().setString(1, (login));
+            this.setRs(this.getPstmt().executeQuery());
+            
+            return this.getRs();
+            
+        }catch(SQLException e) {
+            
+            e.printStackTrace();
+            
+        }
+        
         return null;
     }
     
-    public boolean alterarUsuariosBD(Gestor _gestor, int parametro) {
+    //Altera senha do gestor
+    public boolean alterarSenhaUsuarioBD(int gestorID, String senha) {
+        
+        // Definindo a string sql
+        this.setSql("UPDATE gestor SET g_senha = ?, data_modificado = CURRENT_DATE WHERE g_id = " + gestorID);
+        
+        try {
+             
+            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.getPstmt().setString(1, senha);
+            
+            
+            // Executa o comando SQL com os parâmteros.
+            this.getPstmt().execute();
+            // Encerra o componente 'PrepareStatement'
+            this.getPstmt().close();
+            
+            return true;
+ 
+        }catch(SQLException e) {
+            
+            e.printStackTrace();
+            
+        }
+ 
+        return false;
+    }
+    
+    //Alterar Dados de Contato do gestor
+    public boolean alterarContatoUsuarioBD(int gestorID, String email, String telefone) {
+        
+        // Definindo a string sql
+        this.setSql("UPDATE gestor SET g_email = ?, g_telefone = ?, data_modificado = CURRENT_DATE WHERE g_id = " + gestorID);
+        
+        try {
+             
+            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            
+            this.getPstmt().setString(1, email);
+            this.getPstmt().setString(2, telefone);
+            
+            // Executa o comando SQL com os parâmteros.
+            this.getPstmt().execute();
+            // Encerra o componente 'PrepareStatement'
+            this.getPstmt().close();
+            
+            return true;
+ 
+        }catch(SQLException e) {
+            
+            e.printStackTrace();
+            
+        }
+ 
         return false;
     }
     
