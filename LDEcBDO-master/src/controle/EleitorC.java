@@ -8,10 +8,12 @@ package controle;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import modelo.dao.DadosCandidatoDAO;
 import modelo.dao.DadosEleitorDAO;
 import modelo.dao.GestorDAO;
 import modelo.dominio.DadosEleitor;
 import modelo.dominio.Gestor;
+import modelo.dominio.No;
 
 /**
  *
@@ -58,7 +60,7 @@ public class EleitorC {
     /*###################################
                MÉTODOS DA CLASSE
       ###################################*/
-    
+ 
     //Verificar se Municipio está duplicado
     public boolean MunicipioExistente(String municipio) {
 
@@ -79,20 +81,20 @@ public class EleitorC {
     }
     
      //Verificar se o Partido está duplicado
-    public boolean PartidoExistente(String partido) {
+    public boolean PariodoExistente(String periodo) {
 
-        if (!"".equals(partido)) {
-            return this.eleitorDAO.verificarExistePartido(partido);
+        if (!"".equals(periodo)) {
+            return this.eleitorDAO.verificarExistePeriodoDados(periodo);
         }
 
         return false;
     }
 
     //Verificar se nome de eleição está duplicado
-    public boolean EleicaoExistente(String eleicao) {
+    public boolean FaixaEtariaExistente(String faixa) {
 
-        if (!"".equals(eleicao)) {
-            return this.eleitorDAO.verificarExisteEleicao(eleicao);
+        if (!"".equals(faixa)) {
+            return this.eleitorDAO.verificarExisteFaixaEtaria(faixa);
         }
 
         return false;
@@ -103,30 +105,79 @@ public class EleitorC {
     public void setDadosEleitor(String periodo, String uf, String municipio, String sexo, String faixa_etaria, String total) {
         this.EleitorDados = new DadosEleitor(periodo, uf, municipio, sexo, faixa_etaria, total);
     }
+    //String periodo, String uf, String municipio, String sexo, String faixa_etaria, String total
+    // Método para gravar todos os dados no banco de dados Oracle aproveitando a classe DadosC
+    public boolean gravarDadosBanco(DadosC listaDE, String p1, String p2){
+        
+        // Criando instância da classe UsuarioDAO.
+        DadosEleitorDAO uDAO = new DadosEleitorDAO();
+        
+        // Verificando se é possível conectar ao banco de dados Oracle
+        // Se for possível, o atributo conn será diferente de 'null'
+        if((this.conn = uDAO.conectarBanco()) != null){
+            
+            // Pegando o início da lista duplamente encadeada, se existir.
+            No proximoDado = listaDE.getLista(listaDE);
+        
+            // O primeiro nó da lista, de forma abstrata, está na posição ZERO.
+            int i = 0;
 
-    //Cadastrar Novo Gestor
-    public boolean setCadastrarEleitor() {
+            // Enquanto o ponteiro atual for diferente de null e
+            // for menor que a quantidade de nós
+            while ((proximoDado != null) && (i < listaDE.getQuantidadeDeNos())){
 
-        DadosEleitorDAO eDAO = new DadosEleitorDAO();
+                // Se não foi possível gravar no banco de dados Oracle,
+                // retorna falso e então, executaremos o comando 'break' para
+                // sair das estruturas 'if' e 'while'.
+                // Observação: será passado como parâmetro apenas o campo
+                // objeto (onde contém as informações do usuário atual) do nó.
+                if(!uDAO.gravarEleitorBD(proximoDado.getObjctEleitorado(), p1, p2)){
 
-        if ((this.conn = eDAO.conectarBanco()) != null) {
+                    break;
 
-            //Salvar dados
-            if (!eDAO.gravarEleitorBD(this.EleitorDados)) {
-                eDAO.fecharConexaoOracle();
-                eDAO = null;
+                }
+                
+                // Vai para o próximo nó.
+                proximoDado = proximoDado.getProximoPonteiro();
+                i++;
 
-                return false;
             }
-
-            // Fechar conexão
-            eDAO.fecharConexaoOracle();
-            eDAO = null;
-
+            
+            // Fechando a conexão ao banco de dados
+            uDAO.fecharConexaoOracle();
+            
+            // Setando null para o objeto uDAO
+            uDAO = null;
+            
             return true;
-
+            
         }
-
+        
+        return false;
+        
+    }
+    
+    public boolean refDadosBanco(String p1, String p2, String p3){
+        
+        // Criando instância da classe UsuarioDAO.
+        DadosEleitorDAO uDAO = new DadosEleitorDAO();
+        
+        // Verificando se é possível conectar ao banco de dados Oracle
+        // Se for possível, o atributo conn será diferente de 'null'
+        if((this.conn = uDAO.conectarBanco()) != null){
+      
+                if(!uDAO.referenciarDado(p1, p2, p3)){
+                    
+                    return true;
+                }
+            }
+            
+            // Fechando a conexão ao banco de dados
+            uDAO.fecharConexaoOracle();
+            
+            // Setando null para o objeto uDAO
+            uDAO = null;
+            
         return false;
     }
 

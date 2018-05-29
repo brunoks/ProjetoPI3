@@ -50,7 +50,7 @@ public class No {
     public No getPonteiroAnterior() {
         return this.ponteiroAnterior;
     }
-
+    
     public DadosEleitor getObjctEleitorado() {
         return this.objectEleitorado;
     }

@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dominio.DadosCandidato;
+import modelo.dominio.DadosEleitor;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -257,7 +258,7 @@ public class DadosC {
         return null;
         
     }
-    
+
     // Método para unir 2 listas duplamente encadeadas
     /*public void unirListas(UsuarioC LDE1, UsuarioC LDE2){
         
@@ -292,20 +293,20 @@ public class DadosC {
                 No novoNo = new No();
                 switch(entrada){
                     case "Candidato": 
-                        No No1 = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
-                        novoNo = No1;
+                        No NoCandidato = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
+                        novoNo = NoCandidato;
                     break;
                     
                     case "Eleitorado": 
                         
-                        No No2 = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
-                        novoNo = No2;
+                        No NoEleitorado = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
+                        novoNo = NoEleitorado;
                     break;
                     
                     case "Voto": 
                         
-                        No No3 = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
-                        novoNo = No3;
+                        No NoVoto = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
+                        novoNo = NoVoto;
                     break;
                 }
                 

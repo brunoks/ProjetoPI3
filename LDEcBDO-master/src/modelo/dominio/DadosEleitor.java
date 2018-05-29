@@ -5,6 +5,8 @@
  */
 package modelo.dominio;
 
+import controle.DadosC;
+
 /**
  *
  * @author Bruno

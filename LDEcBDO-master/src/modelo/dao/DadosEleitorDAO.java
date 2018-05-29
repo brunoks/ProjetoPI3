@@ -6,38 +6,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import modelo.dao.conexao.ConnectionFactory;
+import modelo.dominio.DadosCandidato;
 import modelo.dominio.DadosEleitor;
 
 /**
  * Classe de Tratamentos das Consultas vinculadas ao Eleitorado
+ *
  * @author ALERTRACK
  */
 public class DadosEleitorDAO {
-    
+
     /*###################################
               ATRIBUTOS DA CLASSE
       ###################################*/
-    
     private ConnectionFactory cf;
     private Connection conn;
     private PreparedStatement pstmt; // query
     private Statement stmt;
     private String sql;
     private ResultSet rs;
-    
+
     /*###################################
              CONSTRUTOR DA CLASSE
       ###################################*/
-    public DadosEleitorDAO(){
-        
+    public DadosEleitorDAO() {
+
         this.setConn(null);
-        
+
     }
-    
+
     /*###################################
            MÉTODOS get e set DA CLASSE
       ###################################*/
-
     // Método para retornar o objeto da classe 'ConnectionFactory'
     public ConnectionFactory getCf() {
         return this.cf;
@@ -67,7 +67,7 @@ public class DadosEleitorDAO {
     public void setPstmt(PreparedStatement _pstmt) {
         this.pstmt = _pstmt;
     }
-    
+
     // Método 
     public Statement getStmt() {
         return this.stmt;
@@ -92,198 +92,236 @@ public class DadosEleitorDAO {
     public ResultSet getRs() {
         return this.rs;
     }
-    
+
     // Método para armazenar o ResultSet
     public void setRs(ResultSet _rs) {
         this.rs = _rs;
     }
-    
+
     /*###################################
                MÉTODOS DA CLASSE
       ###################################*/
-    
     //Conexão com banco de dados
-    public Connection conectarBanco(){
-       
-        if(this.getConn() == null){
+    public Connection conectarBanco() {
+
+        if (this.getConn() == null) {
             this.setCf(new ConnectionFactory());
             this.setConn(this.getCf().criarConexaoOracle());
         }
-            
+
         return this.getConn();
-        
+
     }
-    
-    public boolean verificarExisteEstado(String cpf){
-        
-        try{
+
+    //Verifica se existe estado no banco
+    public boolean verificarExisteEstado(String cpf) {
+
+        try {
             //Conectar banco de dados
             this.setConn(this.conectarBanco());
-            
+
             //SQL
             this.setSql("SELECT COUNT(*) as Total FROM estado WHERE e_estado = ?");
-            
+
             //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.getPstmt().setString(1, cpf);
-            
+
             //Buscar registros
             this.setRs(this.getPstmt().executeQuery());
-            
+
             //Resultado
-            while(this.getRs().next()){
-                
+            while (this.getRs().next()) {
+
                 //Total de UF cadastrados
                 int total = this.getRs().getInt("Total");
-                
-                if(total > 0){
+
+                if (total > 0) {
                     //Fechar conexões
                     this.getPstmt().close();
                     this.setConn(this.getCf().fecharConexaoOracle());
-                    
+
                     //Campo está duplicado
                     return true;
                 }
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
-        
+
         return false;
     }
-    
-    public boolean verificarExisteMunicipio(String municipio){
-        
-        try{
+
+    //Verifica se existe municio
+    public boolean verificarExisteMunicipio(String municipio) {
+
+        try {
             //Conectar banco de dados
             this.setConn(this.conectarBanco());
-            
+
             //SQL
-            this.setSql("SELECT COUNT(*) as Total FROM municipio WHERE m_municipio = ?");
-            
+            this.setSql("SELECT * FROM municipio WHERE m_municipio = ?");
+
             //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.getPstmt().setString(1, municipio);
-            
+
             //Buscar registros
             this.setRs(this.getPstmt().executeQuery());
-            
+
             //Resultado
-            while(this.getRs().next()){
-                
+            while (this.getRs().next()) {
+
                 //Total de Municipios cadastrados
                 int total = this.getRs().getInt("Total");
-                
-                if(total > 0){
+
+                if (total > 0) {
                     //Fechar conexões
                     this.getPstmt().close();
                     this.setConn(this.getCf().fecharConexaoOracle());
-                    
+
                     //Campo está duplicado
                     return true;
                 }
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
-        
+
         return false;
     }
-    
-    public boolean verificarExistePartido(String partido){
-        
-        try{
+
+    //Verifica se existe período dos dados
+    public boolean verificarExistePeriodoDados(String eleicao) {
+
+        try {
             //Conectar banco de dados
             this.setConn(this.conectarBanco());
-            
-            //SQL
-            this.setSql("SELECT COUNT(*) as Total FROM partido WHERE pr_partido = ?");
-            
-            //Passar parametros
-            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
-            this.getPstmt().setString(1, partido);
-            
-            //Buscar registros
-            this.setRs(this.getPstmt().executeQuery());
-            
-            //Resultado
-            while(this.getRs().next()){
-                
-                //Total de Partidos cadastrados
-                int total = this.getRs().getInt("Total");
-                
-                if(total > 0){
-                    //Fechar conexões
-                    this.getPstmt().close();
-                    this.setConn(this.getCf().fecharConexaoOracle());
-                    
-                    //Campo está duplicado
-                    return true;
-                }
-            }
-        } catch(SQLException e){
-            
-        }
-        
-        return false;
-    }
-    
-    public boolean verificarExisteEleicao(String eleicao){
-        
-        try{
-            //Conectar banco de dados
-            this.setConn(this.conectarBanco());
-            
+
             //SQL
             this.setSql("SELECT el_id FROM eleicao WHERE el_ano = ?");
-            
+
             //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.getPstmt().setString(1, eleicao);
-            
+
             //Buscar registros
             this.setRs(this.getPstmt().executeQuery());
-            
+
             //Resultado
-            while(this.getRs().next()){
-                
+            while (this.getRs().next()) {
+
                 //Pega referencia
                 eleicao = this.getRs().getString("el_id");
-                if(eleicao == ""){
-                    
-                    
+                if (eleicao == "") {
+
                     //Fechar conexões
                     this.getPstmt().close();
                     this.setConn(this.getCf().fecharConexaoOracle());
-                    
+
                     //Retorna id eleicao
                     return true;
                 }
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
-        
+
         return false;
-    }
-    
-    public boolean gravarEleitorBD(DadosEleitor _eleitor) {
-        
-        
- 
-        return false;
-    }
-    
-    public ResultSet selecionarEleitoradoBD() {
-        
-        
-        
-        return null;
-        
     }
 
+    public boolean verificarExisteFaixaEtaria(String faixa) {
+
+        try {
+            //Conectar banco de dados
+            this.setConn(this.conectarBanco());
+
+            //SQL
+            this.setSql("SELECT p_faixa_etaria FROM perfil_eleitor WHERE el_ano = ?");
+
+            //Passar parametros
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.getPstmt().setString(1, faixa);
+
+            //Buscar registros
+            this.setRs(this.getPstmt().executeQuery());
+
+            //Resultado
+            while (this.getRs().next()) {
+
+                //Pega referencia
+                faixa = this.getRs().getString("el_id");
+                if (faixa == "") {
+
+                    //Fechar conexões
+                    this.getPstmt().close();
+                    this.setConn(this.getCf().fecharConexaoOracle());
+
+                    //Retorna id eleicao
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return false;
+    }
+
+    public String getReferencia(String tabela, String coluna, String parametro) {
+        String resultado = "";
+        try {
+            //Conectar banco de dados
+            this.setConn(this.conectarBanco());
+
+            //SQL
+            this.setSql("SELECT * FROM ? WHERE ? = ?");
+
+            //Passar parametros
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.getPstmt().setString(1, tabela);
+            this.getPstmt().setString(2, coluna);
+            this.getPstmt().setString(3, parametro);
+
+            //Buscar registros
+            this.setRs(this.getPstmt().executeQuery());
+
+            //Resultado
+            while (this.getRs().next()) {
+
+                //Pega referencia
+                resultado = this.getRs().getString(1);
+                if ("".equals(resultado)) {
+
+                    //Fechar conexões
+                    this.getPstmt().close();
+                    this.setConn(this.getCf().fecharConexaoOracle());
+
+                }
+            }
+        } catch (SQLException e) {
+
+        }
+        return resultado;
+    }
+
+    public boolean gravarEleitorBD(DadosEleitor _eleitor, String tabela, String coluna) {
+
+        return false;
+    }
     
-    public void fecharConexaoOracle(){
+    public boolean referenciarDado(String tabela, String coluna, String ref) {
+
+        return false;
+    }
+
+    public ResultSet selecionarEleitoradoBD() {
+
+        return null;
+
+    }
+
+    public void fecharConexaoOracle() {
         this.setConn(this.cf.fecharConexaoOracle());
     }
 }
