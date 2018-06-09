@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.dao.DadosEleitorDAO;
 import modelo.dominio.DadosCandidato;
 import modelo.dominio.DadosEleitor;
 
@@ -40,7 +41,7 @@ public class DadosC {
     /*###################################
               ATRIBUTOS DA CLASSE
       ###################################*/
-    
+    private final DadosCandidatoDAO candidatoDAO;
     // Descritor da lista duplamente encadeada
     private int quantidadeDeNos;
     
@@ -615,6 +616,76 @@ public class DadosC {
                
         return true;    
         
+    }
+    public boolean importarDadosCandidato(DadosC listaDE2) {
+        
+        No pAux = listaDE2.getInicioDaLista();
+        DadosC candidato = new DadosC();
+        DadosEleitorDAO dao = new DadosEleitorDAO();
+        int let = 0;
+        for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
+
+            //Verifica se existe estado no banco
+            if (candidato.filtro("tabela","coluna", pAux.getObjctDados().getCargo())) {
+                if (candidato.getRef("estado", "e_uf", dao.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf()))) {
+                    System.out.println("Referência Identificada");
+                } else {
+                    System.out.println("Ocorreu um erro ao referenciar - ID não encontrado");
+                }
+            } else {
+                candidato.gravarDadosBanco(listaDE2);
+            }
+
+            //Verifica se existe municipio no banco
+            if (candidato.filtro("tabela", "estado",pAux.getObjctEleitorado().getMunicipio())) {
+                if (candidato.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))) {
+                    System.out.println("Municipio inserido");
+                } else {
+                    System.out.println("Municipio não inserido");
+                }
+
+            } else {
+                candidato.gravarDadosBanco(listaDE2);
+            }
+
+            //Verifica se existe esta faixa no banco de dados
+            if (candidato.filtro("tabela", "estado",pAux.getObjctEleitorado().getFaixa_etaria())) {
+                if (candidato.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))) {
+                    System.out.println("Perfil inserido");
+                } else {
+                    System.out.println("Perfil não inserido");
+                }
+            } else {
+                candidato.gravarDadosBanco(listaDE2);
+            }
+
+            if (let == 3) {
+                if (candidato.gravarDadosBanco(listaDE2)) {
+                    JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
+                }
+
+            }
+            pAux = pAux.getProximoPonteiro();
+        }
+        return true;
+    }
+    
+    //Verificar se Dado está duplicado nas tabelas
+    public boolean filtro(String tabela, String coluna, String dado) {
+
+        if (!"".equals(dado)) {
+            return this.candidatoDAO.verificarExisteDado(tabela,coluna,dado);
+        }
+
+        return false;
+    }
+    
+    public boolean getRef(String tabela, String coluna, String dado) {
+        
+        
+        return true;
     }
     
 }
