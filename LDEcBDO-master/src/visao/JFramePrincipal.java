@@ -80,7 +80,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jPLista.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tratamento da Lista", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBCL.setText("Criar lista");
+        jBCL.setText("Criar Lista");
         jBCL.setMaximumSize(new java.awt.Dimension(370, 35));
         jBCL.setMinimumSize(new java.awt.Dimension(370, 35));
         jBCL.setPreferredSize(new java.awt.Dimension(370, 35));
@@ -183,18 +183,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addComponent(jBEditarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCandidatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBEleitorado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(JBSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPImportar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Importar Dados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jBLerTXT.setText("Ler TXT");
+        jBLerTXT.setText("Selecione o TXT");
         jBLerTXT.setEnabled(false);
         jBLerTXT.setMaximumSize(new java.awt.Dimension(180, 35));
         jBLerTXT.setMinimumSize(new java.awt.Dimension(180, 35));
@@ -205,7 +205,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        jCBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Candidato", "Eleitorado", "Votos", " " }));
+        jCBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Candidato", "Eleitorado", "Votos" }));
         jCBTipo.setMaximumSize(new java.awt.Dimension(180, 35));
         jCBTipo.setMinimumSize(new java.awt.Dimension(180, 35));
         jCBTipo.setName(""); // NOI18N
@@ -255,7 +255,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBSelecionarBD.setText("Selecionar Dados");
+        jBSelecionarBD.setText("Exportar JSON");
         jBSelecionarBD.setEnabled(false);
         jBSelecionarBD.setMaximumSize(new java.awt.Dimension(370, 35));
         jBSelecionarBD.setMinimumSize(new java.awt.Dimension(370, 35));
@@ -297,32 +297,37 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPImportar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPLista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(189, 189, 189))
+                .addGap(126, 126, 126))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(lBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(5, 5, 5)
                         .addComponent(jPLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(jPImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -387,6 +392,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBLerTXTActionPerformed
 
     private void jBGravarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarBDActionPerformed
+        jBSelecionarBD.setEnabled(true);
         No pAux = this.listaDE2.getInicioDaLista();
         EleitorC eleitor = new EleitorC();
         DadosEleitorDAO dao = new DadosEleitorDAO();
@@ -476,9 +482,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBLL.setEnabled(false); // Habilitando o botão Limpar lista
         jBCL.setEnabled(true);  // Habilitando o botão Criar lista
 
-        jBEditarCadastro.setEnabled(false);      // Desabilitando o botão Alterar
-
-        jBLerTXT.setEnabled(true);        // Habilitando o botão CSV
+        jBLerTXT.setEnabled(false);        // Habilitando o botão CSV
 
         jBGravarBD.setEnabled(false);     // Desabilitando o botão gravar
         jBSelecionarBD.setEnabled(false); // Desabilitando o botão selecionar
@@ -494,10 +498,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBCL.setEnabled(false);  // Desabilitando o botão Criar lista
 
         jBLL.setEnabled(true);        // habilitando o botão Limpar lista
-        jBEditarCadastro.setEnabled(true);   // habilitando o botão Alterar
         jBLerTXT.setEnabled(true);    // habilitando o botão CSV
 
-        jBSelecionarBD.setEnabled(true); // habilitando o botão Selecionar BD
+        jBSelecionarBD.setEnabled(false); // habilitando o botão Selecionar BD
 
     }//GEN-LAST:event_jBCLActionPerformed
 
