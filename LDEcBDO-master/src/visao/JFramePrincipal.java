@@ -17,15 +17,14 @@ import modelo.dao.DadosEleitorDAO;
  * @author Jefferson
  */
 public class JFramePrincipal extends javax.swing.JFrame {
-    
+
     private JFileChooser jFCEscolherArquivo;
     private Gestor sessaoAtiva = new Gestor();
-    
-    String[] uf = {"AC","AL","AM","AP","BA","BR","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"};
-    
+
+    String[] uf = {"AC", "AL", "AM", "AP", "BA", "BR", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"};
+
     // Atributo para acessar a classe de controle Estruturas de Dados
     private DadosC listaDE2;
-
 
     /**
      * Creates new form JFramePrincipal
@@ -36,13 +35,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
         // Posicionando a tela JFramePrincipal ao centro da tela do usuário
         setLocationRelativeTo(null);
     }
-    
-    public void showSaudacao(){
+
+    public void showSaudacao() {
         JOptionPane.showMessageDialog(null, "Seja Bem Vindo(a) " + this.sessaoAtiva.getNome());
     }
-   
+
     //Salvar as informações da Sessão Ativa
-    public void setSessaoAtiva(Gestor _gestor){
+    public void setSessaoAtiva(Gestor _gestor) {
         this.sessaoAtiva = _gestor;
     }
 
@@ -345,8 +344,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
         this.jFCEscolherArquivo = new JFileChooser();
 
         // Define o diretório atual.
-        // Nesse caso, a caixa será aberta em c:
-        this.jFCEscolherArquivo.setCurrentDirectory(new File("C:\\Users\\Bruno\\Downloads\\consulta_cand_2016 (1)"));
+        // Nesse caso, a caixa será aberta em c:\\urnadigital
+        this.jFCEscolherArquivo.setCurrentDirectory(new File("C:\\urnadigital"));
 
         // Permite que seja seleciodo apenas arquivos, diretórios ou arquivos e diretórios.
         // FILES_ONLY = instrução para exibir apenas arquivos.
@@ -392,70 +391,69 @@ public class JFramePrincipal extends javax.swing.JFrame {
         EleitorC eleitor = new EleitorC();
         DadosEleitorDAO dao = new DadosEleitorDAO();
         int let = 0;
-        for(int i = 0; i < this.listaDE2.getQuantidadeDeNos(); i++) {
-            
-            //Verifica se existe municipio no banco
-            if(eleitor.MunicipioExistente(pAux.getObjctEleitorado().getMunicipio())){
-                
-                if(eleitor.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))){
-                    System.out.println("Municipio inserido");
-                }else{
-                    System.out.println("Municipio não inserido");
-                }
-                
-            }else{
-                    eleitor.gravarDadosBanco(this.listaDE2, "municipio", "m_municipio");
-            }
-            
+        for (int i = 0; i < this.listaDE2.getQuantidadeDeNos(); i++) {
+
             //Verifica se existe estado no banco
-            if(eleitor.EstadoExistente(pAux.getObjctEleitorado().getUf())){
-               if(eleitor.refDadosBanco("estado", "e_estado", dao.getReferencia("estado", "e_estado", pAux.getObjctEleitorado().getMunicipio()))){
-                    System.out.println("Estado inserido");
-                }else{
-                    System.out.println("Estado não inserido");
+            if (eleitor.EstadoExistente(pAux.getObjctEleitorado().getUf())) {
+                if (eleitor.refDadosBanco("estado", "e_uf", dao.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf()))) {
+                    System.out.println("Referência Identificada");
+                } else {
+                    System.out.println("Ocorreu um erro ao referenciar - ID não encontrado");
                 }
-            }else{
+            } else {
                 eleitor.gravarDadosBanco(this.listaDE2, "estado", "e_estado");
             }
-            
+
+            //Verifica se existe municipio no banco
+            if (eleitor.MunicipioExistente(pAux.getObjctEleitorado().getMunicipio())) {
+                if (eleitor.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))) {
+                    System.out.println("Municipio inserido");
+                } else {
+                    System.out.println("Municipio não inserido");
+                }
+
+            } else {
+                eleitor.gravarDadosBanco(this.listaDE2, "municipio", "m_municipio");
+            }
+
             //Verifica se existe esta faixa no banco de dados
-            if(eleitor.FaixaEtariaExistente(pAux.getObjctEleitorado().getFaixa_etaria())){
-                if(eleitor.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))){
+            if (eleitor.FaixaEtariaExistente(pAux.getObjctEleitorado().getFaixa_etaria())) {
+                if (eleitor.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))) {
                     System.out.println("Perfil inserido");
-                }else{
+                } else {
                     System.out.println("Perfil não inserido");
                 }
-            }else{
+            } else {
                 eleitor.gravarDadosBanco(this.listaDE2, "perfil_eleitor", "p_faixa_etaria");
             }
-            
-            if(let == 3){
-                    if (eleitor.gravarDadosBanco(this.listaDE2, "")) {
-                        JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
-                    }
-                    
+
+            if (let == 3) {
+                if (eleitor.gravarDadosBanco(this.listaDE2, "", "")) {
+                    JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
                 }
+
+            }
             pAux = pAux.getProximoPonteiro();
         }
     }//GEN-LAST:event_jBGravarBDActionPerformed
 
     private void jBSelecionarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelecionarBDActionPerformed
-        
+
         for (int i = 0; i < uf.length; i++) {
             // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
             if (this.listaDE2.selecionarDadosBD(this.listaDE2, this.uf[i])) {
-                if(this.listaDE2.getQuantidadeDeNos() > 1){
+                if (this.listaDE2.getQuantidadeDeNos() > 1) {
                     System.out.println(this.uf[i]);
                     this.listaDE2.escreverArquivoJson(this.listaDE2, this.jCBTipo.getSelectedItem().toString());
                     this.listaDE2.limparLista(this.listaDE2);
                     this.listaDE2 = new DadosC();
-                }else{
+                } else {
                     System.out.println("Estado não existe, pegando próximo.." + this.uf[i]);
                 }
             }
-            
+
         }
         jBSelecionarBD.setEnabled(false); // habilitando o botão Selecionar BD
         jBGravarBD.setEnabled(true);      // habilitando o botão Gravar BD
@@ -463,7 +461,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBSelecionarBDActionPerformed
 
     private void jCBTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBTipoActionPerformed
-        
+
     }//GEN-LAST:event_jCBTipoActionPerformed
 
     private void jCBTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBTipoItemStateChanged
@@ -505,7 +503,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void JBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSairActionPerformed
         dispose();
-        System.exit(0);
+
+        JFrameLogin jfp = new JFrameLogin();
+        jfp.setVisible(true);
+//        System.exit(0);
     }//GEN-LAST:event_JBSairActionPerformed
 
     /**

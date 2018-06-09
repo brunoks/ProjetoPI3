@@ -160,7 +160,7 @@ public class DadosEleitorDAO {
             this.setConn(this.conectarBanco());
 
             //SQL
-            this.setSql("SELECT * FROM municipio WHERE m_municipio = ?");
+            this.setSql("SELECT COUNT(*) as Total FROM municipio WHERE m_municipio = ?");
 
             //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));

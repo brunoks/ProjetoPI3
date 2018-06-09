@@ -291,20 +291,18 @@ public class DadosC {
                 
                 //Criando No para substituir dentro do switch
                 No novoNo = new No();
+               
+                
                 switch(entrada){
                     case "Candidato": 
                         No NoCandidato = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
                         novoNo = NoCandidato;
                     break;
-                    
                     case "Eleitorado": 
-                        
                         No NoEleitorado = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
                         novoNo = NoEleitorado;
                     break;
-                    
-                    case "Voto": 
-                        
+                    case "Voto":
                         No NoVoto = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
                         novoNo = NoVoto;
                     break;
@@ -312,7 +310,6 @@ public class DadosC {
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
-
                     novoNo.setPonteiroAnterior(null);
                     novoNo.setProximoPonteiro(null);
 
