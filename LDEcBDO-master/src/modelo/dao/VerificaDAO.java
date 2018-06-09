@@ -10,13 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import modelo.dominio.DadosCandidato;
 
 /**
- * Tratamento das Consultas vinculadas ao Candidatos
+ * Tratamento das Consultas Gerais
  * @author AC/DC
  */
-public class DadosCandidatoDAO {
+public class VerificaDAO {
     
     /*###################################
               ATRIBUTOS DA CLASSE
@@ -32,8 +31,7 @@ public class DadosCandidatoDAO {
     /*###################################
              CONSTRUTOR DA CLASSE
       ###################################*/
-    public DadosCandidatoDAO(){
-        
+    public VerificaDAO(){
         this.setConn(null); // Conexão será null incialmente
         
     }
@@ -115,78 +113,49 @@ public class DadosCandidatoDAO {
             this.setCf(new ConnectionFactory());
             this.setConn(this.getCf().criarConexaoOracle());
         }
-            
         return this.getConn();
         
     }
     
-    // Método para gravar todos os usuários presentes na lista
-    public boolean gravarDadosBanco(DadosCandidato _dados) {
-  
-        // Definindo a string sql
-        this.setSql("INSERT INTO BRUNO.CANDIDATO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    //Verificar existencia de alguma informação no banco
+    public boolean verificaSeExiste(String tabela, String coluna, String filtro) {
         
-        try {
+        try{
+            //Conectar banco de dados
+            this.setConn(this.conectarBanco());
             
-            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
+            //SQL
+            this.setSql("SELECT COUNT(*) as Total FROM ? WHERE ? = ?");
+            
+            //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.getPstmt().setString(1, tabela);
+            this.getPstmt().setString(2, coluna);
+            this.getPstmt().setString(3, filtro);
             
-            // Setando os parâmetros que irão substituir '?'
-            //String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
-            //              String cpf,String siglaP,String partido,String composicaoLegenda,
-            //             String nasc,String sexo
+            //Buscar registros
+            this.setRs(this.getPstmt().executeQuery());
             
-            this.getPstmt().setString(9, _dados.getAno().replaceAll("\"", ""));
-            this.getPstmt().setString(10, _dados.getTurno().replaceAll("\"", ""));
-            this.getPstmt().setString(5, _dados.getDescE().replaceAll("\"", ""));
-            this.getPstmt().setString(6, _dados.getUf().replaceAll("\"", ""));
-            this.getPstmt().setString(7, _dados.getMunicipio().replaceAll("\"", ""));
-            this.getPstmt().setString(8, _dados.getCodigoC().replaceAll("\"", ""));
-            this.getPstmt().setString(11, _dados.getCargo().replaceAll("\"", ""));
-            this.getPstmt().setString(1, _dados.getNome().replaceAll("\"", ""));
-            this.getPstmt().setString(2, _dados.getCpf().replaceAll("\"", ""));
-            this.getPstmt().setString(14, _dados.getSiglaP().replaceAll("\"", ""));
-            this.getPstmt().setString(13, _dados.getPartido().replaceAll("\"", ""));
-            this.getPstmt().setString(12, _dados.getComposicaoLegenda().replaceAll("\"", ""));
-            this.getPstmt().setString(3, _dados.getNasc().replaceAll("\"", ""));
-            this.getPstmt().setString(4, _dados.getSexo().replaceAll("\"", ""));
-            
-            // Executa o comando SQL com os parâmteros.
-            this.getPstmt().execute();
-            // Encerra o componente 'PrepareStatement'
-            this.getPstmt().close();
-            
-            return true;
- 
-        }catch(SQLException e) {
-            
-            e.printStackTrace();
+            //Resultado
+            while(this.getRs().next()){
+                
+                //Total de Pessoas com CPF
+                int total = this.getRs().getInt("Total");
+                
+                if(total > 0){
+                    //Fechar conexões
+                    this.getPstmt().close();
+                    this.setConn(this.getCf().fecharConexaoOracle());
+                    
+                    //Campo está duplicado
+                    return true;
+                }
+            }
+        } catch(SQLException e){
             
         }
- 
+        
         return false;
-    }
-    
-    // Método para gravar todos os usuários presentes na lista
-    public ResultSet selecionarDadosBD(String uf) {
-        
-        // Definindo a string sql
-        this.setSql("SELECT * FROM BRUNO.CANDIDATO WHERE UF = '" + uf + "'");
-        
-        try {
-            
-            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
-            this.setStmt(this.getConn().createStatement());
-            this.setRs(this.getStmt().executeQuery(this.getSql()));
-            return this.getRs();
-            
-        }catch(SQLException e) {
-            
-            e.printStackTrace();
-            
-        }
-        
-        return null;
         
     }
     
@@ -197,133 +166,5 @@ public class DadosCandidatoDAO {
         this.setConn(this.cf.fecharConexaoOracle());
 
     }
-    
-   // Configura essas variáveis de acordo com o seu banco  
-   /*private final String URL = "jdbc:mysql://localhost/javafx_crud",  
-         NOME = "root", SENHA = "senha";  
-  
-   private Connection con;  
-   private Statement comando;  
-  
-   public void apagar(String rg) {  
-      conectar();  
-      try {  
-         comando  
-               .executeUpdate("DELETE FROM pessoa WHERE rg = '" + rg  
-                     + "';");  
-      } catch (SQLException e) {  
-         imprimeErro("Erro ao apagar pessoas", e.getMessage());  
-      } finally {  
-         fechar();  
-      }  
-   }  
-  
-   public Vector<Pessoa> buscarTodos() {  
-      conectar();  
-      Vector<Pessoa> resultados = new Vector<Pessoa>();  
-      ResultSet rs;  
-      try {  
-         rs = comando.executeQuery("SELECT * FROM pessoa");  
-         while (rs.next()) {  
-            Pessoa temp = new Pessoa();  
-            // pega todos os atributos da pessoa  
-            temp.setRg(rs.getString("rg"));  
-            temp.setNome(rs.getString("nome"));  
-            temp.setIdade(rs.getInt("idade"));  
-            temp.setCidade(rs.getString("cidade"));  
-            temp.setEstado(rs.getString("estado"));  
-            resultados.add(temp);  
-         }  
-         return resultados;  
-      } catch (SQLException e) {  
-         imprimeErro("Erro ao buscar pessoas", e.getMessage());  
-         return null;  
-      }  
-   }  
-  
-   public void atualizar(Pessoa pessoa) {  
-      conectar();  
-      String com = "UPDATE pessoa SET nome = '" + pessoa.getNome()  
-            + "', idade =" + pessoa.getIdade() + ", cidade = '"  
-            + pessoa.getCidade() + "', estado ='" + pessoa.getEstado()  
-            + "' WHERE  rg = '" + pessoa.getRg() + "';";  
-      System.out.println("Atualizada!");  
-      try {  
-         comando.executeUpdate(com);  
-      } catch (SQLException e) {  
-         e.printStackTrace();  
-      } finally {  
-         fechar();  
-      }  
-   }  
-  
-   public Vector<Pessoa> buscar(String rg) {  
-      conectar();  
-      Vector<Pessoa> resultados = new Vector<Pessoa>();  
-      ResultSet rs;  
-      try {  
-         rs = comando.executeQuery("SELECT * FROM pessoa WHERE rg LIKE '"  
-               + rg + "%';");  
-         while (rs.next()) {  
-            Pessoa temp = new Pessoa();  
-            // pega todos os atributos da pessoa  
-            temp.setRg(rs.getString("rg"));  
-            temp.setNome(rs.getString("nome"));  
-            temp.setIdade(rs.getInt("idade"));  
-            temp.setCidade(rs.getString("cidade"));  
-            temp.setEstado(rs.getString("estado"));  
-            resultados.add(temp);  
-         }  
-         return resultados;  
-      } catch (SQLException e) {  
-         imprimeErro("Erro ao buscar pessoa", e.getMessage());  
-         return null;  
-      }  
-  
-   }  
-  
-   public void insere(Pessoa pessoa){  
-      conectar();  
-      try {  
-         comando.executeUpdate("INSERT INTO Pessoa VALUES('"  
-               + pessoa.getRg() + "', '" + pessoa.getNome() + "',"  
-               + pessoa.getIdade() + ",'" + pessoa.getCidade() + "','"  
-               + pessoa.getEstado() + "')");  
-         System.out.println("Inserida!");  
-      } catch (SQLException e) {  
-         imprimeErro("Erro ao inserir Pessoa", e.getMessage());  
-      } finally {  
-         fechar();  
-      }  
-   }  
-  
-   private void conectar() {  
-      try {  
-         con = ConFactory.conexao(URL, NOME, SENHA, ConFactory.MYSQL);  
-         comando = con.createStatement();  
-         System.out.println("Conectado!");  
-      } catch (ClassNotFoundException e) {  
-         imprimeErro("Erro ao carregar o driver", e.getMessage());  
-      } catch (SQLException e) {  
-         imprimeErro("Erro ao conectar", e.getMessage());  
-      }  
-   }  
-  
-   private void fechar() {  
-      try {  
-         comando.close();  
-         con.close();  
-         System.out.println("Conexão Fechada");  
-      } catch (SQLException e) {  
-         imprimeErro("Erro ao fechar conexão", e.getMessage());  
-      }  
-   }  
-  
-   private void imprimeErro(String msg, String msgErro) {  
-      JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);  
-      System.err.println(msg);  
-      System.out.println(msgErro);  
-      System.exit(0);  
-   } */ 
         
 }

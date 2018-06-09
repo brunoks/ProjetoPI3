@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import modelo.dao.DadosCandidatoDAO;
 import modelo.dao.DadosEleitorDAO;
 import modelo.dao.GestorDAO;
+import modelo.dao.VerificaDAO;
 import modelo.dominio.DadosEleitor;
 import modelo.dominio.Gestor;
 import modelo.dominio.No;
@@ -30,6 +31,7 @@ public class EleitorC {
     private DadosEleitor EleitorDados;
     Connection conn;
     ResultSet rs;
+    
 
     /*###################################
        MÉTODOS get e set DA CLASSE - BD
@@ -66,16 +68,6 @@ public class EleitorC {
 
         if (!"".equals(municipio)) {
             return this.eleitorDAO.verificarExisteMunicipio(municipio);
-        }
-
-        return false;
-    }
-
-    //Verificar se o UF está duplicado
-    public boolean EstadoExistente(String estado) {
-
-        if (!"".equals(estado)) {
-            return this.eleitorDAO.verificarExisteEstado(estado);
         }
 
         return false;
@@ -185,52 +177,38 @@ public class EleitorC {
 
     public void importarDadosEleitor(DadosC listaDados) {
         No pAux = listaDados.getInicioDaLista();
-        EleitorC eleitor = new EleitorC();
         DadosEleitorDAO dao = new DadosEleitorDAO();
-        int erros = 0;
+        VerificaDAO v = new VerificaDAO();
+        
         for (int i = 0; i < listaDados.getQuantidadeDeNos(); i++) {
 
             try {
-                //Verifica se existe estado no banco
-                if (eleitor.EstadoExistente(pAux.getObjctEleitorado().getUf())) {
-                    if (eleitor.refDadosBanco("estado", "e_uf", dao.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf()))) {
-                        System.out.println("Referência Identificada");
-                    } else {
-                        System.out.println("Ocorreu um erro ao referenciar - ID não encontrado");
+                //Verificar se existe Estado no Banco
+                if (v.verificaSeExiste("estado", "e_uf", pAux.getObjctEleitorado().getUf())) {
+                    if (!this.refDadosBanco("estado", "e_uf", dao.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf()))) {
                         throw new Exception("Ocorreu um erro ao referenciar estado");
                     }
                 } else {
-                    eleitor.gravarDadosBanco(listaDados, "estado", "e_estado");
+                    //Salvar estado
+                    this.gravarDadosBanco(listaDados, "estado", "e_estado");
                 }
+                
+                break;
 
                 //Verifica se existe municipio no banco
-                if (eleitor.MunicipioExistente(pAux.getObjctEleitorado().getMunicipio())) {
-                    if (eleitor.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))) {
-                        System.out.println("Municipio inserido");
-                    } else {
-                        System.out.println("Municipio não inserido");
-                    }
+//                if (this.MunicipioExistente(pAux.getObjctEleitorado().getMunicipio())) {
+//                    if (this.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))) {
+//                        System.out.println("Municipio inserido");
+//                    } else {
+//                        System.out.println("Municipio não inserido");
+//                    }
+//
+//                } else {
+//                    this.gravarDadosBanco(listaDados, "municipio", "m_municipio");
+//                }
 
-                } else {
-                    eleitor.gravarDadosBanco(listaDados, "municipio", "m_municipio");
-                }
-
-                //Verifica se existe esta faixa no banco de dados
-                if (eleitor.FaixaEtariaExistente(pAux.getObjctEleitorado().getFaixa_etaria())) {
-                    if (eleitor.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))) {
-                        System.out.println("Perfil inserido");
-                    } else {
-                        System.out.println("Perfil não inserido");
-                    }
-                } else {
-                    eleitor.gravarDadosBanco(listaDados, "perfil_eleitor", "p_faixa_etaria");
-                }
-
-                if (eleitor.gravarDadosBanco(listaDados, "", "")) {
-                    JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
-                }
+                //Gravar Dados no Banco
+//                this.gravarDadosBanco(listaDados, "", "");
             } catch (Exception e) {
 
             }

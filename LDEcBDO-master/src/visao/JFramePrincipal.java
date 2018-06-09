@@ -393,56 +393,58 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jBGravarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarBDActionPerformed
         jBSelecionarBD.setEnabled(true);
-        No pAux = this.listaDE2.getInicioDaLista();
-        EleitorC eleitor = new EleitorC();
-        DadosEleitorDAO dao = new DadosEleitorDAO();
-        int let = 0;
-        for (int i = 0; i < this.listaDE2.getQuantidadeDeNos(); i++) {
-
-            //Verifica se existe estado no banco
-            if (eleitor.EstadoExistente(pAux.getObjctEleitorado().getUf())) {
-                if (eleitor.refDadosBanco("estado", "e_uf", dao.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf()))) {
-                    System.out.println("Referência Identificada");
-                } else {
-                    System.out.println("Ocorreu um erro ao referenciar - ID não encontrado");
-                }
-            } else {
-                eleitor.gravarDadosBanco(this.listaDE2, "estado", "e_estado");
-            }
-
-            //Verifica se existe municipio no banco
-            if (eleitor.MunicipioExistente(pAux.getObjctEleitorado().getMunicipio())) {
-                if (eleitor.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))) {
-                    System.out.println("Municipio inserido");
-                } else {
-                    System.out.println("Municipio não inserido");
-                }
-
-            } else {
-                eleitor.gravarDadosBanco(this.listaDE2, "municipio", "m_municipio");
-            }
-
-            //Verifica se existe esta faixa no banco de dados
-            if (eleitor.FaixaEtariaExistente(pAux.getObjctEleitorado().getFaixa_etaria())) {
-                if (eleitor.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))) {
-                    System.out.println("Perfil inserido");
-                } else {
-                    System.out.println("Perfil não inserido");
-                }
-            } else {
-                eleitor.gravarDadosBanco(this.listaDE2, "perfil_eleitor", "p_faixa_etaria");
-            }
-
-            if (let == 3) {
-                if (eleitor.gravarDadosBanco(this.listaDE2, "", "")) {
-                    JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
-                }
-
-            }
-            pAux = pAux.getProximoPonteiro();
-        }
+        EleitorC eleitorc = new EleitorC();
+        eleitorc.importarDadosEleitor(this.listaDE2);
+//        No pAux = this.listaDE2.getInicioDaLista();
+//        EleitorC eleitor = new EleitorC();
+//        DadosEleitorDAO dao = new DadosEleitorDAO();
+//        int let = 0;
+//        for (int i = 0; i < this.listaDE2.getQuantidadeDeNos(); i++) {
+//
+//            //Verifica se existe estado no banco
+//            if (eleitor.EstadoExistente(pAux.getObjctEleitorado().getUf())) {
+//                if (eleitor.refDadosBanco("estado", "e_uf", dao.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf()))) {
+//                    System.out.println("Referência Identificada");
+//                } else {
+//                    System.out.println("Ocorreu um erro ao referenciar - ID não encontrado");
+//                }
+//            } else {
+//                eleitor.gravarDadosBanco(this.listaDE2, "estado", "e_estado");
+//            }
+//
+//            //Verifica se existe municipio no banco
+//            if (eleitor.MunicipioExistente(pAux.getObjctEleitorado().getMunicipio())) {
+//                if (eleitor.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))) {
+//                    System.out.println("Municipio inserido");
+//                } else {
+//                    System.out.println("Municipio não inserido");
+//                }
+//
+//            } else {
+//                eleitor.gravarDadosBanco(this.listaDE2, "municipio", "m_municipio");
+//            }
+//
+//            //Verifica se existe esta faixa no banco de dados
+//            if (eleitor.FaixaEtariaExistente(pAux.getObjctEleitorado().getFaixa_etaria())) {
+//                if (eleitor.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))) {
+//                    System.out.println("Perfil inserido");
+//                } else {
+//                    System.out.println("Perfil não inserido");
+//                }
+//            } else {
+//                eleitor.gravarDadosBanco(this.listaDE2, "perfil_eleitor", "p_faixa_etaria");
+//            }
+//
+//            if (let == 3) {
+//                if (eleitor.gravarDadosBanco(this.listaDE2, "", "")) {
+//                    JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
+//                }
+//
+//            }
+//            pAux = pAux.getProximoPonteiro();
+//        }
     }//GEN-LAST:event_jBGravarBDActionPerformed
 
     private void jBSelecionarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelecionarBDActionPerformed
