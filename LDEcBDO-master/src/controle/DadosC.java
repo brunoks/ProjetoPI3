@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dao.DadosEleitorDAO;
+import modelo.dao.VerificaDAO;
 import modelo.dominio.DadosCandidato;
 import modelo.dominio.DadosEleitor;
 
@@ -42,6 +43,7 @@ public class DadosC {
               ATRIBUTOS DA CLASSE
       ###################################*/
     private final DadosCandidatoDAO candidatoDAO;
+    VerificaDAO verifica = new VerificaDAO();
     // Descritor da lista duplamente encadeada
     private int quantidadeDeNos;
     
@@ -618,7 +620,7 @@ public class DadosC {
         
     }
     public boolean importarDadosCandidato(DadosC listaDE2) {
-        
+        String ref = "";
         No pAux = listaDE2.getInicioDaLista();
         DadosC candidato = new DadosC();
         DadosEleitorDAO dao = new DadosEleitorDAO();
@@ -626,12 +628,8 @@ public class DadosC {
         for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
 
             //Verifica se existe estado no banco
-            if (candidato.filtro("tabela","coluna", pAux.getObjctDados().getCargo())) {
-                if (candidato.getRef("estado", "e_uf", dao.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf()))) {
-                    System.out.println("Referência Identificada");
-                } else {
-                    System.out.println("Ocorreu um erro ao referenciar - ID não encontrado");
-                }
+            if (this.verifica.verificaSeExiste("tabela","coluna", pAux.getObjctDados().getCargo() == "") {
+                
             } else {
                 candidato.gravarDadosBanco(listaDE2);
             }
@@ -672,20 +670,5 @@ public class DadosC {
         return true;
     }
     
-    //Verificar se Dado está duplicado nas tabelas
-    public boolean filtro(String tabela, String coluna, String dado) {
-
-        if (!"".equals(dado)) {
-            return this.candidatoDAO.verificarExisteDado(tabela,coluna,dado);
-        }
-
-        return false;
-    }
-    
-    public boolean getRef(String tabela, String coluna, String dado) {
-        
-        
-        return true;
-    }
-    
+     
 }

@@ -159,6 +159,43 @@ public class VerificaDAO {
         
     }
     
+    
+    public String getReferencia(String tabela, String coluna, String parametro) {
+        String resultado = "";
+        try {
+            //Conectar banco de dados
+            this.setConn(this.conectarBanco());
+
+            //SQL
+            this.setSql("SELECT * FROM ? WHERE ? = ?");
+
+            //Passar parametros
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.getPstmt().setString(1, tabela);
+            this.getPstmt().setString(2, coluna);
+            this.getPstmt().setString(3, parametro);
+
+            //Buscar registros
+            this.setRs(this.getPstmt().executeQuery());
+
+            //Resultado
+            while (this.getRs().next()) {
+
+                //Pega referencia
+                resultado = this.getRs().getString(1);
+                if ("".equals(resultado)) {
+
+                    //Fechar conexões
+                    this.getPstmt().close();
+                    this.setConn(this.getCf().fecharConexaoOracle());
+
+                }
+            }
+        } catch (SQLException e) {
+
+        }
+        return resultado;
+    }
         
     // Fechando a conexão com o banco de dados Oracle
     public void fecharConexaoOracle(){
