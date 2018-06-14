@@ -42,7 +42,7 @@ public class DadosC {
     /*###################################
               ATRIBUTOS DA CLASSE
       ###################################*/
-    private final DadosCandidatoDAO candidatoDAO;
+    private final DadosCandidatoDAO candidatoDAO = null;
     VerificaDAO verifica = new VerificaDAO();
     // Descritor da lista duplamente encadeada
     private int quantidadeDeNos;
@@ -627,43 +627,44 @@ public class DadosC {
         int let = 0;
         for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
 
-            //Verifica se existe estado no banco
-            if (this.verifica.verificaSeExiste("tabela","coluna", pAux.getObjctDados().getCargo() == "") {
+            try {
+            //Verifica se existe ano da eleição no banco
+                if (!this.verifica.verificaSeExiste("eleicao","el_ano", pAux.getObjctDados().getAno())) {
+                    //metodogravar()
+                } 
+                String dado = this.verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
+                    if (dado.equals("")) {
+                        throw new Exception("Ocorreu um erro ao salvar ano");
+                    }
+
+                //Verifica se existe partido no banco
+                if (this.verifica.verificaSeExiste("partido","pr_partido", pAux.getObjctDados().getPartido())) {
+                   String dado = this.verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
+                        System.out.println(dado);
+
+                        System.out.println("Municipio não inserido");
+                    }else {
+
+                }
+
+                //Verifica se existe cargo no banco
+                if (this.verifica.verificaSeExiste("cargo","cr_cargo", pAux.getObjctDados().getCargo())) {
+                    String dado = this.verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
+                    System.out.print(dado);
+                } else {
+                    candidato.gravarDadosBanco(listaDE2);
+                }
+
+                if (let == 3) {
+                    if (candidato.gravarDadosBanco(listaDE2)) {
+                        JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
+                    }
+
+                }
+            } catch(Exception error) {
                 
-            } else {
-                candidato.gravarDadosBanco(listaDE2);
-            }
-
-            //Verifica se existe municipio no banco
-            if (candidato.filtro("tabela", "estado",pAux.getObjctEleitorado().getMunicipio())) {
-                if (candidato.refDadosBanco("municipio", "m_municipio", dao.getReferencia("perfil_eleitor", "municipio", pAux.getObjctEleitorado().getMunicipio()))) {
-                    System.out.println("Municipio inserido");
-                } else {
-                    System.out.println("Municipio não inserido");
-                }
-
-            } else {
-                candidato.gravarDadosBanco(listaDE2);
-            }
-
-            //Verifica se existe esta faixa no banco de dados
-            if (candidato.filtro("tabela", "estado",pAux.getObjctEleitorado().getFaixa_etaria())) {
-                if (candidato.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))) {
-                    System.out.println("Perfil inserido");
-                } else {
-                    System.out.println("Perfil não inserido");
-                }
-            } else {
-                candidato.gravarDadosBanco(listaDE2);
-            }
-
-            if (let == 3) {
-                if (candidato.gravarDadosBanco(listaDE2)) {
-                    JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
-                }
-
             }
             pAux = pAux.getProximoPonteiro();
         }
