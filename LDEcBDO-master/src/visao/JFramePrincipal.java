@@ -417,7 +417,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }else{
                 eleitor.gravarDadosBanco(this.listaDE2, "estado", "e_estado");
             }
-            
+            System.out.print(eleitor.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio())));
             //Verifica se existe esta faixa no banco de dados
             if(eleitor.FaixaEtariaExistente(pAux.getObjctEleitorado().getFaixa_etaria())){
                 if(eleitor.refDadosBanco("perfil_eleitor", "p_faixa_etaria", dao.getReferencia("perfil_eleitor", "p_faixa_etaria", pAux.getObjctEleitorado().getMunicipio()))){
@@ -429,14 +429,14 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 eleitor.gravarDadosBanco(this.listaDE2, "perfil_eleitor", "p_faixa_etaria");
             }
             
-            if(let == 3){
-                    if (eleitor.gravarDadosBanco(this.listaDE2, "")) {
-                        JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
-                    }
-                    
-                }
+//            if(let == 3){
+//                    if (eleitor.gravarDadosBanco(this.listaDE2, "")) {
+//                        JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
+//                    }
+//                    
+//                }
             pAux = pAux.getProximoPonteiro();
         }
     }//GEN-LAST:event_jBGravarBDActionPerformed
