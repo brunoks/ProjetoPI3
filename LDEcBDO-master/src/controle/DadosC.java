@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.dao.DadosEleitorDAO;
+import modelo.dao.VerificaDAO;
 import modelo.dominio.DadosCandidato;
 import modelo.dominio.DadosEleitor;
 
@@ -40,7 +42,8 @@ public class DadosC {
     /*###################################
               ATRIBUTOS DA CLASSE
       ###################################*/
-    
+    private final DadosCandidatoDAO candidatoDAO = null;
+    VerificaDAO verifica = new VerificaDAO();
     // Descritor da lista duplamente encadeada
     private int quantidadeDeNos;
     
@@ -291,20 +294,18 @@ public class DadosC {
                 
                 //Criando No para substituir dentro do switch
                 No novoNo = new No();
+               
+                
                 switch(entrada){
                     case "Candidato": 
                         No NoCandidato = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
                         novoNo = NoCandidato;
                     break;
-                    
                     case "Eleitorado": 
-                        
                         No NoEleitorado = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
                         novoNo = NoEleitorado;
                     break;
-                    
-                    case "Voto": 
-                        
+                    case "Voto":
                         No NoVoto = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
                         novoNo = NoVoto;
                     break;
@@ -312,7 +313,6 @@ public class DadosC {
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
-
                     novoNo.setPonteiroAnterior(null);
                     novoNo.setProximoPonteiro(null);
 
@@ -619,5 +619,57 @@ public class DadosC {
         return true;    
         
     }
+    public boolean importarDadosCandidato(DadosC listaDE2) {
+        String ref = "";
+        No pAux = listaDE2.getInicioDaLista();
+        DadosC candidato = new DadosC();
+        DadosEleitorDAO dao = new DadosEleitorDAO();
+        int let = 0;
+        for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
+
+            try {
+            //Verifica se existe ano da eleição no banco
+                if (!this.verifica.verificaSeExiste("eleicao","el_ano", pAux.getObjctDados().getAno())) {
+                    //metodogravar()
+                } 
+                String dado = this.verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
+                    if (dado.equals("")) {
+                        throw new Exception("Ocorreu um erro ao salvar ano");
+                    }
+
+                //Verifica se existe partido no banco
+                if (this.verifica.verificaSeExiste("partido","pr_partido", pAux.getObjctDados().getPartido())) {
+                   String dado = this.verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
+                        System.out.println(dado);
+
+                        System.out.println("Municipio não inserido");
+                    }else {
+
+                }
+
+                //Verifica se existe cargo no banco
+                if (this.verifica.verificaSeExiste("cargo","cr_cargo", pAux.getObjctDados().getCargo())) {
+                    String dado = this.verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
+                    System.out.print(dado);
+                } else {
+                    candidato.gravarDadosBanco(listaDE2);
+                }
+
+                if (let == 3) {
+                    if (candidato.gravarDadosBanco(listaDE2)) {
+                        JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
+                    }
+
+                }
+            } catch(Exception error) {
+                
+            }
+            pAux = pAux.getProximoPonteiro();
+        }
+        return true;
+    }
     
+     
 }

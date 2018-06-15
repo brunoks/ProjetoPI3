@@ -119,7 +119,7 @@ public class DadosCandidatoDAO {
         return this.getConn();
         
     }
-    
+       
     // Método para gravar todos os usuários presentes na lista
     public boolean gravarDadosBanco(DadosCandidato _dados) {
   
