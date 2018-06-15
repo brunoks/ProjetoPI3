@@ -623,37 +623,37 @@ public class DadosC {
         String ref = "";
         No pAux = listaDE2.getInicioDaLista();
         DadosC candidato = new DadosC();
-        DadosEleitorDAO dao = new DadosEleitorDAO();
+        DadosCandidatoDAO dao = new DadosCandidatoDAO();
         int let = 0;
         for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
 
             try {
             //Verifica se existe ano da eleição no banco
                 if (!this.verifica.verificaSeExiste("eleicao","el_ano", pAux.getObjctDados().getAno())) {
-                    //metodogravar()
+                    dao.gravarNoBanco("eleicao", "el_ano", pAux.getObjctDados().getAno());
                 } 
-                String dado = this.verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
-                    if (dado.equals("")) {
+                String ano = this.verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
+                    if (ano.equals("")) {
                         throw new Exception("Ocorreu um erro ao salvar ano");
                     }
 
                 //Verifica se existe partido no banco
                 if (this.verifica.verificaSeExiste("partido","pr_partido", pAux.getObjctDados().getPartido())) {
-                   String dado = this.verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
-                        System.out.println(dado);
-
-                        System.out.println("Municipio não inserido");
-                    }else {
-
+                    dao.gravarNoBanco("partido", "pr_partido", pAux.getObjctDados().getPartido());
                 }
+                String partido = this.verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
+                    if (partido.equals("")) {
+                        throw new Exception("Ocorreu um erro ao salvar ano");
+                    }
 
                 //Verifica se existe cargo no banco
                 if (this.verifica.verificaSeExiste("cargo","cr_cargo", pAux.getObjctDados().getCargo())) {
-                    String dado = this.verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
-                    System.out.print(dado);
-                } else {
-                    candidato.gravarDadosBanco(listaDE2);
-                }
+                    dao.gravarNoBanco("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
+                } 
+                String cargo = this.verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
+                    if (cargo.equals("")) {
+                        throw new Exception("Ocorreu um erro ao salvar cargo");
+                    }
 
                 if (let == 3) {
                     if (candidato.gravarDadosBanco(listaDE2)) {
@@ -663,6 +663,12 @@ public class DadosC {
                     }
 
                 }
+                if (dao.gravarDadosBanco(pAux.getObjctDados())) {
+                    
+                } else {
+                    throw new Exception("Ocorreu um erro ao salvar dados de candidato");
+                }
+                
             } catch(Exception error) {
                 
             }
@@ -670,6 +676,4 @@ public class DadosC {
         }
         return true;
     }
-    
-     
 }
