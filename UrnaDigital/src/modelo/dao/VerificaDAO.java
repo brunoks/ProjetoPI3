@@ -463,6 +463,41 @@ public class VerificaDAO {
 
         return retorno;
     }
+    
+    /**
+     * Cadastrar Municipio
+     *
+     * @param estadoID
+     * @param municipio
+     * @return
+     */
+    public boolean setNovaEleicao(String estadoID, String municipio) {
+
+        this.setSql("INSERT INTO eleicao (e_id,m_municipio) VALUES(?,?)");
+
+        try {
+
+            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+
+            this.getPstmt().setString(1, estadoID);
+            this.getPstmt().setString(2, municipio);
+
+            // Executa o comando SQL com os parâmteros.
+            this.getPstmt().execute();
+            // Encerra o componente 'PrepareStatement'
+            this.getPstmt().close();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return false;
+    }
 
     // Fechando a conexão com o banco de dados Oracle
     public void fecharConexaoOracle() {

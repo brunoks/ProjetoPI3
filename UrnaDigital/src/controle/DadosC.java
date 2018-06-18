@@ -537,22 +537,27 @@ public class DadosC {
         return true;    
         
     }
+    
+    /**
+     * Importar lista
+     * @param listaDE2
+    */
     public boolean importarDadosCandidato(DadosC listaDE2) {
         String ref = "";
         No pAux = listaDE2.getInicioDaLista();
         DadosC candidato = new DadosC();
-        DadosCandidatoDAO dao = new DadosCandidatoDAO();
+        VerificaDAO dao = new VerificaDAO();
         int let = 0;
         for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
 
             try {
             //Verifica se existe ano da eleição no banco
                 if (!this.verifica.verificaSeExiste("eleicao","el_ano", pAux.getObjctDados().getAno())) {
-                    dao.gravarNoBanco("eleicao", "el_ano", pAux.getObjctDados().getAno());
+                    dao.setNovaEleicao(pAux.getObjctDados().getAno());
                 } 
                 String ano = this.verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
                     if (ano.equals("")) {
-                        throw new Exception("Ocorreu um erro ao salvar ano");
+                        throw new Exception("\nOcorreu um erro ao salvar ano");
                     }
 
                 //Verifica se existe partido no banco
@@ -561,7 +566,7 @@ public class DadosC {
                 }
                 String partido = this.verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
                     if (partido.equals("")) {
-                        throw new Exception("Ocorreu um erro ao salvar ano");
+                        throw new Exception("\nOcorreu um erro ao salvar ano");
                     }
 
                 //Verifica se existe cargo no banco
@@ -570,21 +575,13 @@ public class DadosC {
                 } 
                 String cargo = this.verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
                     if (cargo.equals("")) {
-                        throw new Exception("Ocorreu um erro ao salvar cargo");
+                        throw new Exception("\nOcorreu um erro ao salvar cargo");
                     }
 
-                if (let == 3) {
-                    if (candidato.gravarDadosBanco(listaDE2)) {
-                        JOptionPane.showMessageDialog(null, "Dados gravados no BD Oracle com sucesso...");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Erro ao gravar os dados no BD Oracle...");
-                    }
-
-                }
                 if (dao.gravarDadosBanco(pAux.getObjctDados())) {
                     
                 } else {
-                    throw new Exception("Ocorreu um erro ao salvar dados de candidato");
+                    throw new Exception("\nOcorreu um erro ao salvar dados de candidato");
                 }
                 
             } catch(Exception error) {
@@ -593,5 +590,29 @@ public class DadosC {
             pAux = pAux.getProximoPonteiro();
         }
         return true;
+    }
+     
+    /**
+     * Gravar Linha no Banco
+     * @param DadosE
+     * @param refEleicao
+     * @param refEstado
+     * @param refMunicipio
+     * @return 
+     */
+    public boolean gravarDadosBanco(DadosC DadosE, String refAno, String refPartido, String refCargo) {
+
+        // Criando instância da classe UsuarioDAO.
+        DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
+
+        // Verificando se é possível conectar ao banco de dados Oracle
+        // Se for possível, o atributo conn será diferente de 'null'
+        if ((this.conn = uDAO.conectarBanco()) != null) {
+            return uDAO.gravarNoBanco(DadosE.getInicioDaLista().getObjctDados(), refAno, refPartido, refCargo);
+
+        }
+
+        return false;
+
     }
 }
