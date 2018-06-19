@@ -43,7 +43,6 @@ public class DadosC {
               ATRIBUTOS DA CLASSE
       ###################################*/
     private final DadosCandidatoDAO candidatoDAO = null;
-    VerificaDAO verifica = new VerificaDAO();
     // Descritor da lista duplamente encadeada
     private int quantidadeDeNos;
     
@@ -211,23 +210,8 @@ public class DadosC {
                 //escreverArquivoTeste(d);
                 
                 //Criando No para substituir dentro do switch
-                No novoNo = new No();
                
-                
-                switch(entrada){
-                    case "Candidato": 
-                        No NoCandidato = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
-                        novoNo = NoCandidato;
-                    break;
-                    case "Eleitorado": 
-                        No NoEleitorado = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
-                        novoNo = NoEleitorado;
-                    break;
-                    case "Voto":
-                        No NoVoto = new No(d[0],d[1],d[2],d[5],d[6],d[8]);
-                        novoNo = NoVoto;
-                    break;
-                }
+                No novoNo = new No(d[2],d[3],d[4],d[5],d[7],d[8],d[9],d[10],d[13],d[18],d[19],d[22],d[26],d[30]);
                 
                 // Caso 1: Lista vazia
                 if (listaDE.isEmpty(listaDE)){
@@ -236,7 +220,7 @@ public class DadosC {
 
                     listaDE.setInicioDaLista(novoNo);
                     listaDE.setFinalDaLista(novoNo);
-
+                    
                 }else{
                     //Depois que a lista não estiver vazia, será preenchida pelo início
                         novoNo.setProximoPonteiro(null);
@@ -246,7 +230,6 @@ public class DadosC {
                         listaDE.setFinalDaLista(novoNo);
 
                 }
-
                 listaDE.setQuantidadeDeNos(listaDE.getQuantidadeDeNos()+1);
                
             }
@@ -381,7 +364,6 @@ public class DadosC {
                 }
                 
                 pAux = pAux.getProximoPonteiro();
-                System.out.println(tempos.toString());
                
             }
             bw.close();
@@ -547,38 +529,39 @@ public class DadosC {
         No pAux = listaDE2.getInicioDaLista();
         DadosC candidato = new DadosC();
         VerificaDAO dao = new VerificaDAO();
+        VerificaDAO verifica = new VerificaDAO();
         int let = 0;
         for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
 
             try {
             //Verifica se existe ano da eleição no banco
-                if (!this.verifica.verificaSeExiste("eleicao","el_ano", pAux.getObjctDados().getAno())) {
+                if (!verifica.verificaSeExiste("eleicao","el_ano", pAux.getObjctDados().getAno())) {
                     dao.setNovaEleicao(pAux.getObjctDados().getAno());
                 } 
-                String ano = this.verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
+                String ano = verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
                     if (ano.equals("")) {
                         throw new Exception("\nOcorreu um erro ao salvar ano");
                     }
 
                 //Verifica se existe partido no banco
-                if (this.verifica.verificaSeExiste("partido","pr_partido", pAux.getObjctDados().getPartido())) {
-                    dao.gravarNoBanco("partido", "pr_partido", pAux.getObjctDados().getPartido());
+                if (!verifica.verificaSeExiste("partido","pr_partido", pAux.getObjctDados().getPartido())) {
+                    dao.setNovoPartido(pAux.getObjctDados().getPartido(), pAux.getObjctDados().getSiglaP());
                 }
-                String partido = this.verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
+                String partido = verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
                     if (partido.equals("")) {
                         throw new Exception("\nOcorreu um erro ao salvar ano");
                     }
 
                 //Verifica se existe cargo no banco
-                if (this.verifica.verificaSeExiste("cargo","cr_cargo", pAux.getObjctDados().getCargo())) {
-                    dao.gravarNoBanco("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
+                if (!verifica.verificaSeExiste("cargo","cr_cargo", pAux.getObjctDados().getCargo())) {
+                    dao.setNovoCargo(pAux.getObjctDados().getPartido());
                 } 
-                String cargo = this.verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getPartido());
+                String cargo = verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getCargo());
                     if (cargo.equals("")) {
                         throw new Exception("\nOcorreu um erro ao salvar cargo");
                     }
 
-                if (dao.gravarDadosBanco(pAux.getObjctDados())) {
+                if (this.gravarDadosBanco(pAux.getObjctDados(),ano,partido,cargo)) {
                     
                 } else {
                     throw new Exception("\nOcorreu um erro ao salvar dados de candidato");
@@ -600,7 +583,7 @@ public class DadosC {
      * @param refMunicipio
      * @return 
      */
-    public boolean gravarDadosBanco(DadosC DadosE, String refAno, String refPartido, String refCargo) {
+    public boolean gravarDadosBanco(DadosCandidato DadosE, String refAno, String refPartido, String refCargo) {
 
         // Criando instância da classe UsuarioDAO.
         DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
@@ -608,7 +591,7 @@ public class DadosC {
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'
         if ((this.conn = uDAO.conectarBanco()) != null) {
-            return uDAO.gravarNoBanco(DadosE.getInicioDaLista().getObjctDados(), refAno, refPartido, refCargo);
+            return uDAO.gravarNoBanco(DadosE, refAno, refPartido, refCargo);
 
         }
 

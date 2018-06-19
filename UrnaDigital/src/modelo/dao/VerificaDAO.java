@@ -208,7 +208,7 @@ public class VerificaDAO {
      */
     public boolean setNovaEleicao(String ano) {
 
-        this.setSql("INSERT INTO eleicao (el_ano,el_tipo) VALUES(?,?)");
+        this.setSql("INSERT INTO URNADIGITAL.eleicao (el_ano,el_tipo) VALUES(?,?)");
 
         try {
 
@@ -309,7 +309,7 @@ public class VerificaDAO {
      */
     public boolean setNovoCargo(String cargo) {
 
-        this.setSql("INSERT INTO cargo (cr_cargo) VALUES(?)");
+        this.setSql("INSERT INTO URNADIGITAL.cargo (cr_cargo) VALUES(?)");
 
         try {
 
@@ -335,14 +335,15 @@ public class VerificaDAO {
     }
 
     /**
-     * Cadastrar Cargo
+     * Cadastrar Partido
      *
-     * @param cargo
+     * @param partido
+     * @param sigla
      * @return
      */
     public boolean setNovoPartido(String partido, String sigla) {
 
-        this.setSql("INSERT INTO partido (pr_partido, pr_sigla) VALUES(?,?)");
+        this.setSql("INSERT INTO URNADIGITAL.partido (pr_partido, pr_sigla) VALUES(?,?)");
 
         try {
 
@@ -473,7 +474,7 @@ public class VerificaDAO {
      */
     public boolean setNovaEleicao(String estadoID, String municipio) {
 
-        this.setSql("INSERT INTO eleicao (e_id,m_municipio) VALUES(?,?)");
+        this.setSql("INSERT INTO URNADIGITAL.eleicao (e_id,m_municipio) VALUES(?,?)");
 
         try {
 
