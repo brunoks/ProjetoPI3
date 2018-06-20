@@ -288,7 +288,7 @@ public class DadosC {
     //
     public void escreverCandidato(DadosC listaDE){
         // Local onde será criado o arquivo e os dados serão gravados.
-        this.arquivoJson = new File("C:\\Users\\Bruno\\Documents\\jsonFileCandidato.json");
+        this.arquivoJson = new File("C:\\\\jsonFileCandidato.json");
         
         JSONObject jsonObject = new JSONObject();
         JSONArray tempos = new JSONArray();

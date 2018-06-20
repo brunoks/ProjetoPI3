@@ -407,6 +407,17 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jBSelecionarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelecionarBDActionPerformed
 
+        JOptionPane.showMessageDialog(null, "Aguarde enquanto consultamos os dados");
+        
+        String tipoDado = jCBTipo.getSelectedItem().toString();
+        
+        switch(tipoDado){
+            case "Eleitorado":
+                EleitorC eleitorC = new EleitorC();
+                eleitorC.exportarDadosJSON();
+                break;
+        }
+        
 //        for (int i = 0; i < uf.length; i++) {
 //            // Verificando se foi possível inserir os dados em uma determinada posição válida da lista
 //            if (this.listaDados.selecionarDadosBD(this.listaDados, this.uf[i])) {

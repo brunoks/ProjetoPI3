@@ -149,5 +149,9 @@ public class EleitorC {
             pAux = pAux.getProximoPonteiro();
         }
     }
+    
+    public void exportarDadosJSON(){
+        
+    }
 
 }
