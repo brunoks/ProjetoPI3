@@ -123,7 +123,7 @@ public class DadosCandidatoDAO {
     public boolean gravarDadosBanco(DadosCandidato _dados) {
   
         // Definindo a string sql
-        this.setSql("INSERT INTO BRUNO.CANDIDATO (C_TSE,C_CPF,C_NOME,C_NASCIMENTO,C_SEXO) VALUES (?, ?, ?, ?, ?)");
+        this.setSql("INSERT INTO URNADIGITAL.CANDIDATO (C_TSE,C_CPF,C_NOME,C_NASCIMENTO,C_SEXO) VALUES (?, ?, ?, ?, ?)");
         
         try {
             
@@ -159,10 +159,10 @@ public class DadosCandidatoDAO {
     }
     
     // Método para gravar todos os usuários presentes na lista
-    public boolean gravarNoBanco(String tabela, String coluna, String dado) {
+    public boolean gravarNoBanco(DadosCandidato _dado, String refAno, String refPartido, String refCargo) {
   
         // Definindo a string sql
-        this.setSql("INSERT INTO BRUNO.? (?) VALUES (?)");
+        this.setSql("INSERT INTO URNADIGITAL.CANDIDATO (cr_id,el_id,pr_id,c_tse,c_cpf,c_nome,c_nascimento,c_sexo) VALUES (?,?,?,?,?,?,?,?)");
         
         try {
             
@@ -174,10 +174,14 @@ public class DadosCandidatoDAO {
             //              String cpf,String siglaP,String partido,String composicaoLegenda,
             //             String nasc,String sexo
             
-            this.getPstmt().setString(1, tabela.replaceAll("\"", ""));
-            this.getPstmt().setString(2, coluna.replaceAll("\"", ""));
-            this.getPstmt().setString(3, dado.replaceAll("\"", ""));
-            
+            this.getPstmt().setString(1, _dado.getCargo().replaceAll("\"", ""));
+            this.getPstmt().setString(2, _dado.getAno().replaceAll("\"", ""));
+            this.getPstmt().setString(3, _dado.getPartido().replaceAll("\"", ""));
+            this.getPstmt().setString(4, _dado.getTse_o().replaceAll("\"", ""));
+            this.getPstmt().setString(5, _dado.getCpf().replaceAll("\"", ""));
+            this.getPstmt().setString(6, _dado.getNome().replaceAll("\"", ""));
+            this.getPstmt().setString(7, _dado.getNasc().replaceAll("\"", ""));
+            this.getPstmt().setString(8, _dado.getSexo().replaceAll("\"", ""));
             
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
@@ -217,7 +221,7 @@ public class DadosCandidatoDAO {
         return null;
         
     }
-    
+   
         
     // Fechando a conexão com o banco de dados Oracle
     public void fecharConexaoOracle(){

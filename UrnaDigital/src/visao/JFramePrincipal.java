@@ -1,5 +1,6 @@
 package visao;
 
+import controle.DadosC;
 import modelo.dominio.Gestor;
 import controle.ListaC;
 import controle.EleitorC;
@@ -21,7 +22,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     
     // Atributo para acessar a classe de controle da Lista
     private ListaC listaDados;
-
     /**
      * Creates new form JFramePrincipal
      */
@@ -369,8 +369,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
             // Passa a lista e o caminho onde o arquivo .csv está.
             // Se foi possível ler o arquivo, apresenta os dados.
+            
             if (this.listaDados.lerArquivoTXT(this.listaDados, this.jFCEscolherArquivo.getSelectedFile(), jCBTipo.getSelectedItem().toString())) {
-
+                
                 //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
                 jBLerTXT.setEnabled(false);      // Desabilitando o botão CSV
 
@@ -380,10 +381,23 @@ public class JFramePrincipal extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao importar os dados...");
             }
+//            if (this.listaCandidato.lerArquivoTXT(this.listaCandidato, this.jFCEscolherArquivo.getSelectedFile(), jCBTipo.getSelectedItem().toString())) {
+//                
+//                //this.mostrarListaCSVeBD(); // Mostrando os dados no JTable
+//                jBLerTXT.setEnabled(false);      // Desabilitando o botão CSV
+//
+//                jBGravarBD.setEnabled(true);     // Haabilitando o botão gravar
+//                jBSelecionarBD.setEnabled(true); // Habilitando o botão selecionar
+//
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Erro ao importar os dados de candidato...");
+//            }
+            
 
         } else {
             JOptionPane.showMessageDialog(null, "Arquivo não selecionado!");
         }
+        
 
     }//GEN-LAST:event_jBLerTXTActionPerformed
 
@@ -398,6 +412,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
             case "Eleitorado":
                 EleitorC eleitorC = new EleitorC();
                 eleitorC.importarDadosEleitor(this.listaDados);
+                break;
+            case "Candidato":
+                DadosC dadosc = new DadosC();
+                dadosc.importarDadosCandidato(this.listaDados);
+                System.out.println(tipoDado);
                 break;
         }
         
@@ -465,7 +484,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         // Cria uma instância da classe Estruturas de Dados
         this.listaDados = new ListaC();
-
         jBCL.setEnabled(false);  // Desabilitando o botão Criar lista
 
         jBLL.setEnabled(true);        // habilitando o botão Limpar lista
