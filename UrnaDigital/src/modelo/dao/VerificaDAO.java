@@ -208,7 +208,7 @@ public class VerificaDAO {
      */
     public boolean setNovaEleicao(String ano) {
 
-        this.setSql("INSERT INTO URNADIGITAL.eleicao (el_ano,el_tipo) VALUES(?,?)");
+        this.setSql("INSERT INTO eleicao (el_ano,el_tipo) VALUES(?,?)");
 
         try {
 
@@ -309,7 +309,7 @@ public class VerificaDAO {
      */
     public boolean setNovoCargo(String cargo) {
 
-        this.setSql("INSERT INTO URNADIGITAL.cargo (cr_cargo) VALUES(?)");
+        this.setSql("INSERT INTO cargo (cr_cargo) VALUES(?)");
 
         try {
 
@@ -343,7 +343,7 @@ public class VerificaDAO {
      */
     public boolean setNovoPartido(String partido, String sigla) {
 
-        this.setSql("INSERT INTO URNADIGITAL.partido (pr_partido, pr_sigla) VALUES(?,?)");
+        this.setSql("INSERT INTO partido (pr_partido, pr_sigla) VALUES(?,?)");
 
         try {
 
@@ -351,7 +351,7 @@ public class VerificaDAO {
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
 
             this.getPstmt().setString(1, partido);
-            this.getPstmt().setString(2, sigla);
+            this.getPstmt().setString(2, (sigla.length() > 5) ? sigla.substring(0, 4) : sigla );
 
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
@@ -474,7 +474,7 @@ public class VerificaDAO {
      */
     public boolean setNovaEleicao(String estadoID, String municipio) {
 
-        this.setSql("INSERT INTO URNADIGITAL.eleicao (e_id,m_municipio) VALUES(?,?)");
+        this.setSql("INSERT INTO eleicao (e_id,m_municipio) VALUES(?,?)");
 
         try {
 

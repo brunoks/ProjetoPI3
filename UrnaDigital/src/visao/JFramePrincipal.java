@@ -22,6 +22,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     
     // Atributo para acessar a classe de controle da Lista
     private ListaC listaDados;
+    private DadosC listaCandidato;
     /**
      * Creates new form JFramePrincipal
      */
@@ -416,7 +417,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
             case "Candidato":
                 DadosC dadosc = new DadosC();
                 dadosc.importarDadosCandidato(this.listaDados);
-                System.out.println(tipoDado);
                 break;
         }
         
@@ -485,7 +485,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         // Cria uma instância da classe Estruturas de Dados
         this.listaDados = new ListaC();
         jBCL.setEnabled(false);  // Desabilitando o botão Criar lista
-
+        this.listaCandidato = new DadosC();
         jBLL.setEnabled(true);        // habilitando o botão Limpar lista
         jBLerTXT.setEnabled(true);    // habilitando o botão CSV
 

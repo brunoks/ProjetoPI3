@@ -230,7 +230,6 @@ public class ListaC {
                     listaDE.setFinalDaLista(novoNo);
 
                 }
-
                 listaDE.setQuantidadeDeNos(listaDE.getQuantidadeDeNos() + 1);
 
             }

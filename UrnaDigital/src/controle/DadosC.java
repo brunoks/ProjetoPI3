@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.dao.DadosEleitorDAO;
 import modelo.dao.VerificaDAO;
 import modelo.dominio.DadosCandidato;
 
@@ -74,59 +75,59 @@ public class DadosC {
     
     /**
      * Importar Dados Candidato
-     * @param listaDE2
+     * @param listaDados
      * @return 
      */
-    public boolean importarDadosCandidato(ListaC listaDE2) {
-        String ref = "";
-        No pAux = listaDE2.getInicioDaLista();
-        DadosC candidato = new DadosC();
-        VerificaDAO dao = new VerificaDAO();
-        VerificaDAO verifica = new VerificaDAO();
-        int let = 0;
-        for (int i = 0; i < listaDE2.getQuantidadeDeNos(); i++) {
+    public void importarDadosCandidato(ListaC listaDados) {
+       No pAux = listaDados.getInicioDaLista();
+        DadosCandidatoDAO dao = new DadosCandidatoDAO();
+        VerificaDAO v = new VerificaDAO();
+        
+        for (int i = 0; i < listaDados.getQuantidadeDeNos(); i++) {
 
             try {
-                //Verifica se existe ano da eleição no banco
-                if (!verifica.verificaSeExiste("eleicao", "el_ano", pAux.getObjctDados().getAno())) {
-                    dao.setNovaEleicao(pAux.getObjctDados().getAno());
-                }
-                String ano = verifica.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getPartido());
-                if (ano.equals("")) {
-                    throw new Exception("\nOcorreu um erro ao salvar ano");
+                //Verificar se existe Período da Eleicao
+                if(!v.verificaSeExiste("eleicao", "el_ano", pAux.getObjctDados().getAno().replaceAll("\"", ""))){
+                    v.setNovaEleicao(pAux.getObjctDados().getAno().replaceAll("\"", ""));
                 }
 
-                //Verifica se existe partido no banco
-                if (!verifica.verificaSeExiste("partido", "pr_partido", pAux.getObjctDados().getPartido())) {
-                    dao.setNovoPartido(pAux.getObjctDados().getPartido(), pAux.getObjctDados().getSiglaP());
+                String eleicaoID = v.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getAno().replaceAll("\"", ""));
+                if(eleicaoID.equals("")){
+                    throw new Exception("\nOcorreu um erro ao referenciar eleição");
                 }
-                String partido = verifica.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
-                if (partido.equals("")) {
-                    throw new Exception("\nOcorreu um erro ao salvar ano");
+                
+                
+                //Verificar se existe Cargo
+                if(!v.verificaSeExiste("cargo", "cr_cargo", pAux.getObjctDados().getCargo().replaceAll("\"", ""))){
+                    v.setNovoCargo(pAux.getObjctDados().getCargo().replaceAll("\"", ""));
                 }
-
-                //Verifica se existe cargo no banco
-                if (!verifica.verificaSeExiste("cargo", "cr_cargo", pAux.getObjctDados().getCargo())) {
-                    dao.setNovoCargo(pAux.getObjctDados().getPartido());
+                
+                String cargoID = v.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getCargo().replaceAll("\"", ""));
+                if(cargoID.equals("")){
+                    throw new Exception("\nOcorreu um erro ao referenciar estado");
                 }
-                String cargo = verifica.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getCargo());
-                if (cargo.equals("")) {
-                    throw new Exception("\nOcorreu um erro ao salvar cargo");
+                
+                //Verificar se existe Partido
+                if(!v.verificaSeExiste("partido", "pr_partido", pAux.getObjctDados().getPartido().replaceAll("\"", ""))){
+                    
+                    v.setNovoPartido(pAux.getObjctDados().getPartido().replaceAll("\"", ""), pAux.getObjctDados().getSiglaP().replaceAll("\"", ""));
                 }
-
-                if (this.gravarDadosBanco(pAux.getObjctDados(), ano, partido, cargo)) {
-
-                } else {
-                    throw new Exception("\nOcorreu um erro ao salvar dados de candidato");
+                
+                String partidoID = v.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido().replaceAll("\"", ""));
+                if(partidoID.equals("")){
+                    throw new Exception("\nOcorreu um erro ao referenciar município");
                 }
-
-            } catch (Exception error) {
-
+                
+                this.gravarDadosBanco(pAux.getObjctDados(), eleicaoID, partidoID, cargoID);
+            } catch (Exception e) {
+                System.out.println("this error " + e.getMessage());
             }
+
+            //Próximo Registro
             pAux = pAux.getProximoPonteiro();
         }
-        return true;
     }
+    
 
     /**
      * Gravar Dados no Banco
