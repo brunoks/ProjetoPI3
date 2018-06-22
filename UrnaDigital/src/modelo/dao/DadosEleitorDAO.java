@@ -146,15 +146,27 @@ public class DadosEleitorDAO {
         return false;
     }
     
-    public boolean referenciarDado(String tabela, String coluna, String ref) {
-
-        return false;
-    }
-
-    public ResultSet selecionarEleitoradoBD() {
-
+    public ResultSet getResultadoEstadoFiltro() {
+        
+        // Definindo a string sql
+        this.setSql("SELECT SUM(p_total),E.e_uf,PE.p_sexo,PE.p_faixa_etaria FROM perfil_eleitor PE INNER JOIN estado E ON E.e_id = PE.e_id GROUP BY E.e_uf");
+        
+        
+        try {
+            
+            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.setRs(this.getPstmt().executeQuery());
+            
+            return this.getRs();
+            
+        }catch(SQLException e) {
+            
+            e.printStackTrace();
+            
+        }
+        
         return null;
-
     }
 
     public void fecharConexaoOracle() {

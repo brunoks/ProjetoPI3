@@ -41,7 +41,7 @@ public class ConnectionFactory {
         this.setSenhaBanco("urn4dugit4l#");
         this.setServidor("localhost");
         this.setPorta("1521");
-        this.setSid("projetopiiii");
+        this.setSid("noubh");
 
         this.setUrl();
 
