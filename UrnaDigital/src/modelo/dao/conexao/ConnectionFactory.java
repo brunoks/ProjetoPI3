@@ -141,7 +141,7 @@ public class ConnectionFactory {
 
         } catch (ClassNotFoundException e) {
 
-            JOptionPane.showMessageDialog(null, "Classe não encontrada!");
+//            JOptionPane.showMessageDialog(null, "Classe não encontrada!");
             System.exit(1);
         }
 
@@ -151,8 +151,11 @@ public class ConnectionFactory {
             return DriverManager.getConnection(this.getUrl(), this.getUsuarioBanco(), this.getSenhaBanco());
 
         } catch (SQLException e) {
+            System.out.println("Erro: " + e.getMessage());
+           this.criarDriverManager();
+           
 
-            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+//            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
 
         }
 

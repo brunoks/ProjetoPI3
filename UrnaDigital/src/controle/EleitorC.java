@@ -7,6 +7,7 @@ package controle;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import modelo.dao.DadosEleitorDAO;
 import modelo.dao.VerificaDAO;
 import modelo.dominio.DadosEleitor;
@@ -26,7 +27,7 @@ public class EleitorC {
     private DadosEleitor EleitorDados;
     Connection conn;
     ResultSet rs;
-    
+
 
     /*###################################
        MÉTODOS get e set DA CLASSE - BD
@@ -58,28 +59,28 @@ public class EleitorC {
     /*###################################
                MÉTODOS DA CLASSE
       ###################################*/
-    
     /**
      * Dados do Eleitorado
+     *
      * @param periodo
      * @param uf
      * @param municipio
      * @param sexo
      * @param faixa_etaria
-     * @param total 
+     * @param total
      */
     public void setDadosEleitor(String periodo, String uf, String municipio, String sexo, String faixa_etaria, String total) {
         this.EleitorDados = new DadosEleitor(periodo, uf, municipio, sexo, faixa_etaria, total);
     }
 
-    
     /**
      * Gravar Linha no Banco
+     *
      * @param DadosE
      * @param refEleicao
      * @param refEstado
      * @param refMunicipio
-     * @return 
+     * @return
      */
     public boolean gravarDadosBanco(DadosEleitor DadosE, String refEleicao, String refEstado, String refMunicipio) {
 
@@ -99,47 +100,47 @@ public class EleitorC {
 
     /**
      * Importar Lista
-     * @param listaDados 
+     *
+     * @param listaDados
      */
     public void importarDadosEleitor(ListaC listaDados) {
         No pAux = listaDados.getInicioDaLista();
         DadosEleitorDAO dao = new DadosEleitorDAO();
         VerificaDAO v = new VerificaDAO();
-        
+
         for (int i = 0; i < listaDados.getQuantidadeDeNos(); i++) {
 
             try {
                 //Verificar se existe Período da Eleicao
-                if(!v.verificaSeExiste("eleicao", "el_ano", pAux.getObjctEleitorado().getPeriodo())){
+                if (!v.verificaSeExiste("eleicao", "el_ano", pAux.getObjctEleitorado().getPeriodo())) {
                     v.setNovaEleicao(pAux.getObjctEleitorado().getPeriodo());
                 }
-                
+
                 String eleicaoID = v.getReferencia("eleicao", "el_ano", pAux.getObjctEleitorado().getPeriodo());
-                if(eleicaoID.equals("")){
+                if (eleicaoID.equals("")) {
                     throw new Exception("\nOcorreu um erro ao referenciar eleição");
                 }
-                
-                
+
                 //Verificar se existe Estado
-                if(!v.verificaSeExiste("estado", "e_uf", pAux.getObjctEleitorado().getUf())){
+                if (!v.verificaSeExiste("estado", "e_uf", pAux.getObjctEleitorado().getUf())) {
                     v.setNovoEstado(pAux.getObjctEleitorado().getUf());
                 }
-                
+
                 String estadoID = v.getReferencia("estado", "e_uf", pAux.getObjctEleitorado().getUf());
-                if(estadoID.equals("")){
+                if (estadoID.equals("")) {
                     throw new Exception("\nOcorreu um erro ao referenciar estado");
                 }
-                
+
                 //Verificar se existe Município
-                if(!v.verificaSeExiste("municipio", "m_municipio", pAux.getObjctEleitorado().getMunicipio())){
+                if (!v.verificaSeExiste("municipio", "m_municipio", pAux.getObjctEleitorado().getMunicipio())) {
                     v.setNovoMunicipio(estadoID, pAux.getObjctEleitorado().getMunicipio());
                 }
-                
+
                 String municipioID = v.getReferencia("municipio", "m_municipio", pAux.getObjctEleitorado().getMunicipio());
-                if(municipioID.equals("")){
+                if (municipioID.equals("")) {
                     throw new Exception("\nOcorreu um erro ao referenciar município");
                 }
-                
+
                 this.gravarDadosBanco(pAux.getObjctEleitorado(), eleicaoID, estadoID, municipioID);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -149,9 +150,29 @@ public class EleitorC {
             pAux = pAux.getProximoPonteiro();
         }
     }
-    
-    public void exportarDadosJSON(){
-        
+
+    public void exportarDadosJSON() {
+
+        // Criando instância da classe UsuarioDAO.
+        DadosEleitorDAO uDAO = new DadosEleitorDAO();
+
+        // Verificando se é possível conectar ao banco de dados Oracle
+        // Se for possível, o atributo conn será diferente de 'null'
+        if ((this.conn = uDAO.conectarBanco()) != null) {
+            ResultSet result = uDAO.getResultadoEstadoFiltro();
+
+            try {
+                while (result.next()) {
+                    
+                    //Total de Pessoas com CPF
+                    String total = result.getString("faixa");
+                    System.out.println(total);
+
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
     }
 
 }

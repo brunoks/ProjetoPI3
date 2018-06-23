@@ -115,57 +115,51 @@ public class DadosEleitorDAO {
 
     public boolean gravarEleitorBD(DadosEleitor _eleitor, String eleicaoID, String estadoID, String municipioID) {
 
-        this.setSql("INSERT INTO perfil_eleitor(m_id,e_id,el_id,p_sexo,p_faixa_etaria,p_total) VALUES(?,?,?,?,?,?)");
-        
         try {
-            
+            this.setConn(this.conectarBanco());
+            this.setSql("INSERT INTO perfil_eleitor(m_id,e_id,el_id,p_sexo,p_faixa_etaria,p_total) VALUES(?,?,?,?,?,?)");
+
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
-           
-            
+
             this.getPstmt().setString(1, municipioID);
             this.getPstmt().setString(2, estadoID);
             this.getPstmt().setString(3, eleicaoID);
             this.getPstmt().setString(4, (_eleitor.getSexo() == "Feminino") ? "F" : "M");
             this.getPstmt().setString(5, _eleitor.getFaixa_etaria());
             this.getPstmt().setString(6, _eleitor.getTotal());
-            
-            
+
             this.getPstmt().execute();
             this.getPstmt().close();
-            
+
+            this.fecharConexaoOracle();
             return true;
- 
-        }catch(SQLException e) {
-            
+
+        } catch (SQLException e) {
+
             e.printStackTrace();
-            
+
         }
-        
-        
+
         return false;
     }
-    
+
     public ResultSet getResultadoEstadoFiltro() {
-        
-        // Definindo a string sql
-        this.setSql("SELECT SUM(p_total),E.e_uf,PE.p_sexo,PE.p_faixa_etaria FROM perfil_eleitor PE INNER JOIN estado E ON E.e_id = PE.e_id GROUP BY E.e_uf");
-        
-        
         try {
-            
+            this.setConn(this.conectarBanco());
+
+            // Definindo a string sql
+            this.setSql("SELECT p_total as total, E.e_uf as uf,PE.p_sexo as sexo,PE.p_faixa_etaria as faixa FROM perfil_eleitor PE INNER JOIN estado E ON E.e_id = PE.e_id");
+
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.setRs(this.getPstmt().executeQuery());
-            
             return this.getRs();
-            
-        }catch(SQLException e) {
-            
-            e.printStackTrace();
-            
+
+        } catch (SQLException e) {
+
         }
-        
+
         return null;
     }
 

@@ -144,7 +144,7 @@ public class VerificaDAO {
                 if (total > 0) {
                     //Fechar conexões
                     this.getPstmt().close();
-                    this.setConn(this.getCf().fecharConexaoOracle());
+                    this.fecharConexaoOracle();
 
                     //Campo está duplicado
                     return true;
@@ -190,7 +190,7 @@ public class VerificaDAO {
 
                     //Fechar conexões
                     this.getPstmt().close();
-                    this.setConn(this.getCf().fecharConexaoOracle());
+                    this.fecharConexaoOracle();
 
                 }
             }
@@ -207,10 +207,10 @@ public class VerificaDAO {
      * @return
      */
     public boolean setNovaEleicao(String ano) {
-
-        this.setSql("INSERT INTO eleicao (el_ano,el_tipo) VALUES(?,?)");
-
         try {
+            this.setConn(this.conectarBanco());
+
+            this.setSql("INSERT INTO eleicao (el_ano,el_tipo) VALUES(?,?)");
 
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
@@ -220,6 +220,7 @@ public class VerificaDAO {
 
             this.getPstmt().execute();
             this.getPstmt().close();
+            this.fecharConexaoOracle();
 
             return true;
 
@@ -239,10 +240,10 @@ public class VerificaDAO {
      * @return
      */
     public boolean setNovoEstado(String uf) {
-
-        this.setSql("INSERT INTO estado (e_estado,e_uf) VALUES(?,?)");
-
         try {
+            this.setConn(this.conectarBanco());
+
+            this.setSql("INSERT INTO estado (e_estado,e_uf) VALUES(?,?)");
 
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
@@ -254,6 +255,7 @@ public class VerificaDAO {
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
             this.getPstmt().close();
+            this.fecharConexaoOracle();
 
             return true;
 
@@ -275,9 +277,9 @@ public class VerificaDAO {
      */
     public boolean setNovoMunicipio(String estadoID, String municipio) {
 
-        this.setSql("INSERT INTO municipio (e_id,m_municipio) VALUES(?,?)");
-
         try {
+            this.setConn(this.conectarBanco());
+            this.setSql("INSERT INTO municipio (e_id,m_municipio) VALUES(?,?)");
 
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
@@ -289,6 +291,7 @@ public class VerificaDAO {
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
             this.getPstmt().close();
+            this.fecharConexaoOracle();
 
             return true;
 
@@ -309,10 +312,9 @@ public class VerificaDAO {
      */
     public boolean setNovoCargo(String cargo) {
 
-        this.setSql("INSERT INTO cargo (cr_cargo) VALUES(?)");
-
         try {
-
+            this.setConn(this.conectarBanco());
+            this.setSql("INSERT INTO cargo (cr_cargo) VALUES(?)");
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
 
@@ -322,6 +324,7 @@ public class VerificaDAO {
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
             this.getPstmt().close();
+            this.fecharConexaoOracle();
 
             return true;
 
@@ -343,20 +346,22 @@ public class VerificaDAO {
      */
     public boolean setNovoPartido(String partido, String sigla) {
 
-        this.setSql("INSERT INTO partido (pr_partido, pr_sigla) VALUES(?,?)");
-
         try {
+
+            this.setConn(this.conectarBanco());
+            this.setSql("INSERT INTO partido (pr_partido, pr_sigla) VALUES(?,?)");
 
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
 
             this.getPstmt().setString(1, partido);
-            this.getPstmt().setString(2, (sigla.length() > 5) ? sigla.substring(0, 4) : sigla );
+            this.getPstmt().setString(2, (sigla.length() > 5) ? sigla.substring(0, 4) : sigla);
 
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
             this.getPstmt().close();
+            this.fecharConexaoOracle();
 
             return true;
 
@@ -464,7 +469,7 @@ public class VerificaDAO {
 
         return retorno;
     }
-    
+
     /**
      * Cadastrar Municipio
      *
@@ -474,9 +479,10 @@ public class VerificaDAO {
      */
     public boolean setNovaEleicao(String estadoID, String municipio) {
 
-        this.setSql("INSERT INTO eleicao (e_id,m_municipio) VALUES(?,?)");
-
         try {
+
+            this.setConn(this.conectarBanco());
+            this.setSql("INSERT INTO eleicao (e_id,m_municipio) VALUES(?,?)");
 
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
@@ -488,6 +494,7 @@ public class VerificaDAO {
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
             this.getPstmt().close();
+            this.fecharConexaoOracle();
 
             return true;
 

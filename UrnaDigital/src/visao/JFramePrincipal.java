@@ -451,7 +451,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 //            }
 //
 //        }
-        jBSelecionarBD.setEnabled(false); // habilitando o botão Selecionar BD
+        jBSelecionarBD.setEnabled(true); // habilitando o botão Selecionar BD
         jBGravarBD.setEnabled(true);      // habilitando o botão Gravar BD
 
     }//GEN-LAST:event_jBSelecionarBDActionPerformed
@@ -475,7 +475,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBLerTXT.setEnabled(false);        // Habilitando o botão CSV
 
         jBGravarBD.setEnabled(false);     // Desabilitando o botão gravar
-        jBSelecionarBD.setEnabled(false); // Desabilitando o botão selecionar
+        jBSelecionarBD.setEnabled(true); // Desabilitando o botão selecionar
 
     }//GEN-LAST:event_jBLLActionPerformed
 
@@ -489,7 +489,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jBLL.setEnabled(true);        // habilitando o botão Limpar lista
         jBLerTXT.setEnabled(true);    // habilitando o botão CSV
 
-        jBSelecionarBD.setEnabled(false); // habilitando o botão Selecionar BD
+        jBSelecionarBD.setEnabled(true); // habilitando o botão Selecionar BD
 
     }//GEN-LAST:event_jBCLActionPerformed
 

@@ -204,7 +204,7 @@ public class ListaC {
                         novoNo = NoCandidato;
                         break;
                     case "Eleitorado":
-                        No NoEleitorado = new No(d[0], d[1], d[2], d[5], d[6], d[8]);
+                        No NoEleitorado = new No(d[2], d[3], d[5], d[15], d[11], d[16]);
                         novoNo = NoEleitorado;
                         break;
                     case "Voto":

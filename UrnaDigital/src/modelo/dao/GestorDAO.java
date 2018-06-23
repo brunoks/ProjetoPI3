@@ -10,35 +10,36 @@ import modelo.dominio.Gestor;
 
 /**
  * Classe de Tratamento das Consultas SQL vinculadas ao Gestor
+ *
  * @author AC/DC
  */
 public class GestorDAO {
+
     /*###################################
               ATRIBUTOS DA CLASSE
       ###################################*/
-    
+
     private ConnectionFactory cf;
     private Connection conn;
     private PreparedStatement pstmt; // query
     private Statement stmt;
     private String sql;
     private ResultSet rs;
-    
+
     /*###################################
              CONSTRUTOR DA CLASSE
       ###################################*/
-    public GestorDAO(){
-        
+    public GestorDAO() {
+
         this.setConn(null);
         this.setPstmt(null);
         this.setRs(null);
-        
+
     }
-    
+
     /*###################################
            MÉTODOS get e set DA CLASSE
       ###################################*/
-
     // Método para retornar o objeto da classe 'ConnectionFactory'
     public ConnectionFactory getCf() {
         return this.cf;
@@ -68,7 +69,7 @@ public class GestorDAO {
     public void setPstmt(PreparedStatement _pstmt) {
         this.pstmt = _pstmt;
     }
-    
+
     // Método 
     public Statement getStmt() {
         return this.stmt;
@@ -93,117 +94,116 @@ public class GestorDAO {
     public ResultSet getRs() {
         return this.rs;
     }
-    
+
     // Método para armazenar o ResultSet
     public void setRs(ResultSet _rs) {
         this.rs = _rs;
     }
-    
+
     /*###################################
                MÉTODOS DA CLASSE
       ###################################*/
-    
     //Conexão com banco de dados
-    public Connection conectarBanco(){
-       
-        if(this.getConn() == null){
+    public Connection conectarBanco() {
+
+        if (this.getConn() == null) {
             this.setCf(new ConnectionFactory());
             this.setConn(this.getCf().criarConexaoOracle());
         }
-            
+
         return this.getConn();
-        
+
     }
-    
+
     //Verificar existencia do CPF vinculado a algum usuário do sistema
-    public boolean verificarExisteCPF(String cpf){
-        
-        try{
+    public boolean verificarExisteCPF(String cpf) {
+
+        try {
             //Conectar banco de dados
             this.setConn(this.conectarBanco());
-            
+
             //SQL
             this.setSql("SELECT COUNT(*) as Total FROM gestor WHERE g_cpf = ?");
-            
+
             //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.getPstmt().setString(1, cpf);
-            
+
             //Buscar registros
             this.setRs(this.getPstmt().executeQuery());
-            
+
             //Resultado
-            while(this.getRs().next()){
-                
+            while (this.getRs().next()) {
+
                 //Total de Pessoas com CPF
                 int total = this.getRs().getInt("Total");
-                
-                if(total > 0){
+
+                if (total > 0) {
                     //Fechar conexões
                     this.getPstmt().close();
                     this.setConn(this.getCf().fecharConexaoOracle());
-                    
+
                     //Campo está duplicado
                     return true;
                 }
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
-        
+
         return false;
     }
-    
+
     //Verificar existencia do CPF vinculado a algum usuário do sistema
-    public boolean verificarExisteLogin(String login){
-        
-        try{
+    public boolean verificarExisteLogin(String login) {
+
+        try {
             //Conectar banco de dados
             this.setConn(this.conectarBanco());
-            
+
             //SQL
             this.setSql("SELECT COUNT(*) as Total FROM gestor WHERE g_login = ?");
-            
+
             //Passar parametros
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.getPstmt().setString(1, login);
-            
+
             //Buscar registros
             this.setRs(this.getPstmt().executeQuery());
-            
+
             //Resultado
-            while(this.getRs().next()){
-                
+            while (this.getRs().next()) {
+
                 //Total de Pessoas com CPF
                 int total = this.getRs().getInt("Total");
-                
-                if(total > 0){
+
+                if (total > 0) {
                     //Fechar conexões
                     this.getPstmt().close();
                     this.setConn(this.getCf().fecharConexaoOracle());
-                    
+
                     //Campo está duplicado
                     return true;
                 }
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
-        
+
         return false;
     }
-    
+
     //Gravar dados do usuário no banco de dados
     public boolean gravarUsuariosBD(Gestor _gestor) {
-        
-        // Definindo a string sql
-        this.setSql("INSERT INTO gestor(g_cpf,g_nome,g_nascimento,g_sexo,g_login,g_senha,g_email,g_telefone) VALUES (?,?,?,?,?,?,?,?)");
-        
+
         try {
-            
+            this.setConn(this.conectarBanco());
+            // Definindo a string sql
+            this.setSql("INSERT INTO gestor(g_cpf,g_nome,g_nascimento,g_sexo,g_login,g_senha,g_email,g_telefone) VALUES (?,?,?,?,?,?,?,?)");
+
             // Substituir parametros por valores
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
-            
+
             //Valores
             this.getPstmt().setString(1, (_gestor.getCpf()));
             this.getPstmt().setString(2, (_gestor.getNome()));
@@ -213,107 +213,106 @@ public class GestorDAO {
             this.getPstmt().setString(6, (_gestor.getSenha()));
             this.getPstmt().setString(7, (_gestor.getEmail()));
             this.getPstmt().setString(8, (_gestor.getTelefone()));
-            
-            
+
             // Executa
             this.getPstmt().execute();
             this.getPstmt().close();
-            
+
             return true;
- 
-        }catch(SQLException e) {
-           
+
+        } catch (SQLException e) {
+
             e.printStackTrace();
-            
+
         }
- 
+
         return false;
     }
-    
+
     //Selecionar dados do usuário
     public ResultSet selecionarUsuarioBD(String login) {
-        
-        // Definindo a string sql
-        this.setSql("SELECT * FROM gestor WHERE g_login = ?");
-        
+
         try {
-            
+
+            // Definindo a string sql
+            this.setConn(this.conectarBanco());
+            this.setSql("SELECT * FROM gestor WHERE g_login = ?");
+
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.getPstmt().setString(1, (login));
             this.setRs(this.getPstmt().executeQuery());
-            
+
             return this.getRs();
-            
-        }catch(SQLException e) {
-            
+
+        } catch (SQLException e) {
+
             e.printStackTrace();
-            
+
         }
-        
+
         return null;
     }
-    
+
     //Altera senha do gestor
     public boolean alterarSenhaUsuarioBD(int gestorID, String senha) {
-        
-        // Definindo a string sql
-        this.setSql("UPDATE gestor SET g_senha = ?, data_modificado = CURRENT_DATE WHERE g_id = " + gestorID);
-        
+
         try {
-             
+            // Definindo a string sql
+            this.setConn(this.conectarBanco());
+            this.setSql("UPDATE gestor SET g_senha = ?, data_modificado = CURRENT_DATE WHERE g_id = " + gestorID);
+
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
             this.getPstmt().setString(1, senha);
-            
-            
+
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
             this.getPstmt().close();
-            
+
             return true;
- 
-        }catch(SQLException e) {
-            
+
+        } catch (SQLException e) {
+
             e.printStackTrace();
-            
+
         }
- 
+
         return false;
     }
-    
+
     //Alterar Dados de Contato do gestor
     public boolean alterarContatoUsuarioBD(int gestorID, String email, String telefone) {
-        
-        // Definindo a string sql
-        this.setSql("UPDATE gestor SET g_email = ?, g_telefone = ?, data_modificado = CURRENT_DATE WHERE g_id = " + gestorID);
-        
+
         try {
-             
+            // Definindo a string sql
+            this.setConn(this.conectarBanco());
+            this.setSql("UPDATE gestor SET g_email = ?, g_telefone = ?, data_modificado = CURRENT_DATE WHERE g_id = " + gestorID);
+
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
             this.setPstmt(this.getConn().prepareStatement(this.getSql()));
-            
+
             this.getPstmt().setString(1, email);
             this.getPstmt().setString(2, telefone);
-            
+
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'
             this.getPstmt().close();
-            
+
             return true;
- 
-        }catch(SQLException e) {
-            
+
+        } catch (SQLException e) {
+
             e.printStackTrace();
-            
+
         }
- 
+
         return false;
     }
-    
-    public void fecharConexaoOracle(){
+
+    public void fecharConexaoOracle() {
         this.setConn(this.cf.fecharConexaoOracle());
     }
 }
