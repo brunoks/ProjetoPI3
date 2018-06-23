@@ -36,7 +36,7 @@ public class No {
         this.setObjctDados(new DadosCandidato(ano,turno,descE,uf,tse,municipio,codigoC,cargo,nome,cpf,siglaP,partido,composicaoLegenda,nasc,sexo));
     }
 
-    public No(String eleicao, String municipio, String estado, String candidato, String sigla_p, String id_partido, String total,String cargo) {
+    public No(String eleicao, String estado, String municipio, String candidato, String sigla_p, String id_partido, String total,String cargo) {
         this.setObjectVotos(new DadosVotos(eleicao,estado,municipio,candidato,sigla_p,id_partido,total,cargo));
     }
     

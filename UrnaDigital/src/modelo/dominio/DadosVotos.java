@@ -33,7 +33,7 @@ public class DadosVotos {
               CONSTRUTOR DA CLASSE
       ###################################*/
                         
-    public DadosVotos(String eleicao,String municipio,String estado,String candidato,String sigla_p,String id_partido,String total, String cargo) {
+    public DadosVotos(String eleicao,String estado,String municipio,String candidato,String sigla_p,String id_partido,String total, String cargo) {
         this.cargo = cargo.replaceAll("\"", "");
         this.municipio = municipio.replaceAll("\"", "");
         this.estado = estado.replaceAll("\"", "");

@@ -136,6 +136,7 @@ public class DadosVotosDAO {
             this.getPstmt().setString(4, c_id);
             this.getPstmt().setString(5, el_id);
             this.getPstmt().setString(6, pr_id);
+            System.out.print(_dados.getTotal());
             this.getPstmt().setString(7, _dados.getTotal());
             
             

@@ -112,11 +112,11 @@ public class VotosC {
                 }
                 
                //Verificar se existe Município
-                if(!v.verificaSeExiste("municipio", "m_municipio", pAux.getObjctEleitorado().getMunicipio())){
-                    v.setNovoMunicipio(pAux.getObjctEleitorado().getUf(), pAux.getObjctEleitorado().getMunicipio());
+                if(!v.verificaSeExiste("municipio", "m_municipio", pAux.getObjectVotos().getMunicipio())){
+                    v.setNovoMunicipio(estadoID, pAux.getObjectVotos().getMunicipio());
                 }
                 
-                String municipioID = v.getReferencia("municipio", "m_municipio", pAux.getObjctEleitorado().getMunicipio());
+                String municipioID = v.getReferencia("municipio", "m_municipio", pAux.getObjectVotos().getMunicipio());
                 if(municipioID.equals("")){
                     throw new Exception("\nOcorreu um erro ao referenciar município");
                 }
