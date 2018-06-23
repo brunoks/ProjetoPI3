@@ -208,7 +208,7 @@ public class ListaC {
                         novoNo = NoEleitorado;
                         break;
                     case "Voto":
-                        No NoVoto = new No(d[0], d[1], d[2], d[5], d[6], d[8]);
+                        No NoVoto = new No(d[15], d[8], d[5], d[14], d[2], d[21], d[22], d[28]);
                         novoNo = NoVoto;
                         break;
                 }
@@ -261,12 +261,63 @@ public class ListaC {
             case "Eleitorado":
                 escreverEleitorado(listaDE);
                 break;
+            case "Votos":
+            escreverVotos(listaDE);
+            break;
         }
 
         return true;
 
     }
+    
+    public void escreverVotos(ListaC listaDE) {
+        // Local onde será criado o arquivo e os dados serão gravados.
+        this.arquivoJson = new File("C:\\Users\\Bruno\\Documents\\jsonFileVotos.json");
 
+        JSONObject jsonObject = new JSONObject();
+        JSONArray tempos = new JSONArray();
+        try {
+
+            // Se o arquivo não existir, cria-se um novo.
+            if (this.arquivoJson.exists()) {
+
+            } else {
+                this.arquivoJson.createNewFile(); // Arquivo vazio
+
+            }
+            //ponteiro auxiliar para 
+            No pAux = listaDE.getInicioDaLista();
+            FileWriter fw = new FileWriter(this.arquivoJson, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            int i = 0;
+            while (pAux.getProximoPonteiro() != null) {
+
+                tempos.put(jsonObject.put("nome", pAux.getObjectVotos().getCandidato()));
+                tempos.put(jsonObject.put("cargo", pAux.getObjectVotos().getCargo()));
+                tempos.put(jsonObject.put("eleicao", pAux.getObjectVotos().getEleicao()));
+                tempos.put(jsonObject.put("estado", pAux.getObjectVotos().getEstado()));
+                tempos.put(jsonObject.put("municipio", pAux.getObjectVotos().getMunicipio()));
+                tempos.put(jsonObject.put("partido", pAux.getObjectVotos().getPartido()));
+                tempos.put(jsonObject.put("sigla_p", pAux.getObjectVotos().getSigla_partido()));
+                tempos.put(jsonObject.put("total_votos", pAux.getObjectVotos().getTotal()));
+
+                i++;
+                pAux = pAux.getProximoPonteiro();
+
+            }
+            bw.write(tempos.toString());
+            bw.close();
+            fw.close();
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+
+        } catch (JSONException ex) {
+            Logger.getLogger(ListaC.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
     // Ler dados do arquivo TXT referente a candidato
     //
     public void escreverCandidato(ListaC listaDE) {
@@ -308,7 +359,6 @@ public class ListaC {
 
                 i++;
                 pAux = pAux.getProximoPonteiro();
-                System.out.println("a " + i);
 
             }
             bw.write(tempos.toString());
@@ -364,7 +414,6 @@ public class ListaC {
                 }
 
                 pAux = pAux.getProximoPonteiro();
-                System.out.println(tempos.toString());
 
             }
             bw.close();

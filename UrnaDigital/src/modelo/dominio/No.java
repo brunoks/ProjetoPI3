@@ -15,6 +15,7 @@ public class No {
     //Objeto com os dados do candidato
     private DadosCandidato objctDados;
     private DadosEleitor objectEleitorado;
+    private DadosVotos objectVotos;
 
     /*###################################
             CONSTRUTORES DA CLASSE
@@ -34,12 +35,20 @@ public class No {
         
         this.setObjctDados(new DadosCandidato(ano,turno,descE,uf,municipio,codigoC,cargo,nome,cpf,siglaP,partido,composicaoLegenda,nasc,sexo));
     }
+
+    public No(String cargo, String municipio, String estado, String candidato, String eleicao, String sigla_p, String id_partido, String total) {
+        this.setObjectVotos(new DadosVotos(cargo,municipio,estado,candidato,eleicao,sigla_p, id_partido,total));
+    }
     
     
     /*###################################
                MÉTODOS DA CLASSE
       ###################################*/  
     
+
+    public DadosVotos getObjectVotos() {
+        return this.objectVotos;
+    }
     public No getPonteiroAnterior() {
         return this.ponteiroAnterior;
     }
@@ -58,6 +67,10 @@ public class No {
 
     public void setObjctDados(DadosCandidato dados) {
         this.objctDados = dados;
+    }
+    
+        public void setObjectVotos(DadosVotos objectVotos) {
+        this.objectVotos = objectVotos;
     }
     
     public void setPonteiroAnterior(No ponteiroAnterior) {
