@@ -140,7 +140,7 @@ public class VotosC {
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'
         if ((this.conn = uDAO.conectarBanco()) != null) {
-            return uDAO.gravarDadosBanco(DadosE, cr_id, id_m, e_id, c_id,el_id,pr_id);
+            return uDAO.gravarVotosBD(DadosE, cr_id, id_m, e_id, c_id,el_id,pr_id);
 
         }
 

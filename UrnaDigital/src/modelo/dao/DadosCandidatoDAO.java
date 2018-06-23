@@ -199,17 +199,18 @@ public class DadosCandidatoDAO {
         return false;
     }
     
-    // Método para gravar todos os usuários presentes na lista
-    public ResultSet selecionarDadosBD(String uf) {
+    public ResultSet getResultadoEstadoFiltro() {
         
         // Definindo a string sql
-        this.setSql("SELECT * FROM CANDIDATO WHERE UF = '" + uf + "'");
+        this.setSql("SELECT SUM(p_total),E.e_uf,C.p_sexo,C.p_faixa_etaria FROM candidatos C INNER JOIN estado E ON E.e_id = C.e_id GROUP BY E.e_uf");
+        
         
         try {
             
             // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
-            this.setStmt(this.getConn().createStatement());
-            this.setRs(this.getStmt().executeQuery(this.getSql()));
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.setRs(this.getPstmt().executeQuery());
+            
             return this.getRs();
             
         }catch(SQLException e) {
@@ -219,7 +220,6 @@ public class DadosCandidatoDAO {
         }
         
         return null;
-        
     }
    
         

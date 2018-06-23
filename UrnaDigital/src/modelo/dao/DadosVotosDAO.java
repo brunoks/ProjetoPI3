@@ -115,7 +115,7 @@ public class DadosVotosDAO {
     }
     
     // Método para gravar todos os usuários presentes na lista
-    public boolean gravarDadosBanco(DadosVotos _dados, String cr_id, String id_m, String e_id, String c_id, String el_id, String pr_id) {
+    public boolean gravarVotosBD(DadosVotos _dados, String cr_id, String id_m, String e_id, String c_id, String el_id, String pr_id) {
   
         // Definindo a string sql
         this.setSql("INSERT INTO resultado_votos (cr_id,m_id,e_id,c_id,el_id,pr_id,p_total) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -154,26 +154,31 @@ public class DadosVotosDAO {
  
         return false;
     }
+
     
-    public boolean gravarEleitoradoBD(DadosVotos _gestor) {
+    public ResultSet getResultadoEstadoFiltro() {
+        
+        // Definindo a string sql
+        this.setSql("SELECT SUM(p_total),E.e_uf,V.p_sexo,V.p_faixa_etaria FROM resultado_votos V INNER JOIN estado E ON E.e_id = V.e_id GROUP BY E.e_uf");
         
         
- 
-        return false;
-    }
-    
-    public ResultSet selecionarEleitoradoBD() {
-        
-        
+        try {
+            
+            // Prepara a instrução SQL e monsta a estrutura dos parâmetros.
+            this.setPstmt(this.getConn().prepareStatement(this.getSql()));
+            this.setRs(this.getPstmt().executeQuery());
+            
+            return this.getRs();
+            
+        }catch(SQLException e) {
+            
+            e.printStackTrace();
+            
+        }
         
         return null;
-        
     }
-    
-    public boolean alterarEleitoradoBD(DadosVotos _gestor, int parametro) {
-        
-        return false;
-    }
+
     
     public void fecharConexaoOracle(){
         this.setConn(this.cf.fecharConexaoOracle());
