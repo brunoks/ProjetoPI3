@@ -1,7 +1,7 @@
 package modelo.dominio;
 
 /**
- * Objeto Eletorado
+ * Objeto Eleitorado
  * @author AC/DC
  */
 public class DadosEleitor {
