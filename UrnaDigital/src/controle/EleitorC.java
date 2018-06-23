@@ -5,13 +5,22 @@
  */
 package controle;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.dao.DadosEleitorDAO;
 import modelo.dao.VerificaDAO;
 import modelo.dominio.DadosEleitor;
 import modelo.dominio.No;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -151,28 +160,42 @@ public class EleitorC {
         }
     }
 
-    public void exportarDadosJSON() {
+    public void exportarDadosJSON() throws IOException {
 
         // Criando instância da classe UsuarioDAO.
         DadosEleitorDAO uDAO = new DadosEleitorDAO();
 
-        // Verificando se é possível conectar ao banco de dados Oracle
-        // Se for possível, o atributo conn será diferente de 'null'
+        File arquivoJson = new File("C:\\urnadigital\\eleitorado.json");
+        JSONObject jsonObject = new JSONObject();
+        JSONArray tempos = new JSONArray();
+
         if ((this.conn = uDAO.conectarBanco()) != null) {
             ResultSet result = uDAO.getResultadoEstadoFiltro();
 
             try {
-                while (result.next()) {
-                    
-                    //Total de Pessoas com CPF
-                    String total = result.getString("faixa");
-                    System.out.println(total);
-
+                if (!arquivoJson.exists()) {
+                    arquivoJson.createNewFile(); // Arquivo vazio
                 }
+
+                FileWriter fw = new FileWriter(arquivoJson, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                while (result.next()) {
+                    tempos.put(jsonObject.put("total", result.getInt("total")));
+                    tempos.put(jsonObject.put("uf", result.getString("uf")));
+                    tempos.put(jsonObject.put("sexo", result.getString("sexo")));
+                    tempos.put(jsonObject.put("faixa", result.getString("faixa")));
+                }
+
+                bw.write(tempos.toString());
+                bw.close();
+                fw.close();
+
             } catch (SQLException e) {
                 System.out.println(e);
             }
         }
+
     }
 
 }
