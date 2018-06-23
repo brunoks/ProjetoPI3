@@ -51,21 +51,21 @@ public class DadosCandidato {
     public DadosCandidato(String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
                           String cpf,String siglaP,String partido,String composicaoLegenda,
                           String nasc,String sexo) {
-        this.cargo = cargo;
-        this.codigoC = codigoC;
-        this.cpf = cpf;
-        this.nome = nome;
-        this.nasc = nasc;
-        this.sexo = sexo;
-        this.partido = partido;
-        this.siglaP = siglaP;
-        this.composicaoLegenda = composicaoLegenda;
-        this.ano = ano;
-        this.tipoE = tipoE;
-        this.turno = turno;
-        this.descE = descE;
-        this.municipio = municipio;
-        this.uf = uf;
+        this.cargo = cargo.replaceAll("\"", "");
+        this.codigoC = codigoC.replaceAll("\"", "");
+        this.cpf = cpf.replaceAll("\"", "");
+        this.nome = nome.replaceAll("\"", "");
+        this.nasc = nasc.replaceAll("\"", "");
+        this.sexo = sexo.replaceAll("\"", "");
+        this.partido = partido.replaceAll("\"", "");
+        this.siglaP = siglaP.replaceAll("\"", "");
+        this.composicaoLegenda = composicaoLegenda.replaceAll("\"", "");
+        this.ano = ano.replaceAll("\"", "");
+        this.tipoE = tipoE.replaceAll("\"", "");
+        this.turno = turno.replaceAll("\"", "");
+        this.descE = descE.replaceAll("\"", "");
+        this.municipio = municipio.replaceAll("\"", "");
+        this.uf = uf.replaceAll("\"", "");
     }
     
     public DadosCandidato(){

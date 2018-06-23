@@ -39,9 +39,9 @@ public class ConnectionFactory {
 
         this.setUsuarioBanco("URNADIGITAL");
         this.setSenhaBanco("urn4dugit4l#");
-        this.setServidor("localhost");
+        this.setServidor("192.168.1.115");
         this.setPorta("1521");
-        this.setSid("projetopiiii");
+        this.setSid("noubh");
 
         this.setUrl();
 

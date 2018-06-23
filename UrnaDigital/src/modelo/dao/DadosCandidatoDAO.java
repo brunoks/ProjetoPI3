@@ -135,11 +135,11 @@ public class DadosCandidatoDAO {
             //              String cpf,String siglaP,String partido,String composicaoLegenda,
             //             String nasc,String sexo
             
-            this.getPstmt().setString(1, _dados.getTse_o().replaceAll("\"", ""));
-            this.getPstmt().setString(2, _dados.getCpf().replaceAll("\"", ""));
-            this.getPstmt().setString(3, _dados.getNome().replaceAll("\"", ""));
-            this.getPstmt().setString(4, _dados.getNasc().replaceAll("\"", ""));
-            this.getPstmt().setString(5, _dados.getSexo().replaceAll("\"", ""));
+            this.getPstmt().setString(1, _dados.getTse_o());
+            this.getPstmt().setString(2, _dados.getCpf());
+            this.getPstmt().setString(3, _dados.getNome());
+            this.getPstmt().setString(4, _dados.getNasc());
+            this.getPstmt().setString(5, _dados.getSexo());
             
             
             // Executa o comando SQL com os parâmteros.

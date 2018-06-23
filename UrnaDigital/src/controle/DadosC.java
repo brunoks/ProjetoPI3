@@ -87,8 +87,63 @@ public class DadosC {
 
             try {
                 //Verificar se existe Período da Eleicao
-                if(!v.verificaSeExiste("eleicao", "el_ano", pAux.getObjctDados().getAno().replaceAll("\"", ""))){
-                    v.setNovaEleicao(pAux.getObjctDados().getAno().replaceAll("\"", ""));
+                if(!v.verificaSeExiste("eleicao", "el_ano", pAux.getObjctDados().getAno())){
+                    v.setNovaEleicao(pAux.getObjctDados().getAno());
+                }
+
+                String eleicaoID = v.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getAno());
+                if(eleicaoID.equals("")){
+                    throw new Exception("\nOcorreu um erro ao referenciar eleição");
+                }
+                
+                
+                //Verificar se existe Cargo
+                if(!v.verificaSeExiste("cargo", "cr_cargo", pAux.getObjctDados().getCargo())){
+                    v.setNovoCargo(pAux.getObjctDados().getCargo());
+                }
+                
+                String cargoID = v.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getCargo());
+                if(cargoID.equals("")){
+                    throw new Exception("\nOcorreu um erro ao referenciar estado");
+                }
+                
+                //Verificar se existe Partido
+                if(!v.verificaSeExiste("partido", "pr_partido", pAux.getObjctDados().getPartido())){
+                    
+                    v.setNovoPartido(pAux.getObjctDados().getPartido(), pAux.getObjctDados().getSiglaP());
+                }
+                
+                String partidoID = v.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido());
+                if(partidoID.equals("")){
+                    throw new Exception("\nOcorreu um erro ao referenciar município");
+                }
+                
+                this.gravarDadosBanco(pAux.getObjctDados(), eleicaoID, partidoID, cargoID);
+            } catch (Exception e) {
+                System.out.println("this error " + e.getMessage());
+            }
+
+            //Próximo Registro
+            pAux = pAux.getProximoPonteiro();
+        }
+    }
+    
+    /**
+     * Exportar Dados Candidato
+     * @param listaDados
+     * @return 
+     */
+    public void exmportarDadosCandidato(ListaC listaDados) {
+       No pAux = listaDados.getInicioDaLista();
+        DadosCandidatoDAO dao = new DadosCandidatoDAO();
+        VerificaDAO v = new VerificaDAO();
+        
+        for (int i = 0; i < listaDados.getQuantidadeDeNos(); i++) {
+
+            try {
+                //Verificar se existe Período da Eleicao
+                if(v.verificaSeExiste("eleicao", "el_ano", pAux.getObjctDados().getAno().replaceAll("\"", ""))){
+                    
                 }
 
                 String eleicaoID = v.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getAno().replaceAll("\"", ""));
@@ -127,7 +182,6 @@ public class DadosC {
             pAux = pAux.getProximoPonteiro();
         }
     }
-    
 
     /**
      * Gravar Dados no Banco
