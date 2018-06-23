@@ -96,6 +96,15 @@ public class DadosC {
                     throw new Exception("\nOcorreu um erro ao referenciar eleição");
                 }
                 
+                 //Verificar se existe Estado
+                if (!v.verificaSeExiste("estado", "e_uf", pAux.getObjctDados().getUf())) {
+                    v.setNovoEstado(pAux.getObjctDados().getUf());
+                }
+
+                String estadoID = v.getReferencia("estado", "e_uf", pAux.getObjctDados().getUf());
+                if (estadoID.equals("")) {
+                    throw new Exception("\nOcorreu um erro ao referenciar estado");
+                }
                 
                 //Verificar se existe Cargo
                 if(!v.verificaSeExiste("cargo", "cr_cargo", pAux.getObjctDados().getCargo())){
@@ -118,7 +127,7 @@ public class DadosC {
                     throw new Exception("\nOcorreu um erro ao referenciar município");
                 }
                 
-                this.gravarDadosBanco(pAux.getObjctDados(), eleicaoID, partidoID, cargoID);
+                this.gravarDadosBanco(pAux.getObjctDados(), eleicaoID, partidoID, cargoID,estadoID);
             } catch (Exception e) {
                 System.out.println("this error " + e.getMessage());
             }
@@ -133,55 +142,7 @@ public class DadosC {
      * @param listaDados
      * @return 
      */
-    public void exmportarDadosCandidato(ListaC listaDados) {
-       No pAux = listaDados.getInicioDaLista();
-        DadosCandidatoDAO dao = new DadosCandidatoDAO();
-        VerificaDAO v = new VerificaDAO();
-        
-        for (int i = 0; i < listaDados.getQuantidadeDeNos(); i++) {
-
-            try {
-                //Verificar se existe Período da Eleicao
-                if(v.verificaSeExiste("eleicao", "el_ano", pAux.getObjctDados().getAno().replaceAll("\"", ""))){
-                    
-                }
-
-                String eleicaoID = v.getReferencia("eleicao", "el_ano", pAux.getObjctDados().getAno().replaceAll("\"", ""));
-                if(eleicaoID.equals("")){
-                    throw new Exception("\nOcorreu um erro ao referenciar eleição");
-                }
-                
-                
-                //Verificar se existe Cargo
-                if(!v.verificaSeExiste("cargo", "cr_cargo", pAux.getObjctDados().getCargo().replaceAll("\"", ""))){
-                    v.setNovoCargo(pAux.getObjctDados().getCargo().replaceAll("\"", ""));
-                }
-                
-                String cargoID = v.getReferencia("cargo", "cr_cargo", pAux.getObjctDados().getCargo().replaceAll("\"", ""));
-                if(cargoID.equals("")){
-                    throw new Exception("\nOcorreu um erro ao referenciar estado");
-                }
-                
-                //Verificar se existe Partido
-                if(!v.verificaSeExiste("partido", "pr_partido", pAux.getObjctDados().getPartido().replaceAll("\"", ""))){
-                    
-                    v.setNovoPartido(pAux.getObjctDados().getPartido().replaceAll("\"", ""), pAux.getObjctDados().getSiglaP().replaceAll("\"", ""));
-                }
-                
-                String partidoID = v.getReferencia("partido", "pr_partido", pAux.getObjctDados().getPartido().replaceAll("\"", ""));
-                if(partidoID.equals("")){
-                    throw new Exception("\nOcorreu um erro ao referenciar município");
-                }
-                
-                this.gravarDadosBanco(pAux.getObjctDados(), eleicaoID, partidoID, cargoID);
-            } catch (Exception e) {
-                System.out.println("this error " + e.getMessage());
-            }
-
-            //Próximo Registro
-            pAux = pAux.getProximoPonteiro();
-        }
-    }
+    
 
     /**
      * Gravar Dados no Banco
@@ -192,7 +153,7 @@ public class DadosC {
      * @param refCargo
      * @return
      */
-    public boolean gravarDadosBanco(DadosCandidato DadosE, String refAno, String refPartido, String refCargo) {
+    public boolean gravarDadosBanco(DadosCandidato DadosE, String refAno, String refPartido, String refCargo, String refEstado) {
 
         // Criando instância da classe UsuarioDAO
         DadosCandidatoDAO uDAO = new DadosCandidatoDAO();
@@ -200,7 +161,7 @@ public class DadosC {
         // Verificando se é possível conectar ao banco de dados Oracle
         // Se for possível, o atributo conn será diferente de 'null'
         if ((this.conn = uDAO.conectarBanco()) != null) {
-            return uDAO.gravarNoBanco(DadosE, refAno, refPartido, refCargo);
+            return uDAO.gravarNoBanco(DadosE, refAno, refPartido, refCargo,refEstado);
 
         }
 

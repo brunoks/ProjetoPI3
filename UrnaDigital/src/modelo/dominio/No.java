@@ -29,17 +29,16 @@ public class No {
         this.setObjctEleitorado(new DadosEleitor(periodo, uf, municipio, sexo, faixa_etaria, total));
     }
 
-    public No(String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
+    public No(String ano, String turno,String descE,String uf,String tse,String municipio,String codigoC,String cargo,String nome,
                    String cpf,String siglaP,String partido,String composicaoLegenda,
                    String nasc,String sexo) {
         
-        this.setObjctDados(new DadosCandidato(ano,turno,descE,uf,municipio,codigoC,cargo,nome,cpf,siglaP,partido,composicaoLegenda,nasc,sexo));
+        this.setObjctDados(new DadosCandidato(ano,turno,descE,uf,tse,municipio,codigoC,cargo,nome,cpf,siglaP,partido,composicaoLegenda,nasc,sexo));
     }
 
-    public No(String cargo, String municipio, String estado, String candidato, String eleicao, String sigla_p, String id_partido, String total) {
-        this.setObjectVotos(new DadosVotos(cargo,municipio,estado,candidato,eleicao,sigla_p, id_partido,total));
+    public No(String eleicao, String municipio, String estado, String candidato, String sigla_p, String id_partido, String total,String cargo) {
+        this.setObjectVotos(new DadosVotos(eleicao,estado,municipio,candidato,sigla_p,id_partido,total,cargo));
     }
-    
     
     /*###################################
                MÉTODOS DA CLASSE

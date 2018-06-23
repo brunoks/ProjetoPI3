@@ -48,7 +48,7 @@ public class DadosCandidato {
               CONSTRUTOR DA CLASSE
       ###################################*/
 
-    public DadosCandidato(String ano, String turno,String descE,String uf,String municipio,String codigoC,String cargo,String nome,
+    public DadosCandidato(String ano, String turno,String descE,String uf,String tse,String municipio,String codigoC,String cargo,String nome,
                           String cpf,String siglaP,String partido,String composicaoLegenda,
                           String nasc,String sexo) {
         this.cargo = cargo.replaceAll("\"", "");
@@ -59,9 +59,9 @@ public class DadosCandidato {
         this.sexo = sexo.replaceAll("\"", "");
         this.partido = partido.replaceAll("\"", "");
         this.siglaP = siglaP.replaceAll("\"", "");
+        this.tse_o = tse.replaceAll("\"", "");
         this.composicaoLegenda = composicaoLegenda.replaceAll("\"", "");
         this.ano = ano.replaceAll("\"", "");
-        this.tipoE = tipoE.replaceAll("\"", "");
         this.turno = turno.replaceAll("\"", "");
         this.descE = descE.replaceAll("\"", "");
         this.municipio = municipio.replaceAll("\"", "");

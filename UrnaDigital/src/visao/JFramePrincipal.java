@@ -4,6 +4,7 @@ import controle.DadosC;
 import modelo.dominio.Gestor;
 import controle.ListaC;
 import controle.EleitorC;
+import controle.VotosC;
 import java.io.File;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -418,6 +419,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 DadosC dadosc = new DadosC();
                 dadosc.importarDadosCandidato(this.listaDados);
                 break;
+            case "Votos":
+            VotosC votos = new VotosC();
+            votos.importarVotosCandidato(this.listaDados);
+            break;
         }
         
         JOptionPane.showMessageDialog(null, "Dados carregados com sucesso...");
@@ -433,7 +438,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         switch(tipoDado){
             case "Eleitorado":
                 EleitorC eleitorC = new EleitorC();
-                eleitorC.exportarDadosJSON();
+
                 break;
         }
         

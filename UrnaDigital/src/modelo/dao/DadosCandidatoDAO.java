@@ -159,10 +159,10 @@ public class DadosCandidatoDAO {
     }
     
     // Método para gravar todos os usuários presentes na lista
-    public boolean gravarNoBanco(DadosCandidato _dado, String refAno, String refPartido, String refCargo) {
+    public boolean gravarNoBanco(DadosCandidato _dado, String refAno, String refPartido, String refCargo, String refEstado) {
   
         // Definindo a string sql
-        this.setSql("INSERT INTO candidato(cr_id,el_id,pr_id,c_tse,c_cpf,c_nome,c_nascimento,c_sexo) VALUES(?,?,?,?,?,?,?,?)");
+        this.setSql("INSERT INTO candidato(cr_id,el_id,pr_id,c_tse,c_cpf,c_nome,c_nascimento,c_sexo,e_id) VALUES(?,?,?,?,?,?,?,?,?)");
 
         try {
             
@@ -177,12 +177,13 @@ public class DadosCandidatoDAO {
             this.getPstmt().setString(1, refCargo);
             this.getPstmt().setString(2, refAno);
             this.getPstmt().setString(3, refPartido);
-            this.getPstmt().setString(4, "3");
+            this.getPstmt().setString(4, _dado.getTse_o());
             this.getPstmt().setString(5, _dado.getCpf().replaceAll("\"", ""));
             this.getPstmt().setString(6, _dado.getNome().replaceAll("\"", ""));
             this.getPstmt().setString(7, _dado.getNasc().replaceAll("\"", ""));
             String sexo = _dado.getSexo().replaceAll("\"", "");
             this.getPstmt().setString(8,  (sexo == "Feminino") ? "F" : "M");
+            this.getPstmt().setString(9,  refEstado);
             // Executa o comando SQL com os parâmteros.
             this.getPstmt().execute();
             // Encerra o componente 'PrepareStatement'

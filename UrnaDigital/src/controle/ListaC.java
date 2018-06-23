@@ -200,15 +200,16 @@ public class ListaC {
 
                 switch (entrada) {
                     case "Candidato":
-                        No NoCandidato = new No(d[2], d[3], d[4], d[5], d[7], d[8], d[9], d[10], d[13], d[18], d[19], d[22], d[26], d[30]);
+                        No NoCandidato = new No(d[2], d[3], d[4], d[5],d[6], d[7], d[8], d[9], d[10], d[13], d[18], d[19], d[22], d[26], d[30]);
                         novoNo = NoCandidato;
                         break;
                     case "Eleitorado":
                         No NoEleitorado = new No(d[2], d[3], d[5], d[15], d[11], d[16]);
                         novoNo = NoEleitorado;
                         break;
-                    case "Voto":
-                        No NoVoto = new No(d[15], d[8], d[5], d[14], d[2], d[21], d[22], d[28]);
+                    case "Votos":
+                        //String eleicao, String cargo, String municipio, String estado, String candidato, String sigla_p, String id_partido, String total
+                        No NoVoto = new No(d[2], d[5], d[8], d[13], d[23], d[24], d[28],d[10]);
                         novoNo = NoVoto;
                         break;
                 }
@@ -228,7 +229,6 @@ public class ListaC {
 
                     listaDE.getFinalDaLista().setProximoPonteiro(novoNo);
                     listaDE.setFinalDaLista(novoNo);
-
                 }
                 listaDE.setQuantidadeDeNos(listaDE.getQuantidadeDeNos() + 1);
 

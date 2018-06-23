@@ -32,17 +32,16 @@ public class DadosVotos {
     /*###################################
               CONSTRUTOR DA CLASSE
       ###################################*/
-
-    public DadosVotos(String cargo, String municipio, String estado, String candidato, String eleicao, String id_partido, String sigla, String total) {
+                        
+    public DadosVotos(String eleicao,String municipio,String estado,String candidato,String sigla_p,String id_partido,String total, String cargo) {
         this.cargo = cargo.replaceAll("\"", "");
         this.municipio = municipio.replaceAll("\"", "");
         this.estado = estado.replaceAll("\"", "");
         this.candidato = candidato.replaceAll("\"", "");
         this.eleicao = eleicao.replaceAll("\"", "");
-        this.partido = partido.replaceAll("\"", "");
-        this.partido = partido.replaceAll("\"", "");
+        this.partido = id_partido.replaceAll("\"", "");
         this.total = total.replaceAll("\"", "");
-        this.sigla_partido = sigla;
+        this.sigla_partido = sigla_p.replaceAll("\"", "");
     }
     
     public DadosVotos(){
